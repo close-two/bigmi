@@ -16,3 +16,5 @@
 });*/
 
 Route::get('/','Home\IndexController@index');
+// 后台首页模块
+Route::resource('/admin','Admin\IndexController');
