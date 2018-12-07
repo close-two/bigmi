@@ -19,6 +19,9 @@ Route::get('/','Home\IndexController@index');
 // 后台首页模块
 Route::resource('/admin','Admin\IndexController');
 
+//商品分类模块
+Route::resource('/type','Admin\TypeController');
+
 //广告模块
 Route::resource('/ads','Admin\AdsController');
 
