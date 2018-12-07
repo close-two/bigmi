@@ -15,6 +15,7 @@ class IndexController extends Controller
     public function index()
     {
         // echo '这是后台登录';
+
         // 加载模板
         return view('Admin.Index.index');
     }
