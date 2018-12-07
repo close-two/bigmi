@@ -18,3 +18,9 @@
 Route::get('/','Home\IndexController@index');
 // 后台首页模块
 Route::resource('/admin','Admin\IndexController');
+
+//广告模块
+Route::resource('/ads','Admin\AdsController');
+
+//会员模块
+Route::resource('/user','Admin\UserController');
