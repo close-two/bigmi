@@ -15,7 +15,19 @@
     // return view('welcome');
 });*/
 
+// 前台
+
+// 前台首页模块
 Route::get('/','Home\IndexController@index');
+
+// 前台buy模块(下单未支付,仅测试前台各个页面)
+Route::resource('/buy','Home\BuyController');
+
+
+
+
+
+// 后台
 
 // 后台首页模块
 Route::resource('/admin','Admin\IndexController');

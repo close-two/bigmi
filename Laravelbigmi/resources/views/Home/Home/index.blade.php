@@ -1,7 +1,7 @@
 @extends('Home.HomePublic.public')
 
 
-@section('home')
+@section('container')
 <!-- 右侧栏入口按钮 & 返回顶部 -->
 <!-- 响应式小 -->
 <div class="home-right-bar J_homeRightBar home-right-bar-show-s">
@@ -56,4 +56,5 @@
     </div>
 </div> -->
 @endsection
+
 @section('title','前台首页')
