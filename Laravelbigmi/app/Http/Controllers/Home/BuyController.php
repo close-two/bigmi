@@ -25,10 +25,10 @@ class BuyController extends Controller
         // return view('Home.Buy.checkout');//测试,结算页面
         // return view('Home.Buy.confirm');//测试,提交订单成功,未支付页面,后面写业务逻辑
 
-        // return view('Home.Person.person');//测试,个人中心页面
+        return view('Home.Person.person');//测试,个人中心页面
         // return view('Home.Person.security');//测试,账号安全页面
         // return view('Home.Person.profile');//测试,个人信息页面
-        return view('Home.Person.address');//测试,收货地址页面
+        // return view('Home.Person.address');//测试,收货地址页面
         // return view('Home.Person.favorite');//测试,我的收藏夹
         // return view('Home.Person.message');//测试,消息通知
         

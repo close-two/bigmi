@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class TypeController extends Controller
+class CateController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +24,8 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+        //加载分类添加模板
+        return view('Admin.Cate.product-category');
     }
 
     /**
@@ -81,5 +82,9 @@ class TypeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function add(){
+        return view('Admin.Cate.product-category-add');
     }
 }
