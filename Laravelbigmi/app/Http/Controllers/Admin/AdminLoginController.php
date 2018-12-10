@@ -22,21 +22,19 @@ class AdminLoginController extends Controller
         $data=$_POST;
         // dd($data);
         // 将接收到的数据与数据库对比
-        $name=$data['username'];
+        $name=$data['name'];
         $pwd=$data['password'];
-        // 将密码进行hash加密
-        $pwd=Hash::make($pwd);
-        // dd($pwd);
         // 判断 当数据库里面有这个用户时获取所有的信息
-        if ($user=DB::table('admin_users')->where('username','=',$name)->first()) {
-            echo $pwd;
-            dd($user);
+        if ($user=DB::table('admin_users')->where('name','=',$name)->first()) {
+            // 数据库获取的密码
+            $hash=$user->password;
+            // dd($hash);
             // 将传输过来的密码与数据库的密码进行比较
-            if ($pwd==$user->pwd) {
+            if (password_verify($pwd,$hash)) {
                 // echo "123";
-                // 如果账号密码都相同就将username存入session中
-                session(['username' => $name]);
-                // echo $value=session('username');
+                // 如果账号密码都相同就将name存入session中
+                session(['name' => $name]);
+                // echo $value=session('name');
                 // 转入首页
                 return redirect('/admin');
                 // 
@@ -53,8 +51,8 @@ class AdminLoginController extends Controller
     }
     // 管理员注销   切换账户也转过来
     public function logout(){
-        // 将session中的username清空
-        session(['username'=>null]);
+        // 将session中的name清空
+        session(['name'=>null]);
         return redirect('/admin');
     }
 }

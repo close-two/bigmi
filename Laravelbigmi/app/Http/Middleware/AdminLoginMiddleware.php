@@ -15,8 +15,8 @@ class AdminLoginMiddleware
      */
     public function handle($request, Closure $next)
     {
-        // 判断session中是否有username存在
-        if ($request->session()->has('username')){
+        // 判断session中是否有name存在
+        if ($request->session()->has('name')){
             // 如果存在进入下一个请求
         return $next($request);
         }else{
