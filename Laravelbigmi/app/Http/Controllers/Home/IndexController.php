@@ -15,7 +15,7 @@ class IndexController extends Controller
     public function index()
     {
         //前台首页
-        return view('Home.home.index');
+        return view('Home.Home.index');
     }
 
     /**
