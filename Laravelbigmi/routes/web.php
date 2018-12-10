@@ -16,8 +16,15 @@
 });*/
 
 Route::get('/','Home\IndexController@index');
-// 后台首页模块
-Route::resource('/admin','Admin\IndexController');
+
+// 后台首页模块 结合登录中间件
+Route::resource('/admin','Admin\IndexController')->middleware('adminlogin');
+// 后台登录界面
+Route::get('/adminlogin','Admin\AdminLoginController@login');
+// 登录逻辑
+Route::post('/admindologin','Admin\AdminLoginController@dologin');
+// 登出
+Route::get('/adminlogout','Admin\AdminLoginController@logout');
 
 //商品分类模块
 Route::resource('/type','Admin\TypeController');
