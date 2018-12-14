@@ -4,29 +4,24 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-// 引入DB
 use DB;
-// 引入Hash
-use Hash;
-//导入表单请求校验类
-use App\Http\Requests\AdminUserinsert;
-class IndexController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *这是后台登录
+     *
      * @return \Illuminate\Http\Response
      */
-    public function desktop(){
-        return view('Admin.Index.welcome');
-    }
-
-
-    public function index()
+    public function index(Request $request)
     {
-        // echo '这是后台登录';
-        return view('Admin.Index.index');
+        //权限节点列表
+        $k = $request->input('keywords');
+        // $permissionlist = DB::select('select * from bm_nodes where name like "%.{$k}.%"');
+        $permissionlist = DB::table('bm_nodes')->where('name','like','%'.$k.'%')->paginate(5);
+        // var_dump($permissionlist);exit;
+        return view('Admin.AdminUser.admin-permission',['permissionlist'=>$permissionlist,'request'=>$request->all()]);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -34,18 +29,19 @@ class IndexController extends Controller
      */
     public function create()
     {
-        //
+        //权限节点添加
+        return view('Admin.AdminUser.admin-permission-add');
     }
 
     /**
      * Store a newly created resource in storage.
-     *用户登录
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        
+        //
     }
 
     /**
@@ -68,6 +64,7 @@ class IndexController extends Controller
     public function edit($id)
     {
         //
+        return view('Admin.AdminUser.admin-permission-edit');
     }
 
     /**

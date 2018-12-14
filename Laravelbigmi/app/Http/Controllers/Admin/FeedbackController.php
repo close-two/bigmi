@@ -4,29 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-// 引入DB
-use DB;
-// 引入Hash
-use Hash;
-//导入表单请求校验类
-use App\Http\Requests\AdminUserinsert;
-class IndexController extends Controller
+
+class FeedbackController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *这是后台登录
+     *
      * @return \Illuminate\Http\Response
      */
-    public function desktop(){
-        return view('Admin.Index.welcome');
-    }
-
-
     public function index()
     {
-        // echo '这是后台登录';
-        return view('Admin.Index.index');
+        //反馈列表
+        return view('Admin.Feedback.feedback-list');
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -39,13 +30,13 @@ class IndexController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *用户登录
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        
+        //
     }
 
     /**

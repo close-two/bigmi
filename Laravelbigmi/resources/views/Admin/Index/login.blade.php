@@ -27,7 +27,7 @@
 <div class="header"></div>
 <div class="loginWraper">
   <div id="loginform" class="loginBox">
-    <form class="form form-horizontal" action="/admindologin" method="post">
+    <form class="form form-horizontal" action="/adminlogin" method="post">
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
         <div class="formControls col-xs-8">
@@ -75,6 +75,12 @@ var _hmt = _hmt || [];
   var s = document.getElementsByTagName("script")[0]; 
   s.parentNode.insertBefore(hm, s);
 })();
+</script>
+<script>
+  // 提示弹框
+  @if (session('error')) 
+    alert("{{session('error')}}");
+  @endif
 </script>
 <!--/此乃百度统计代码，请自行删除
 </body>

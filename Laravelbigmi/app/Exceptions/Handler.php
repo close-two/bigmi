@@ -4,7 +4,6 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-
 class Handler extends ExceptionHandler
 {
     /**
@@ -48,6 +47,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // 如果不被允许的路由
+         //我自己写的，跳转到404页面，测试的时候不要打开。上线成功之后在使用404页面
+       /* if ($exception) {
+            return response()->view('errors.' . $exception->getStatusCode(), [], $exception->getStatusCode());
+        } */
+
         return parent::render($request, $exception);
     }
 }
