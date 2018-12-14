@@ -5,17 +5,18 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class AdsController extends Controller
+class TypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    // 商品列表
     public function index()
     {
-        //
-        return view("");
+        //加载模板
+        
     }
 
     /**
@@ -23,6 +24,8 @@ class AdsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // 添加商品
     public function create()
     {
         //
@@ -34,6 +37,7 @@ class AdsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // 执行添加
     public function store(Request $request)
     {
         //
@@ -45,6 +49,7 @@ class AdsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // 商品详情
     public function show($id)
     {
         //
@@ -56,6 +61,7 @@ class AdsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // 修改商品信息
     public function edit($id)
     {
         //
@@ -68,6 +74,7 @@ class AdsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // 执行修改
     public function update(Request $request, $id)
     {
         //
@@ -79,6 +86,7 @@ class AdsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // 删除商品
     public function destroy($id)
     {
         //

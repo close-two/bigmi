@@ -14,7 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        //加载模板
+        return view("");
     }
 
     /**

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class AdsController extends Controller
+class GoodsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class AdsController extends Controller
      */
     public function index()
     {
-        //
-        return view("");
+        //加载模板
+        return view();
     }
 
     /**
