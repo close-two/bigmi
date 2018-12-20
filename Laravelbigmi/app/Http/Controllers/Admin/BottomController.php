@@ -21,9 +21,9 @@ class BottomController extends Controller
         // $bb=DB::table("bm_bottom")->get();
         // $bb=DB::select("select *,concat(path,',',id)as paths from bm_bottom order by paths");
         //转换为连贯方法
-        $bb=DB::table("bm_bottom")->select(DB::raw(" *,concat(path,',',id)as paths"))->orderBy('paths')->where("name","like",'%'.$k.'%')->get();
+        $data=DB::table("bm_bottom")->select(DB::raw(" *,concat(path,',',id)as paths"))->orderBy('paths')->where("name","like",'%'.$k.'%')->get();
         //加载分隔符
-        foreach($bb as $key=>$value){
+        foreach($data as $key=>$value){
             // echo $value->path."<br>";
             //把path字符串转换为数组
             $arr=explode(",",$value->path);
@@ -33,14 +33,14 @@ class BottomController extends Controller
             //获取逗号个数
             $len=count($arr)-1;
             //重复字符串函数
-            $bb[$key]->name=str_repeat("--|",$len).$value->name;
+            $data[$key]->name=str_repeat("--|",$len).$value->name;
         }
         // dd($bb);
 
         // $bb = '1';
         // dd($bb);
         //加载模板 分配数据
-        return view("Admin.Botton.index",['bb'=>$bb]);
+        return view("Admin.Botton.index",['data'=>$data]);
     }
 
     /**
@@ -112,7 +112,18 @@ class BottomController extends Controller
      */
     public function edit($id)
     {
-        //
+        //获取修改的数据
+        $kk=DB::table("bm_bottom")->where('id','=',$id)->first();
+        // 获取所有的分类
+        $vv=DB::table("bm_bottom")->get();
+        // var_dump($kk->pid);
+        // dd($vv);
+        // foreach ($vv as $key => $value) {
+        //     $data['id']=$value['id'];
+        // }
+        // dd($data);
+        //加载模板
+        return view("Admin.Botton.edit",['kk'=>$kk,'vv'=>$vv]);
     }
 
     /**
@@ -124,7 +135,35 @@ class BottomController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //获取pid
+        $data=$request->except(['_token','_method']);
+        // $pid=$data['pid'];
+        // 找到要修改的数据
+        $data1=DB::table('bm_bottom')->where('id','=',$id)->first();
+        // 获取要修改数据的pid
+        $pid=$data1->pid;
+        // dd($pid);
+        // 通过pid获取父类数据
+        $b=DB::table("bm_bottom")->where("id",'=',$pid)->first();
+        // dd($b->path);
+        // 判断父类的pid是什么  为0是当前数据为父类
+        if ($pid==0) {
+            // 修改父类时不改变path
+            $data['path']=0;
+            $data['pid']=0;
+        }else{
+            //当修改的不是父类的时候
+        // 修改当前数据的path
+        $data['path']=$b->path.','.$data['pid'];
+        }
+       // dd($data);
+        //执行修改
+        if(DB::table("bm_bottom")->where("id",'=',$id)->update($data)){
+            return redirect("/botton")->with("success",'修改成功');
+        }else{
+            return back()->with('error','修改失败');
+        }
+
     }
 
     /**
@@ -136,14 +175,17 @@ class BottomController extends Controller
     public function destroy($id)
     {
         // echo $id;
-        //获取当前类别下子类个数
+        //获取当前类别下子类的个数
+        //where(1,2);   1代表的是条件  2代表父类
         $res=DB::table("bm_bottom")->where("pid",'=',$id)->count();
         // echo $res;
-        if($res->0){
-            return redirect("/button")->with();
+        //当前类别下有子类信息，不能直接删除
+        if($res>0){
+            return redirect("/botton")->with('error',"请先干掉孩子");
         }
-        //当前类别下有子类信息不能直接删除
         //当前类别下没有子类信息直接删除
+        if(DB::table("bm_bottom")->where("id",'=',$id)->where("pid",'=',$pid)->delete()){
+            return redirect("/botton")->with('success',"删除成功");
+        }
     }
-
 }

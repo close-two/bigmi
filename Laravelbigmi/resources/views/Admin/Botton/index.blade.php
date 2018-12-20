@@ -34,6 +34,12 @@
      </form>
 			<table class="table table-border table-bordered table-bg table-hover table-sort">
 				<thead>
+							@if(session('error'))
+							{{session('error')}}
+							@endif
+							@if(session('success'))
+							{{session('success')}}
+							@endif
 					<tr class="text-c">
 						<th width="40">ID</th>
 						<th width="40">类别名</th>
@@ -44,19 +50,19 @@
 					</tr>
 				</thead>
 				<tbody>
-				@foreach($bb as $v)
+				@foreach($data as $v)
 					<tr class="text-c va-m">
 						<td>{{$v->id}}</td> 
 						<td>{{$v->name}}</td>
 						<td>{{$v->pid}}</td>
 						<td>{{$v->path}}</td>
-						<td>{{$v->status}}</td>
+						<td>{{$v->status==1?'显示':'隐藏'}}</td>
 						<td>
-						<form action="/botton/{{$v->id}}" method="post">
-						{{csrf_field()}}
-						{{method_field('DELETE')}}
-							<button type="text" class="delete btn btn-danger"><i class="Hui-iconfont"></i></button>
-						</form>
+							<form action="/botton/{{$v->id}}" method="post">
+							{{csrf_field()}}
+							{{method_field('DELETE')}}
+							<button type="submit" class="delete btn btn-danger"><i class="Hui-iconfont"></i></button>&nbsp;&nbsp;<a href="/botton/{{$v->id}}/edit" class="edit btn btn-success radius"><i class="Hui-iconfont"></i></a>
+							</form>
 						</td>
 					</tr>
 					@endforeach
