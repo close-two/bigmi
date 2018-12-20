@@ -30,132 +30,46 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="form-admin-role-add">
+	<form action="/permissions" method="post" class="form form-horizontal" id="form-admin-role-add">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限节点名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="roleName" name="roleName">
+				<input type="text" class="input-text" value="" placeholder="" id="roleName" name="name">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>控制器名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="roleName" name="roleName">
+				<input type="text" class="input-text" value="" placeholder="" id="roleName" name="mname">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>方法名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="roleName" name="roleName">
+				<input type="text" class="input-text" value="" placeholder="" id="roleName" name="aname">
 			</div>
 		</div>
 
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">备注：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="" name="">
+			<label class="form-label col-xs-4 col-sm-3">权限节点分类：</label>
+			<div class="formControls col-xs-8 col-sm-9"> 
+				<span class="select-box" style="width:150px;">
+					<select class="select" name="operate" size="1">
+						<option value="查看" >查看</option>
+						<option value="添加" >添加</option>
+						<option value="修改" >修改</option>
+						<option value="删除" >删除</option>
+						<option value="审核" >审核</option>
+					</select>
+				</span> 
 			</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">网站角色：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<dl class="permission-list">
-					<dt>
-						<label>
-							<input type="checkbox" value="" name="user-Character-0" id="user-Character-0">
-							资讯管理</label>
-					</dt>
-					<dd>
-						<dl class="cl permission-list2">
-							<dt>
-								<label class="">
-									<input type="checkbox" value="" name="user-Character-0-0" id="user-Character-0-0">
-									栏目管理</label>
-							</dt>
-							<dd>
-								<label class="">
-									<input type="checkbox" value="" name="user-Character-0-0-0" id="user-Character-0-0-0">
-									添加</label>
-								<label class="">
-									<input type="checkbox" value="" name="user-Character-0-0-0" id="user-Character-0-0-1">
-									修改</label>
-								<label class="">
-									<input type="checkbox" value="" name="user-Character-0-0-0" id="user-Character-0-0-2">
-									删除</label>
-								<label class="">
-									<input type="checkbox" value="" name="user-Character-0-0-0" id="user-Character-0-0-3">
-									查看</label>
-								<label class="">
-									<input type="checkbox" value="" name="user-Character-0-0-0" id="user-Character-0-0-4">
-									审核</label>
-								<label class="c-orange"><input type="checkbox" value="" name="user-Character-0-0-0" id="user-Character-0-0-5"> 只能操作自己发布的</label>
-							</dd>
-						</dl>
-						<dl class="cl permission-list2">
-							<dt>
-								<label class="">
-									<input type="checkbox" value="" name="user-Character-0-1" id="user-Character-0-1">
-									文章管理</label>
-							</dt>
-							<dd>
-								<label class="">
-									<input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-0">
-									添加</label>
-								<label class="">
-									<input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-1">
-									修改</label>
-								<label class="">
-									<input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-2">
-									删除</label>
-								<label class="">
-									<input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-3">
-									查看</label>
-								<label class="">
-									<input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-4">
-									审核</label>
-								<label class="c-orange"><input type="checkbox" value="" name="user-Character-0-2-0" id="user-Character-0-2-5"> 只能操作自己发布的</label>
-							</dd>
-						</dl>
-					</dd>
-				</dl>
-				<dl class="permission-list">
-					<dt>
-						<label>
-							<input type="checkbox" value="" name="user-Character-0" id="user-Character-1">
-							用户中心</label>
-					</dt>
-					<dd>
-						<dl class="cl permission-list2">
-							<dt>
-								<label class="">
-									<input type="checkbox" value="" name="user-Character-1-0" id="user-Character-1-0">
-									用户管理</label>
-							</dt>
-							<dd>
-								<label class="">
-									<input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-0">
-									添加</label>
-								<label class="">
-									<input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-1">
-									修改</label>
-								<label class="">
-									<input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-2">
-									删除</label>
-								<label class="">
-									<input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-3">
-									查看</label>
-								<label class="">
-									<input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-4">
-									审核</label>
-							</dd>
-						</dl>
-					</dd>
-				</dl>
-			</div>
-		</div>
+		
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<button type="submit" class="btn btn-success radius" id="admin-role-save" name="admin-role-save"><i class="icon-ok"></i> 确定</button>
+			<input type="hidden" name="status" value="1">
+			{{csrf_field()}}
+				<button type="submit" class="btn btn-success radius" id="admin-role-save" ><i class="icon-ok"></i> 确定</button>
 			</div>
 		</div>
 	</form>
@@ -172,7 +86,7 @@
 <script type="text/javascript" src="/lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
-$(function(){
+/*$(function(){
 	$(".permission-list dt input:checkbox").click(function(){
 		$(this).closest("dl").find("dd input:checkbox").prop("checked",$(this).prop("checked"));
 	});
@@ -208,7 +122,7 @@ $(function(){
 			parent.layer.close(index);
 		}
 	});
-});
+});*/
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
 <script>

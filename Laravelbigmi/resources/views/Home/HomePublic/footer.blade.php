@@ -17,7 +17,6 @@
 	<link rel="search" title="mi.com" href="//s1.mi.com/search.xml?v1.0" type="application/opensearchdescription+xml" />
 	<meta http-equiv="Cache-Control" content="no-transform " />
 	<meta http-equiv="Cache-Control" content="no-siteapp" />
-	<link rel="stylesheet" href="static/homes/css/base.min.css" />
 	<link rel="stylesheet" href="static/homes/css/index.min.css" />
 	<script type="text/javascript">var _head_over_time = (new Date()).getTime();</script>
 </head>

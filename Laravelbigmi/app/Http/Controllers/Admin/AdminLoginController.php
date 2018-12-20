@@ -46,8 +46,9 @@ class AdminLoginController extends Controller
         // dd($request->all());exit;
         $admin=DB::table('bm_admins')->where('name','=',$request->input('name'))->first();
         // dd($admin);exit;
-        if ($admin) {
+        if ($admin&&($admin->status==1)) {
         	// echo "that is ok有这个用户";
+
         	if (Hash::check($request->input('password'),$admin->password)) {
         		// echo "用户名密码正确";
                 $rname = DB::table('bm_roles')->select('name')->where('id','=',$admin->rid)->first();
@@ -88,7 +89,7 @@ class AdminLoginController extends Controller
         		return back()->with('error','密码有误');
         	}
         }else{
-        	return back()->with('error','用户名有误');
+        	return back()->with('error','用户名有误或账号已停用');
         }
     }
 

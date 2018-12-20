@@ -24,7 +24,17 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 角色管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	<div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" href="javascript:;" onclick="admin_role_add('添加角色','/roles/create','800')"><i class="Hui-iconfont">&#xe600;</i> 添加角色</a> </span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray"> 
+		<span class="l"> 
+			<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+				<i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+			</a> 
+			<a class="btn btn-primary radius" href="javascript:;" onclick="admin_role_add('添加角色','/roles/create','800')">
+				<i class="Hui-iconfont">&#xe600;</i> 添加角色
+			</a> 
+		</span> 
+		<span class="r">共有数据：<strong>{{$roleslist->total()}}</strong> 条</span> 
+	</div>
 	<table class="table table-border table-bordered table-hover table-bg">
 		<thead>
 			<tr>
@@ -40,26 +50,35 @@
 			</tr>
 		</thead>
 		<tbody>
-
-		@foreach($roleslist as $row)
+	@if($roleslist->total())
+		@foreach($roleslist as $rows)
 			<tr class="text-c">
-				<td><input type="checkbox" value="" name=""></td>
-				<td>{{$row->id}}</td>
-				<td>{{$row->name}}</td>
-				<td>{{$row->namelist}}</td>
-				<td>{{$row->remarks}}</td>
-				<td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_role_edit('角色编辑','/roles/{{$row->id}}/edit','1')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_role_del(this,'{{$row->id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<td><input type="checkbox" value="{{$rows->id}}" name=""></td>
+				<td>{{$rows->id}}</td>
+				<td>{{$rows->name}}</td>
+				<td>
+				@foreach($rows->userlist as $rowss)
+					<a href="#">{{$rowss->name}}</a>
+				@endforeach
+				</td>
+				<td>{{$rows->remarks}}</td>
+				<td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_role_edit('角色编辑','/roles/{{$rows->id}}/edit','1')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_role_del(this,'{{$rows->id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 		
 		@endforeach
-
+	@endif
 
 		
 		</tbody>
 	</table>
+	<div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite" style="float: left;">显示 {{($roleslist->currentpage()-1)*$pagesize+1}} 到 {{($roleslist->currentpage()-1)*$pagesize+$roleslist->count()}} ，共 {{$roleslist->count()}} 条</div>
+	<div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate" style="float: right;"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" id="DataTables_Table_0_previous">上一页</a><span><a class="paginate_button current" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" id="DataTables_Table_0_next">下一页</a>
+		{{$roleslist->render()}}
+	</div>
 </div>
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="/static/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="/static/admin/h-ui/js/H-ui.min.js"></script> 
 <script type="text/javascript" src="/static/admin/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
@@ -77,12 +96,15 @@ function admin_role_edit(title,url,id,w,h){
 }
 /*管理员-角色-删除*/
 function admin_role_del(obj,id){
+		// alert(id);
 	layer.confirm('角色删除须谨慎，确认要删除吗？',function(index){
 		$.ajax({
-			type: 'POST',
-			url: '',
+			type: 'GET',
+			url: '/rolesdel',
+			data:{id:id},
 			dataType: 'json',
 			success: function(data){
+				alert(data);
 				$(obj).parents("tr").remove();
 				layer.msg('已删除!',{icon:1,time:1000});
 			},
@@ -90,6 +112,34 @@ function admin_role_del(obj,id){
 				console.log(data.msg);
 			},
 		});		
+	});
+}
+
+/*管理员-角色=批量删除*/
+function datadel(){
+	delid=[];
+	$(':checkbox').each(function(){
+		if ($(this).attr('checked')) {
+			id = $(this).val();
+			delid.push(id);
+		}
+	})
+	layer.confirm('角色删除须谨慎,您确定要删除所选角色吗?',function(index){
+		$.ajax({
+			type:'GET',
+			url:'/rolesdelBatch',
+			data:{delid:delid},
+			success:function(data){
+				alert(data);
+				for(var i=0;i<delid.length;i++){
+					$('input[value="'+delid[i]+'"]').parents('tr').remove();
+				}
+				layer.msg('已删除!',{icon:1,time:1000});
+			},
+			error:function(data){
+				console.log(data.msg);
+			},
+		});
 	});
 }
 </script>

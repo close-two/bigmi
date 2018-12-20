@@ -14,14 +14,19 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
+    public function index(Request $request)
     {
         //角色列表
-        $roleslist = DB::select("select r.id,r.name,GROUP_CONCAT(a.name) as namelist,r.remarks from bm_roles as r,bm_admins_roles as ar,bm_admins as a where ar.rid=r.id and a.id=ar.admins_id group by r.id");
-        // dd($roleslist);
-
-
-        return view('Admin.AdminUser.admin-role',['roleslist'=>$roleslist]);
+        // $roleslist = DB::select("select r.id,r.name,GROUP_CONCAT(a.name) as namelist,r.remarks from bm_roles as r,bm_admins_roles as ar,bm_admins as a where ar.rid=r.id and a.id=ar.admins_id group by r.id");
+        $pagesize = 5;
+        $roleslist = DB::TABLE('bm_roles')->paginate($pagesize);
+        foreach ($roleslist as $value) {
+            $rid = $value->id;
+            // 获取该角色的用户拼凑起来
+            $UserOfRole = DB::TABLE('bm_admins')->SELECT('name')->WHERE('rid','=',$rid)->get()->toArray();
+            $value->userlist=$UserOfRole;
+        }
+        return view('Admin.AdminUser.admin-role',['roleslist'=>$roleslist,'request'=>$request->all(),'pagesize'=>$pagesize]);
     }
 
     public function getNodeslist(){
@@ -58,8 +63,6 @@ class RoleController extends Controller
     public function create()
     {
         //角色添加
-        // RoleController::$nodeslist;
-        // var_dump($nodeslist);exit;
         $nodeslist = $this->getNodeslist();
          return view('Admin.AdminUser.admin-role-add',['nodeslist'=>$nodeslist]);
     }
@@ -74,6 +77,7 @@ class RoleController extends Controller
     {
         //
         // dd($request->all());
+        $nid = $request->nid;
         $role=$request->only(['name','remarks']);
         $lastrid = DB::TABLE('bm_roles')->insertGetId($role);
         foreach ($nid as $key => $value) {
@@ -82,7 +86,7 @@ class RoleController extends Controller
             $data['nid']=$value;
             DB::table('bm_roles_nodes')->insert($data);
         }
-        return redirect('/roles')->with('success','添加成功');
+        return redirect()->back()->with('success','添加成功');
     }
 
     /**
@@ -107,8 +111,8 @@ class RoleController extends Controller
         //当前角色id的信息
         $role = Roles::find($id);
         // 查角色-权限表,查看该角色有哪些权限,有就选中状态
-        // $roleNode = DB::select("SELECT n.`id`,n.`mname`,n.`aname` FROM bm_roles AS r,bm_roles_nodes AS rn,bm_nodes AS n WHERE r.`id`=rn.`nid` AND rn.`nid`=n.`id` AND rn.`rid`=$id");
         $roleNode = DB::table('bm_roles_nodes')->where('rid','=',$id)->get();
+        // dd($roleNode);
         if (count($roleNode)) {
             // 当前角色有权限信息
             foreach ($roleNode as $v) {
@@ -140,6 +144,7 @@ class RoleController extends Controller
         // dd($rid);
         $nid=$_POST['nid'];
         // dd($nid);
+        // 删除旧的权限
         DB::table("bm_roles_nodes")->where("rid",'=',$rid)->delete();
         foreach ($nid as $key => $value) {
             // 封装要插入的数据
@@ -159,10 +164,35 @@ class RoleController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function saveauth(Request $request){
-        
 
     }
+    // ajax删除
+    public function del(Request $request){
+        // $r = Roles::delRoleNode($id);
+        // echo $r;
+        $id = $request->input('id');
+        // 删除角色和赋给该角色对应的权限
+        if (Roles::destroy($id)&&Roles::delRoleNode($id)) {
+            echo 1;
+        }else{
+            echo 0;
+        }
+    }
+
+    // ajax批量删除
+    public function delBatch(Request $request){
+        $delid = $request->input('delid');
+        if ($delid == '') {
+            echo "请至少选中一条数据";exit;
+        }
+        foreach ($delid as $key => $value) {
+            $bool = Roles::destroy($value)&&Roles::delRoleNode($value);
+        }
+        if ($bool) {
+            echo 1;
+        }else{
+            echo 0;
+        }
+    }
+
 }

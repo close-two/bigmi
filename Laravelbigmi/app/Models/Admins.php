@@ -18,11 +18,13 @@ class Admins extends Model
 
 
 
-  /*  public function getStatusAttribute($value){
-    	$status=[0=>'已停用',1=>'已启用'];
+    
+    // 取消该用户的角色设置,就是删除bm_admins_rodes表里面对应的数据
+    static function delAdminRole($id){
+        $res = DB::table('bm_admins_roles')->where('admins_id','=',$id)->delete();
+        return $res;
+    }
 
-    	return $status[$value];
-    }*/
 
     // 管理员模型和角色模型关联,一对一
     // public function roles(){

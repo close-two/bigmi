@@ -1,5 +1,7 @@
 @extends('Home.HomePublic.public')
-
+@section('myCss')
+<link rel="stylesheet" href="/homes/common/css/base.min.css" />
+@show
 
 @section('container')
 <!-- 右侧栏入口按钮 & 返回顶部 -->

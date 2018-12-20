@@ -21,65 +21,51 @@
 <script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>管理员列表</title>
+<title>导航列表</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 管理员列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 导航栏目 <span class="c-gray en">&gt;</span> 导航列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	<form action="/admins" method="get">
+	<form action="/navlist" method="get">
 		
 		<div class="text-c"> 日期范围：
 			<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" class="input-text Wdate" style="width:120px;" name="startTime">
 			-
 			<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;" name="endTime">
-			<input type="text" class="input-text" style="width:250px" placeholder="输入管理员名称" id="" name="keywords" value="{{$request['keywords'] or ''}}">
-			<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+			<input type="text" class="input-text" style="width:250px" placeholder="输入导航名称" id="" name="keywords" value="{{$request['keywords'] or ''}}">
+			<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜栏目</button>
 		</div>
 	</form>
 
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="admin_add('添加管理员','/admins/create','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加管理员</a></span> <span class="r">共有数据：<strong>{{$admins->total()}}</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="admin_add('添加导航','/navbar/create','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加导航</a></span> <span class="r">共有数据：<strong>{{$navlist->total()}}</strong> 条</span> </div>
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
-				<th scope="col" colspan="9">员工列表</th>
+				<th scope="col" colspan="9">导航列表</th>
 			</tr>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" name="" value=""></th>
 				<th width="40">ID</th>
-				<th width="150">登录名</th>
-				<th width="90">手机</th>
-				<th width="150">邮箱</th>
-				<th>角色</th>
-				<th width="130">加入时间</th>
-				<th width="100">是否已启用</th>
+				<th width="150">栏目名称</th>
+				<th width="190">栏目子商品</th>
+				<th width="90">状态</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
 		<tbody>
-	@if($admins->total())
-		@foreach($admins as $rows)
+	@if($navlist->total())
+		@foreach($navlist as $rows)
 			<tr class="text-c">
 				<td><input type="checkbox" value="{{$rows->id}}" name=""></td>
 				<td>{{$rows->id}}</td>
-				<td>{{$rows->name}}</td>
-				<td>{{$rows->phone}}</td>
-				<td>{{$rows->email}}</td>
-				<!-- <td>{{$rows->rid}}</td> -->
-				<td>
-				@foreach($roleslist as $rowss)
-					@if($rows->rid==$rowss->id)
-					{{$rowss->name}}
-					@endif
-				@endforeach
-				</td>
-				<td>{{$rows->created_at}}</td>
-
+				<td>{{$rows->nav_name}}</td>
+				<td>{{$rows->sku_id_group}}</td>
 				@if($rows->status==1)
 				<td class="td-status"><span class="label label-success radius">已启用</span></td>
-				<td class="td-manage"><a style="text-decoration:none" onClick="admin_stop(this,'{{$rows->id}}')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','/admins/{{$rows->id}}/edit','1','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_del(this,'{{$rows->id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<td class="td-manage"><a style="text-decoration:none" onClick="admin_stop(this,'{{$rows->id}}')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('导航栏目编辑','/navbar/{{$rows->id}}/edit','1','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_del(this,'{{$rows->id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				@else
 				<td class="td-status"><span class="label radius">已停用</span></td>
-				<td class="td-manage"><a style="text-decoration:none" onClick="admin_start(this,'{{$rows->id}}')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe615;</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','/admins/{{$rows->id}}/edit','2','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_del(this,'{{$rows->id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<td class="td-manage"><a style="text-decoration:none" onClick="admin_start(this,'{{$rows->id}}')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe615;</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('导航栏目编辑','/navlist/{{$rows->id}}/edit','2','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_del(this,'{{$rows->id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				@endif
 
 			</tr>
@@ -102,9 +88,9 @@
 	</table>
 	<div>
 		
-		<div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite" style="float: left;">显示 {{($admins->currentpage()-1)*$pagesize+1}} 到 {{($admins->currentpage()-1)*$pagesize+$admins->count()}} ，共 {{$admins->count()}} 条</div>
+		<div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite" style="float: left;">显示 {{($navlist->currentpage()-1)*$pagesize+1}} 到 {{($navlist->currentpage()-1)*$pagesize+$navlist->count()}} ，共 {{$navlist->count()}} 条</div>
 		<div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate" style="float: right;"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" id="DataTables_Table_0_previous">上一页</a><span><a class="paginate_button current" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" id="DataTables_Table_0_next">下一页</a>
-			{{$admins->render()}}
+			{{$navlist->render()}}
 		</div>
 	</div>
 </div>
@@ -139,7 +125,7 @@ function admin_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
 			type: 'GET',
-			url: '/adminsdel',
+			url: '/navbardel',
 			data:{id:id},
 			dataType: 'json',
 			success: function(data){
@@ -167,7 +153,7 @@ function datadel(){
 	layer.confirm('管理员删除须谨慎,您确定要删除所选管理员吗?',function(index){
 		$.ajax({
 			type:'GET',
-			url:'/adminsdelBatch',
+			url:'/navbardelBatch',
 			data:{delid:delid},
 			success:function(data){
 				// alert(data);
@@ -193,12 +179,12 @@ function admin_stop(obj,id){
 		//此处请求后台程序，下方是成功后的前台处理……
 		$.ajax({
 			type: 'GET',
-			url: '/adminsstop',
+			url: '/navbarstop',
 			data:{id:id},
 			dataType: 'json',
 			success: function(data){
 				// alert(data);
-				$(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,@if($admins->total()){{$rows->id}}@endif)" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+				$(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,@if($navlist->total()){{$rows->id}}@endif)" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
 				$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
 				$(obj).remove();
 				layer.msg('已停用!',{icon: 5,time:1000});
@@ -218,12 +204,12 @@ function admin_start(obj,id){
 		//此处请求后台程序，下方是成功后的前台处理……
 		$.ajax({
 			type:'GET',
-			url:'/adminsstart',
+			url:'/navbarstart',
 			data:{id:id},
 			dataType:'json',
 			success:function(data){
 				// alert(data);
-				$(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_stop(this,@if($admins->total()){{$rows->id}}@endif)" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+				$(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_stop(this,@if($navlist->total()){{$rows->id}}@endif)" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
 				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
 				$(obj).remove();
 				layer.msg('已启用!', {icon: 6,time:1000});

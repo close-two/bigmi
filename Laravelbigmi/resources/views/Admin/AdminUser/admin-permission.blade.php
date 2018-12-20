@@ -30,7 +30,7 @@
 			<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜权限节点</button>
 		</form>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="admin_permission_add('添加权限节点','/permissions/create','','310')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加权限节点</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="admin_permission_add('添加权限节点','/permissions/create','','310')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加权限节点</a></span> <span class="r">共有数据：<strong>{{$permissionlist->total()}}</strong> 条</span> </div>
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
@@ -42,29 +42,34 @@
 				<th width="200">权限名称</th>
 				<th>控制器</th>
 				<th>方法名</th>
+				<th>所属分类</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
 		<tbody>
+	@if($permissionlist->total())
 		@foreach($permissionlist as $rows)
 			<tr class="text-c">
-				<td><input type="checkbox" value="1" name=""></td>
+				<td><input type="checkbox" value="{{$rows->id}}" name=""></td>
 				<td>{{$rows->id}}</td>
 				<td>{{$rows->name}}</td>
 				<td>{{$rows->mname}}</td>
 				<td>{{$rows->aname}}</td>
-				<td><a title="编辑" href="javascript:;" onclick="admin_permission_edit('角色编辑','/permissions/{{$rows->id}}/edit','1','','310')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_permission_del(this,'{{$rows->id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<td>{{$rows->operate}}</td>
+				<td><a title="编辑" href="javascript:;" onclick="admin_permission_edit('权限编辑','/permissions/{{$rows->id}}/edit','1','','310')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_permission_del(this,'{{$rows->id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 		@endforeach
+	@endif
 		</tbody>
 	</table>
-	<div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite" style="float: left;">显示 1 到 1 ，共 1 条</div>
-		<div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate" style="float: right;"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" id="DataTables_Table_0_previous">上一页</a><span><a class="paginate_button current" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" id="DataTables_Table_0_next">下一页</a>
-			{{$permissionlist->render()}}
-		</div>
+	<div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite" style="float: left;">显示  {{($permissionlist->currentpage()-1)*$pagesize+1}}到  {{($permissionlist->currentpage()-1)*$pagesize+$permissionlist->count()}}，共 {{$permissionlist->count()}} 条</div>
+	<div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate" style="float: right;"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" id="DataTables_Table_0_previous">上一页</a><span><a class="paginate_button current" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" id="DataTables_Table_0_next">下一页</a>
+		{{$permissionlist->render()}}
+	</div>
 </div>
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="/static/jquery-1.8.3.min.js"></script> 
 <script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="/static/admin/h-ui/js/H-ui.min.js"></script> 
 <script type="text/javascript" src="/static/admin/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
@@ -93,11 +98,43 @@ function admin_permission_edit(title,url,id,w,h){
 function admin_permission_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
-			type: 'POST',
-			url: '',
+			type: 'GET',
+			url: '/permissionsdel',
+			data:{id:id},
 			dataType: 'json',
 			success: function(data){
+				alert(data);
 				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});		
+	});
+}
+
+/*管理员-权限-批量删除*/
+function datadel(){
+	delid=[];
+	$(':checkbox').each(function(){
+		if ($(this).attr('checked')) {
+			id = $(this).val();
+			delid.push(id);				
+		}
+	})
+	// console.log(delId);
+	// ajax操作
+	layer.confirm('确认要删除选中的权限节点吗？',function(index){
+		$.ajax({
+			type: 'GET',
+			url: '/permissionsdelBatch',
+			data:{delid:delid},
+			success: function(data){
+				// alert(data);
+				for (var i = delid.length - 1; i >= 0; i--) {
+					$('input[value="'+delid[i]+'"]').parents('tr').remove();
+				}
 				layer.msg('已删除!',{icon:1,time:1000});
 			},
 			error:function(data) {
@@ -119,3 +156,4 @@ function admin_permission_del(obj,id){
 </script>
 </body>
 </html>
+

@@ -26,22 +26,32 @@
 <body>
 <article class="page-container">
 	<form class="form form-horizontal" id="form-admin-add" action="/admins" method="post">
+	
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="adminName" name="name">
+			<input type="text" class="input-text" value="{{old('name')}}" placeholder="" id="adminName" name="name">
+			@if($errors->has('name'))
+			<label id="name-error" class="error" for="name">{{@$errors->first('name')}}</label>
+			@endif
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
+			<input type="password" class="input-text" autocomplete="off" value="{{old('password')}}" placeholder="密码" id="password" name="password">
+			@if($errors->has('password'))
+			<label id="password-error" class="error" for="password">{{@$errors->first('password')}}</label>
+			@endif
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="password" class="input-text" autocomplete="off" value="" placeholder="确认新密码" id="password2" name="password2">
+			<input type="password" class="input-text" autocomplete="off" value="{{old('password2')}}" placeholder="确认新密码" id="password2" name="password2">
+			@if($errors->has('password2'))
+			<label id="password2-error" class="error" for="password2">{{@$errors->first('password2')}}</label>
+			@endif
 		</div>
 	</div>
 	<div class="row cl">
@@ -60,34 +70,48 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="phone" name="phone">
+			<input type="text" class="input-text" value="{{old('phone')}}" placeholder="" id="phone" name="phone">
+			@if($errors->has('phone'))
+			<label id="phone-error" class="error" for="phone">{{@$errors->first('phone')}}</label>
+			@endif
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" placeholder="@" name="email" id="email" value="">
+			<input type="text" class="input-text" placeholder="@" name="email" id="email" value="{{old('email')}}">
+			@if($errors->has('email'))
+			<label id="email-error" class="error" for="email">{{@$errors->first('email')}}</label>
+			@endif
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3">角色：</label>
-		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-			<select class="select" name="rid" size="1">
+		<div class="formControls col-xs-8 col-sm-9"> 
+			<span class="select-box" style="width:150px;">
+				<select class="select" name="rid" size="1">
 
-			<!-- 需要遍历 -->
-			@foreach($roleslist as $rowss)
-				<option value="{{$rowss->id}}" >{{$rowss->name}}</option>
-				
-			@endforeach
+				<!-- 需要遍历 -->
+				@foreach($roleslist as $rowss)
+					<option value="{{$rowss->id}}" >{{$rowss->name}}</option>
+					
+				@endforeach
 
-			</select>
-			</span> </div>
+				</select>
+			</span> 
+			@if($errors->has('rid'))
+			<label id="rid-error" class="error" for="rid">{{@$errors->first('rid')}}</label>
+			@endif
+		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3">备注：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<textarea name="remarks" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="$.Huitextarealength(this,100)"></textarea>
+			<textarea name="remarks" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="$.Huitextarealength(this,100)">{{old('rekarks')}}</textarea>
 			<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+			@if($errors->has('remarks'))
+			<label id="email-error" class="error" for="email">{{@$errors->first('remarks')}}</label>
+			@endif
 		</div>
 	</div>
 	<div class="row cl">

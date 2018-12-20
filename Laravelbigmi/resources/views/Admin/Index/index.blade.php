@@ -72,17 +72,27 @@
 </header>
 <aside class="Hui-aside">
 	<div class="menu_dropdown bk_2">
-		<dl id="menu-product">
-			<dt><i class="Hui-iconfont">&#xe620;</i> 产品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+	<dl id="menu-product">
+			<dt><i class="Hui-iconfont">&#xe620;</i> 商品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="/product-brand.html" data-title="品牌管理" href="javascript:void(0)">品牌管理</a></li>
-					<li><a data-href="/product-category.html" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
-					<li><a data-href="/product-list.html" data-title="产品管理" href="javascript:void(0)">产品管理</a></li>
+					<li><a data-href="/goods" data-title="商品列表" href="javascript:void(0)">商品列表</a></li>
+					<li><a data-href="/goods/create" data-title="商品添加" href="javascript:void(0)">商品添加</a></li>
+					<li><a data-href="/sku" data-title="sku商品详情列表" href="javascript:void(0)">sku商品详情列表</a></li>
 			</ul>
 		</dd>
 	</dl>
-		<dl id="menu-comments">
+	<dl id="menu-product">
+			<dt><i class="Hui-iconfont">&#xe620;</i> 分类管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="/admincate" data-title="分类管理" href="javascript:void(0)">分类列表</a></li>
+					<li><a data-href="/admincate/create" data-title="分类管理" href="javascript:">分类添加</a></li>
+			</ul>
+		</dd>
+	</dl>
+
+	<dl id="menu-comments">
 			<dt><i class="Hui-iconfont">&#xe622;</i> 评论管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
@@ -91,11 +101,11 @@
 			</ul>
 		</dd>
 	</dl>
-		<dl id="menu-member">
+	<dl id="menu-member">
 			<dt><i class="Hui-iconfont">&#xe60d;</i> 会员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="/member-list.html" data-title="会员列表" href="javascript:;">会员列表</a></li>
+					<li><a data-href="/adminuser" data-title="会员列表" href="javascript:;">会员列表</a></li>
 					<li><a data-href="/member-del.html" data-title="删除的会员" href="javascript:;">删除的会员</a></li>
 					<li><a data-href="/member-level.html" data-title="等级管理" href="javascript:;">等级管理</a></li>
 					<li><a data-href="/member-scoreoperation.html" data-title="积分管理" href="/javascript:;">积分管理</a></li>
@@ -105,7 +115,7 @@
 			</ul>
 		</dd>
 	</dl>
-		<dl id="menu-admin">
+	<dl id="menu-admin">
 			<dt><i class="Hui-iconfont">&#xe62d;</i> 管理中心<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
@@ -115,7 +125,59 @@
 			</ul>
 		</dd>
 	</dl>
-		<dl id="menu-tongji">
+	<dl id="menu-admin">
+			<dt><i class="Hui-iconfont">&#xe62d;</i> 轮播图管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="/adminpic" data-title="轮播图列表" href="javascript:void(0)">轮播图列表</a></li>
+					
+			</ul>
+		</dd>
+	</dl>
+
+	<dl id="menu-admin">
+			<dt><i class="Hui-iconfont">&#xe62d;</i> 广告管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="/adminads" data-title="广告列表" href="javascript:void(0)">广告列表</a></li>
+					
+			</ul>
+		</dd>
+	</dl>
+	<dl id="menu-admin">
+			<dt><i class="Hui-iconfont">&#xe62d;</i> 友链管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="/friendlink" data-title="友链列表" href="javascript:void(0)">友链列表</a></li>
+					
+			</ul>
+		</dd>
+	</dl>
+	<dl id="menu-admin">
+			<dt><i class="Hui-iconfont">&#xe62d;</i> 服务管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="/botton" data-title="服务支持列表" href="javascript:void(0)">服务支持列表</a></li>
+					<li><a data-href="/botton/create" data-title="服务支持添加" href="javascript:void(0)">服务支持添加</a></li>
+					
+			</ul>
+		</dd>
+	</dl>
+	<dl id="menu-admin">
+			<dt><i class="Hui-iconfont">&#xe62d;</i> 导航栏目<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="/navbar" data-title="导航列表" href="javascript:void(0)">导航列表</a></li>
+					
+			</ul>
+		</dd>
+	</dl>
+
+	
+
+
+
+	<dl id="menu-tongji">
 			<dt><i class="Hui-iconfont">&#xe61a;</i> 系统统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
