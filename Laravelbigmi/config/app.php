@@ -228,9 +228,9 @@ return [
 
     ],
         //配置信息   规定上传文件日期目录
-        'uploads'=>'./uploads/'.date("Y-m-d"),
+        'uploads'=>'./uploads/ads/'.date("Y-m-d"),
         'uploadss'=>'./uploads/video/'.date("Y-m-d"),
         //头像
-        'uploadss'=>'./uploads/headpic/'.date("Y-m-d"),
+        'uploadheadpic'=>'./uploads/headpic/'.date("Y-m-d"),
 
 ];
