@@ -227,5 +227,10 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
+        //配置信息   规定上传文件日期目录
+        'uploads'=>'./uploads/'.date("Y-m-d"),
+        'uploadss'=>'./uploads/video/'.date("Y-m-d"),
+        //头像
+        'uploadss'=>'./uploads/headpic/'.date("Y-m-d"),
 
 ];

@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+//导入配置类
+ use Config;
 
 class UserController extends Controller
 {
@@ -12,10 +15,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //加载模板
-        return view("");
+        $user=User::paginate(3);
+
+        // dd($user);
+        return view("Admin.User.user-list",['user'=>$user,'request'=>$request->all()]);
     }
 
     /**
@@ -26,6 +32,7 @@ class UserController extends Controller
     public function create()
     {
         //
+        return view('Admin.User.user-add');
     }
 
     /**
@@ -48,6 +55,7 @@ class UserController extends Controller
     public function show($id)
     {
         //
+       return view('Admin.User.user-show');
     }
 
     /**
@@ -82,5 +90,47 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+
+     public function down(Request $request){
+        $id=$request->input('id');
+        // echo $id;
+      
+      //获取当前id的广告状态
+      $user=User::where('id','=',$id)->first();
+      // echo $user->status;
+      // dd($user);
+      // echo $ads->status;
+
+      if(User::where('id','=',$id)->update(['status'=>1])){
+            echo '已禁用';
+
+      }
+        
+    }
+      //ajax上架
+    public function up(Request $request){
+        $id=$request->input('id');
+        $user=User::where('id','=',$id)->first();
+        // var_dump($user);
+
+        if(User::where('id','=',$id)->update(['status'=>2])){
+            echo '正常';
+        }
+ 
+    }
+
+     //ajax删除
+    public function del(Request $request){
+        // dd($request->input('id'));
+        $id=$request->input('id');
+        // echo $id;
+        if(User::where('id','=',$id)->delete()){
+            echo 1;
+        }else{
+            echo 0;
+        }
     }
 }

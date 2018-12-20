@@ -7,10 +7,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" /> 
   <meta name="format-detection" content="telephone=no" /> 
   <title>小米帐号 -个人信息</title> 
-  <link type="text/css" rel="stylesheet" href="static/homes/profile/reset.css" /> 
-  <link type="text/css" rel="stylesheet" href="static/homes/profile/layout.css" /> 
-  <link type="text/css" rel="stylesheet" href="static/homes/profile/modacctip.css" /> 
-  <style>
+  <link type="text/css" rel="stylesheet" href="/static/homes/profile/reset.css" /> 
+  <link type="text/css" rel="stylesheet" href="/static/homes/profile/layout.css" /> 
+  <link type="text/css" rel="stylesheet" href="/static/homes/profile/modacctip.css" /> 
+
+
       html{ overflow-y:scroll;}
     </style> 
   <style type="text/css">
@@ -70,9 +71,44 @@
 }
 /*wap*/
 .bugfix_ie6{ display:block;}  
+
+/*弹出*/
+       <style> 
+        .black_overlay{ 
+            display: none; 
+            position: absolute; 
+            top: 0%; 
+            left: 0%; 
+            width: 100%; 
+            height: 100%; 
+            background-color: black; 
+            z-index:1001; 
+            -moz-opacity: 0.8; 
+            opacity:.80; 
+            filter: alpha(opacity=88); 
+        } 
+        .white_content { 
+            display: none; 
+            position: absolute; 
+            top: 25%; 
+            left: 25%; 
+            width: 55%; 
+            height: 55%; 
+            padding: 20px; 
+            border: 5px solid orange; 
+            background-color: lightblue; 
+            z-index:1002; 
+            overflow: auto;  
+        } 
+        input{
+           border:1px solid red;
+        }
+        
+    </style> 
 </style> 
  </head> 
  <body class="zh_CN" style="overflow-y: hidden;"> 
+
   <div class="popup_mask" style="display: none;" id="loadingMask"> 
    <div class="bkc"></div> 
    <div class="mod_wrap loadingmask"> 
@@ -82,7 +118,7 @@
    <div class="wrap"> 
     <div class="layout bugfix_ie6 dis_none"> 
      <div class="n-logo-area clearfix"> 
-      <a href="https://account.xiaomi.com/" class="fl-l"> <img src="static/homes/profile/n-logo.png" srcset="/static/res/fa93d30/passport/acc-2014/img/n-logo.png 1x, /static/res/fb6d739/account-static/respassport/acc-2014/img/n-logo@2x.png 2x" /> </a> 
+      <a href="https://account.xiaomi.com/" class="fl-l"> <img src="/static/homes/profile/n-logo.png" > </a> 
       <a id="logoutLink" class="fl-r logout" href="https://account.xiaomi.com/pass/logout?userId=1337447143&amp;callback=https://account.xiaomi.com"> 退出 </a> 
       <script>
 	  setTimeout(function(){
@@ -104,13 +140,13 @@
      <div class="n-account-area-box"> 
       <div class="n-account-area clearfix"> 
        <div class="na-info"> 
-        <p class="na-name">Huanwei_Guan</p> 
-        <p class="na-num">1337447143</p> 
+        <p class="na-name">{{$user->name}}</p> 
+        <p class="na-num">{{$user->phone}}</p> 
        </div> 
        <div class="na-img-area fl-l"> 
         <!--na-img-bg-area不能插入任何子元素--> 
         <div class="na-img-bg-area">
-         <img src="static/homes/profile/CyzrpDCAz9G1hG_320.jpg" />
+         <img src="{{$user->headpic}}" />
         </div> 
        </div> 
       </div> 
@@ -133,7 +169,7 @@
           <div class="na-img-area marauto"> 
            <!--na-img-bg-area不能插入任何子元素--> 
            <div class="na-img-bg-area">
-            <img src="static/homes/profile/CyzrpDCAz9G1hG_320.jpg" />
+            <img src="{{$user->headpic}}" />
            </div> 
            <em class="na-edit"></em> 
           </div> 
@@ -145,17 +181,41 @@
         <div class="main_r"> 
          <div class="framedatabox"> 
           <div class="fdata"> 
-           <a class="color4a9 fr" href="https://account.xiaomi.com/pass/auth/profile/home?cUserId=zOOtzY_fXKNaH5pfpNnSIT_4PbI&amp;userId=1337447143" title="编辑" id="editInfo"><i class="iconpencil"></i>编辑</a> 
+            <!-- 修改 -->
+<!-- 弹出 -->
+      <p>小米用户
+        <a style="float:right" href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">
+            编辑
+        </a>
+      </p> 
+        <div id="light" class="white_content">
+          <p style="font-size:20px;color:black;font-weight:20px;font-family:宋体">编辑基础信息</p>
+          <form action="/userinfo" method="post">
+              姓名: <input type="text" value="{{$user->name}}" name="name" ><br>
+              邮箱: <input value="{{$user->email}}" type="text" name="email"><br>
+              性别: <input type="text" value="{{$user->sex}}" name="sex"> <br>
+              <input  type="hidden" name="id">
+              {{csrf_field()}}
+              <input class="btn btn-success" type="submit" value="保存" >
+
+  
+        <a href = "javascript:void(0)" style="" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">
+            <input class="btn btn-default" type="reset" value="取消">
+        </a>
+          </form>
+</div> 
+        <div id="fade" class="black_overlay"></div> 
+<!-- 关闭 -->
            <h3>基础资料</h3> 
           </div> 
           <div class="fdata lblnickname"> 
-           <p><span>姓名：</span><span class="value"> Huanwei_Guan </span></p> 
+           <p><span>姓名：</span><span class="value"> {{$user->name}}</span></p> 
           </div> 
           <div class="fdata lblbirthday"> 
-           <p><span>生日：</span><span class="value"> 1994-03-11 </span></p> 
+           <p><span>邮箱：</span><span class="value"> {{$user->email}}</span></p> 
           </div> 
           <div class="fdata lblgender"> 
-           <p><span>性别：</span><span class="value" val="m"> 男 </span></p> 
+           <p><span>性别：</span><span class="value" val="m"> {{$user->sex}} </span></p> 
           </div> 
           <div class="btn_editinfo">
            <a id="editInfoWap" class="btnadpt bg_normal" href="https://account.xiaomi.com/pass/auth/profile/home?cUserId=zOOtzY_fXKNaH5pfpNnSIT_4PbI&amp;userId=1337447143">编辑基础资料</a>
@@ -166,11 +226,12 @@
            <h3>高级设置</h3> 
           </div> 
           <div class="fdata click-row"> 
-           <a class="color4a9 fr" target="_blank" href="https://www.mipay.com/" title="管理">管理</a> 
+           <a class="color4a9 fr" target="_blank" href="" title="管理">管理</a> 
            <p> <span>银行卡</span> <span class="arrow_r"></span> </p> 
           </div> 
+          <button class="btn btn-success">123</button>
           <div class="fdata click-row"> 
-           <a style="display:none;" class="color4a9 fr" target="_blank" href="javascript:;" title="管理" id="switchRegion">修改</a> 
+           <a style="display:none;" class="color4a9 fr " target="_blank" href="javascript:;" title="管理" id="switchRegion">修改</a> 
            <p> <span>帐号地区： </span> <span class="box_center"><em id="region" _code="CN">中国</em><i class="arrow_r hidewap"></i></span> </p> 
           </div> 
           <!-- <div class="fdata click-row">
@@ -197,24 +258,25 @@
      <li><a class="lang-select-li current" href="javascript:void(0)" data-lang="zh_CN">简体</a>|</li> 
      <li><a class="lang-select-li" href="javascript:void(0)" data-lang="zh_TW">繁体</a>|</li> 
      <li><a class="lang-select-li" href="javascript:void(0)" data-lang="en">English</a></li> |
-     <li><a class="a_critical" href="https://static.account.xiaomi.com/html/faq/faqList.html" target="_blank"><em></em>常见问题</a></li> 
+     <li><a class="a_critical" href="" target="_blank"><em></em>常见问题</a></li> 
     </ul> 
    </div> 
-   <p class="nf-intro"><span>小米公司版权所有-京ICP备10046444-<a class="beianlink beian-record-link" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802020134"><span><img src="static/homes/profile/ghs.png" /></span>京公网安备11010802020134号</a>-京ICP证110507号</span></p> 
+   11111
+   <p class="nf-intro"><span>小米公司版权所有-京ICP备10046444-<a class="beianlink beian-record-link" target="_blank" href=""><span><img src="/static/homes/profile/ghs.png" /></span>京公网安备11010802020134号</a>-京ICP证110507号</span></p> 
   </div> 
   <style type="text/css">
   
 
     
 </style> 
-  <script src="static/homes/profile/jquery-1.8.3.min.js.下载"></script> 
-  <script src="static/homes/profile/placeholder.js.下载"></script> 
+  <script src="/static/homes/profile/jquery-1.8.3.min.js"></script> 
+  <script src="/static/homes/profile/placeholder.js"></script> 
   <script>
 $(function(){
   /*==========初始化外部链接部分==========*/
 
     var URL_DATA={
-      agreement:"https://static.account.xiaomi.com/html/agreement/account/cn.html",
+      agreement:"https:///static.account.xiaomi.com/html/agreement/account/cn.html",
       privacy:"https://www.mi.com/about/privacy/",
       login:"/pass/serviceLogin?"
     }
@@ -287,7 +349,7 @@ $(function(){
   /*备案链接上的图片*/
   var recordLink=$('.beian-record-link');
   var beianRecordLink="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802020134";
-  var beianRecordImg="https://account.xiaomi.com/static/res/9204d06/account-static/respassport/acc-2014/img/ghs.png";
+  var beianRecordImg="https://account.xiaomi.com//static/res/9204d06/account-/static/respassport/acc-2014/img/ghs.png";
   var default1px_gif="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAABAAEAAAICVAEAOw==";
   if(recordLink.length && beianRecordLink){
     recordLink[0].href=beianRecordLink;
@@ -747,7 +809,7 @@ var JSP_VAR={
       <a class="btn_mod_close" href="https://account.xiaomi.com/pass/auth/profile/home?cUserId=zOOtzY_fXKNaH5pfpNnSIT_4PbI&amp;userId=1337447143" title=""><span>关闭</span></a> 
      </div> 
      <div class="mod_tip_bd preupload"> 
-      <iframe style="display:none;" width="0" height="0" name="uploadPhoto" id="uploadPhoto" src="static/homes/profile/saved_resource.html"></iframe> 
+      <iframe style="display:none;" width="0" height="0" name="uploadPhoto" id="uploadPhoto" src="/static/homes/profile/saved_resource.html"></iframe> 
       <!--
     <form action="/user/profile/requestUpload" method="POST">   
     <input type="hidden" name="userId" value="1337447143">
@@ -786,7 +848,7 @@ var JSP_VAR={
       <div class="wapbox"> 
        <div class="mar30 t_c"> 
         <!-- loading图片 --> 
-        <img width="88" height="88" src="static/homes/profile/loading.gif" alt="" /> 
+        <img width="88" height="88" src="/static/homes/profile/loading.gif" alt="" /> 
         <div class="naccprocess"> 
          <p class="ft20 upload-percent" style="display:none;"><span></span>%</p> 
          <p>上传中</p> 
@@ -1374,16 +1436,16 @@ var JSP_VAR={
     unsupportedMimeType:"不支持的MIME TYPE"
   };
 </script> 
-  <script src="static/homes/profile/jquery-1.8.3.min.js.下载"></script> 
-  <script src="static/homes/profile/oo-min.js.下载"></script> 
-  <script src="static/homes/profile/l11n.js.下载"></script> 
-  <script src="static/homes/profile/cookie.js.下载"></script> 
-  <script src="static/homes/profile/url.js.下载"></script> 
-  <script src="static/homes/profile/common.js.下载"></script> 
-  <script src="static/homes/profile/2014.js.下载"></script> 
-  <script src="static/homes/profile/placeholder.js(1).下载">
+  <script src="/static/homes/profile/jquery-1.8.3.min.js"></script> 
+  <script src="/static/homes/profile/oo-min.js"></script> 
+  <script src="/static/homes/profile/l11n.js"></script> 
+  <script src="/static/homes/profile/cookie.js"></script> 
+  <script src="/static/homes/profile/url.js"></script> 
+  <script src="/static/homes/profile/common.js"></script> 
+  <script src="/static/homes/profile/2014.js"></script> 
+  <script src="/static/homes/profile/placeholder.js(1)">
 </script> 
-  <script src="static/homes/profile/countryCode.js.下载">
+  <script src="/static/homes/profile/countryCode.js">
 </script> 
   <script>
 OO(['com.mi.passport.portal.2014'],function(portal2014,O){
