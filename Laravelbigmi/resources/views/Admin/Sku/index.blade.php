@@ -26,7 +26,7 @@
 <body class="pos-r">
 <div >
 	<div class="page-container">
-		<form action="/sku" method="get">    
+	<form action="/sku" method="get">    
      <div class="dataTables_filter" id="DataTables_Table_1_filter" style="float:right;">
       <label>用户名: <input type="text" aria-controls="DataTables_Table_1" name="keywords" value="{{$request['keywords'] or ''}}" /></label>
       <input type="submit" class="btn btn-success" value="搜索">
@@ -52,18 +52,18 @@
 				<tbody>
 				@foreach($sku as $v)
 					<tr>
-						<td width="50px">{{$v->id}}</td> 
-						<td width="50px">{{$v->goods_id}}</td>
-						<td width="50px">{{$v->title}}</td>
-						<td width="50px">{{$v->attr}}</td>
-						<td width="50px">{{$v->color}}</td>
-						<td width="50px">{{$v->market_price}}</td>
-						<td width="50px">{{$v->shop_price}}</td>
-						<td width="50px">{{$v->stock}}</td>
-						<td width="50px">{{$v->status==1?'上架':'下架'}}</td>
-						<td width="50px">{{!!$v->parameter!!}}</td>
-						<td width="50px">
-						</td>
+						<td>{{$v->id}}</td> 
+						<td>{{$v->goods_id}}</td>
+						<td>{{$v->title}}</td>
+						<td>{{$v->attr}}</td>
+						<td>{{$v->color}}</td>
+						<td>{{$v->market_price}}</td>
+						<td>{{$v->shop_price}}</td>
+						<td>{{$v->stock}}</td>
+						<td><a class="btn btn-success radius edi status"><span >{{$v->status==1?'上架':'下架'}}</span></a></td>
+						<td>{{substr($v->parameter,0,10)}}</td>
+						<td width="100px"><a href="#" class="delete btn btn-danger radius" ><i class="Hui-iconfont"></i></a>
+						<a href="/sku/{{$v->id}}/edit" class=" btn btn-success radius" ><i class="Hui-iconfont"></i></td>
 					</tr>
 					@endforeach
 				</tbody>
@@ -73,4 +73,43 @@
 	</div>
 </div>
 </body>
+<script type="text/javascript">
+// ajax删除
+// alert($);exit;
+$(".delete").click(function(){
+	// 获取删除数据的id
+	$id=$(this).parents("tr").find("td:first").html();
+	s=$(this).parents("tr");   
+	ss=confirm('你确定删除吗');
+	// 确定后         
+	if (ss) {
+		$.get("/skudel",{id:$id},function(data){
+		if(data==1){
+			s.remove();
+				}
+		   });
+		}
+});
+// ajax修改状态
+$(".edi").click(function(){
+	// 获取id
+	$id=$(this).parents('tr').find('td:first').html();
+	// console.log($id);
+	s=$(this).parents('tr').find('td').eq(8).find('a');
+	// alert($this)
+	// alert($id);	
+	// console.log($(this).text);
+		$.get('/skuedi',{id:$id},function(data){
+			// alert(data);
+			if (data==0) {
+				// $(this).text('下架');
+				s.text('下架');
+				// console.log(s.text);
+			}else{
+				// $(this).text('上架');
+				s.text('上架');
+			}
+			});
+        });
+</script>
 </html>

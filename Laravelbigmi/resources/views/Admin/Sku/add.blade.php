@@ -43,7 +43,7 @@
                         <th scope="col" colspan="9">已添加的商品信息</th>
                     </tr>
                     <tr class="text-c">
-                       
+                        <th width="20">商品id</th>
                         <th width="40">商品名称</th>
                         <th width="150">市场价格</th>
                         <th width="90">销售价格</th>
@@ -53,10 +53,11 @@
 
                 
                 <tr class="text-c">
-           
+                    <td>{{$goods->id}}</td>
                     <td>{{$goods->goods_title}}</td>
                     <td>{{$goods->goods_market_price}}</td>
                     <td>{{$goods->goods_shop_price}}</td>
+
                     
                 </tr>
                 </tbody>
@@ -72,7 +73,8 @@
                         <input type="text" class="input-text" value="" placeholder="" id="" name="goods_id">
                     </div>
                 </div> -->
-        <input type="hidden" value="{{$goods->id}}">
+
+        <input type="hidden" name="goods_id" value="{{$goods->id}}">
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-2">商品sku标题：</label>
             <div class="formControls col-xs-8 col-sm-9">

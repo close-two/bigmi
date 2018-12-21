@@ -17,9 +17,13 @@ class GoodsController extends Controller
     {
         //获取搜索条件
         $k=$request->input("keywords");
-        $goodslist=DB::table("bm_goods_spu")->where("name","like",'%'.$k.'%')->get();
+        $goodslist=DB::table("bm_goods_spu")->where("goods_title","like",'%'.$k.'%')->get();
+
+        // 获取商品分类的数据
+        $type=DB::table('bm_cates')->get();
+        // dd($type);
         //加载模板
-        return view("Admin.Goods.index",['goodslist'=>$goodslist]);
+        return view("Admin.Goods.index",['goodslist'=>$goodslist,'type'=>$type]);
     }
 
     /**
@@ -58,11 +62,14 @@ class GoodsController extends Controller
             $ext=$request->file("goods_img")->getClientOriginalExtension();
             $ext1=$request->file("goods_thums")->getClientOriginalExtension();
             //2.把上传文件移动到指定目录下
-            $request->file("goods_img")->move('./uploads/goodsimg/'.date("Y-m-d"),$name.".".$ext);
-            $request->file("goods_thums")->move('./uploads/goodsthums/'.date("Y-m-d"),$name.".".$ext1);
+            $request->file("goods_img")->move('./uploads/goodsimg/',$name.".".$ext);
+            $request->file("goods_thums")->move('./uploads/goodsthums/',$name.".".$ext1);
             //修改入库时的goods_img
-            $data['goods_img']='/uploads/goodsimg/'.date("Y-m-d")."/".$name.".".$ext;
-            $data['goods_thums']='/uploads/goodsthums/'.date("Y-m-d")."/".$name.".".$ext1;
+            $data['goods_img']='/uploads/goodsimg/'.$name.".".$ext;
+            $data['goods_thums']='/uploads/goodsthums/'.$name.".".$ext1;
+            $data['created_at']=date("Y-m-d H:i:s");
+            $data['updated_at']=date("Y-m-d H:i:s");
+            // dd($data);
             $goodid = DB::table('bm_goods_spu')->insertGetId($data);
                 // dd($goodid);
             if($goodid){
@@ -92,7 +99,15 @@ class GoodsController extends Controller
     // 修改商品
     public function edit($id)
     {
-        //
+        //获取修改的数据
+        $goodslist=DB::table("bm_goods_spu")->where('id','=',$id)->first();
+        // dd($goodslist);
+        //商品类型
+        $type=DB::table('bm_cates')->get();
+        //加载模块
+        return view("Admin.Goods.edit",['goodslist'=>$goodslist,'type'=>$type]);
+
+
     }
 
     /**
@@ -105,7 +120,26 @@ class GoodsController extends Controller
     // 执行修改
     public function update(Request $request, $id)
     {
-        //
+        //获取修改后的数据
+        // dd($request->all());
+        $data=$request->except(['_token','_method']);
+
+        if($request->hasFile('goods_img')&&$request->hasFile('goods_thums')){
+            //初始化文件名字
+            $name=time()+rand(1,10000);
+            //获取上传文件后缀
+            $ext=$request->file("goods_img")->getClientOriginalExtension();
+            $ext1=$request->file("goods_thums")->getClientOriginalExtension();
+            //2.把上传文件移动到指定目录下
+            $request->file("goods_img")->move('./uploads/goodsimg/',$name.".".$ext);
+            $request->file("goods_thums")->move('./uploads/goodsthums/',$name.".".$ext1);
+            //修改入库时的goods_img
+            $data['goods_img']='/uploads/goodsimg/'."/".$name.".".$ext;
+            $data['goods_thums']='/uploads/goodsthums/'."/".$name.".".$ext1;
+            $data['created_at']=date("Y-m-d H:i:s");
+            $data['updated_at']=date("Y-m-d H:i:s");
+            DB::table('bm_goods_spu')->update($data);
+        }
     }
 
     /**
@@ -134,42 +168,42 @@ class GoodsController extends Controller
     // ajax删除商品
     public function del(Request $request){
         //获取参数id
+        // dd($request->all());
         $id=$request->input('id');
-        $info=DB::table('bm_goods_spu')->where('id','=',$id)->first();
-        // 获取图片
-        $m='.'.$info->url;
-        // dd($m);
         // echo $id;
-        // dd($id);
         //执行删除
-        if(DB::table("bm_goods_spu")->where("id",'=',$id)->delete()){
-            echo 1;
-            unlink($m);
+        if (DB::table("bm_goods_spu")->where("id",'=',$id)->delete()) {
+            echo 1;exit;
+        }else{
+            echo "请先删除该商品下面sku的商品";exit;
         }
     }
-    
-// ajax修改商品状态
+    // ajax修改图片状态
 public function edi(Request $request){
     // 获取参数id
      $id=$request->input('id');
      // dd($id);
+     // 获取当前的数据
      $res=DB::table('bm_goods_spu')->where('id','=',$id)->first();
      $data=[];
+        // 将数据遍历到数组中
      foreach ($res as $key=>$v) {
          $data[$key]=$v;
-     // var_dump($b);
 
      }
+     // dd($data);
      // 判断当前状态,将状态相反
-     if ($data['status']==1) {
-         $data['status']=0;
+     if ($data['goods_status']==1) {
+         $data['goods_status']=0;
+         $data['updated_at']=date("Y-m-d H:i:s");
      }else{
-       $data['status']=1;
+       $data['goods_status']=1;
+       $data['updated_at']=date("Y-m-d H:i:s");
      }
      // var_dump($data);
      // dd($data);
      if (DB::table('bm_goods_spu')->where('id','=',$id)->update($data)) {
-        if ($data['status']==1) {
+        if ($data['goods_status']==1) {
             echo 1;
         }else{
             echo 0;

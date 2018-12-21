@@ -28,7 +28,7 @@
 <div >
 	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 产品管理 <span class="c-gray en">&gt;</span> 产品列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 	<div class="page-container">
-		<form action="/friendlink" method="get">    
+	<form action="/goods" method="get">    
      <div class="dataTables_filter" id="DataTables_Table_1_filter" style="float:right;">
       <label>用户名: <input type="text" aria-controls="DataTables_Table_1" name="keywords" value="{{$request['keywords'] or ''}}" />
       <input type="submit" class="btn btn-success" value="搜索">
@@ -62,15 +62,20 @@
 						<td>{{$row->goods_stock}}</td>
 						<td><img width="60px" src="{{$row->goods_img}}"></td>
 						<td><img width="60px" src="{{$row->goods_thums}}"></td>
-						<td>{{$row->goods_status==1?'上架':'下架'}}</td>
-						<td>{{$row->cate_id}}</td>
+						<td><a class="btn btn-success radius edi status"><span >{{$row->goods_status==1?'上架':'下架'}}</span></a></td>
+						@foreach($type as $ress)
+						@if($ress->id==$row->cate_id)
+						<td>{{$ress->catename}}</td>
+						@endif	
+						@endforeach
 						<td>{{substr($row->goods_detail,0,10)}}</td>
 						<!-- <td>
 						<a href="#" class="delete btn btn-danger radius" ><i class="Hui-iconfont"></i></a>&nbsp;&nbsp;<a href="/friendlink/{{$row->id}}/edit" class="edit btn btn-success radius"><i class="Hui-iconfont"></i></a>&nbsp;&nbsp;<a href="/friendlink/{{$row->id}}/edit" class="edit btn btn-success radius">详情</a>
 						</td> -->
 						<td>
-						<a class="btn btn-success radius" href="/adminpic/{{$row->id}}/edit">修改</a>
-						<a href="javascript:void(0)" class="btn btn-danger del radius">删除</a>
+						<a href="#" class="delete btn btn-danger radius" ><i class="Hui-iconfont"></i></a>
+						<a href="/goods/{{$row->id}}/edit" class=" btn btn-success radius" ><i class="Hui-iconfont"></i> </a>
+						<a href="/sku/create?id={{$row->id}}" class=" btn btn-success radius" ><i class="Hui-iconfont"></i> </a>
 					</td>
 					</tr>
 					@endforeach
@@ -82,32 +87,44 @@
 </div>
 </body>
 <script type="text/javascript">
-	// ajax删除
-$(".del").click(function(){
-	// 获取id
-	$id=$(this).parents('tr').find('td').eq(0).html();
-		s=$(this).parents('tr');   
-		ss=confirm('你确定删除吗');
-		// 确定后         
-		if (ss) {
-			$.get('/adminpicdel',{id:$id,},function(data){
-				// alert(data);
-				s.remove();
-				
-			});
+// ajax删除
+// alert($);exit;
+$(".delete").click(function(){
+	// 获取删除数据的id
+	id=$(this).parents("tr").find("td:first").html();
+	// alert(id);
+	s=$(this).parents("tr");   
+	ss=confirm('你确定删除吗');
+	// 确定后         
+	if (ss) {
+		$.get("/goodsdel",{id:id},function(data){
+			alert(data);
+		if(data==1){
+			s.remove();
+				}
+		   });
+		}else{
+			alert(data);
 		}
-        });
+});
 // ajax修改状态
 $(".edi").click(function(){
 	// 获取id
-	$id=$(this).parents('tr').find('td').eq(0).html();
-	s=$(this).parents('tr').find('td').eq(3).find('a');
+	$id=$(this).parents('tr').find('td:first').html();
+	// console.log($id);
+	s=$(this).parents('tr').find('td').eq(8).find('a');
+	// alert($this)
 	// alert($id);	
-		$.get('/adminpicedi',{id:$id},function(data){
+	// console.log($(this).text);
+		$.get('/goodsedi',{id:$id},function(data){
+			// alert(data);
 			if (data==0) {
-				s.text('停止');
+				// $(this).text('下架');
+				s.text('下架');
+				// console.log(s.text);
 			}else{
-				s.text('播放');
+				// $(this).text('上架');
+				s.text('上架');
 			}
 			});
         });
