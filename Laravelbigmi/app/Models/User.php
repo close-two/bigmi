@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-    protected $table="bm_home_user";
+    protected $table="bm_users";
     //该模型是否需要自定维护时间戳
     public $timestamps=false;
     //主键
@@ -19,14 +19,20 @@ class User extends Model
     public function getStatusAttribute($value){
     	//处理字段状态
     	$status=[1=>'已禁用',0=>'未激活',2=>'正常'];
-    	$sex=[0=>'女',1=>'男',2=>'保密'];
+ 
     	return $status[$value];
     }
 
      public function getSexAttribute($value){
         //处理字段状态
        
-        $sex=[0=>'女',1=>'男',2=>'保密'];
+        $sex=[''=>'',0=>'女',1=>'男',2=>'保密'];
         return $sex[$value];
+    }
+
+     //获取会员下所有收货地址
+    public function address(){
+        //hasMany 一对多  App\Models\Useraddress会员收货地址模型类   user_id两个模型关联字段
+        return $this->hasMany('App\Models\Useraddress','uid');
     }
 }

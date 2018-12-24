@@ -169,6 +169,7 @@ function picture_stop(obj,id){
 		//获取当前状态status
 		// alert(id);
 		//ajax修改上架状态为下架
+			history.go(0);
 		$.get('/adminvideodown',{'id':id},function(data){
 			alert(data);
 		});
@@ -183,7 +184,7 @@ function picture_stop(obj,id){
 function picture_start(obj,id){
 	layer.confirm('确认要上架吗？',function(index){
 
-
+			history.go(0);
 		$.get('/adminvideoup',{'id':id},function(data){
 			alert(data);
 		});

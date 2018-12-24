@@ -1,9 +1,9 @@
 @extends('Home.HomePublic.publicperson')
-@section('container')
+@section('right')
 <html>
  <head></head>
  <body>
-  <div class="span16"> 
+
    <div class="protal-content-update hide"> 
     <div class="protal-username">
       Hi, Huanwei_Guan 
@@ -15,16 +15,17 @@
      <div class="box-bd"> 
       <div class="portal-main clearfix"> 
        <div class="user-card"> 
-        <h2 class="username">Huanwei_Guan</h2> 
+        <h2 class="username">{{$user->name}}</h2> 
         <p class="tip">晚上好</p> 
-        <a class="link" href="https://account.xiaomi.com/pass/userInfo" target="_blank">修改个人信息 &gt;</a> 
-        <img class="avatar" src="https://s1.mi-img.com/mfsv2/avatar/fdsc3/p012JcRt4QXq/CyzrpDCAz9G1hG_320.jpg" width="150" height="150" alt="Huanwei_Guan" /> 
+        <a class="link" href="/userinfo">修改个人信息 &gt;</a> 
+        <img class="avatar" src="{{$user->headpic}}" width="150" height="150" alt="Huanwei_Guan" /> 
        </div> 
        <div class="user-actions"> 
         <ul class="action-list"> 
          <li>账户安全：<span class="level level-3">较高</span></li> 
-         <li>绑定手机：<span class="tel">188********25</span></li> 
-         <li>绑定邮箱：<span class="tel">hu*********n@1**.com</span></li> 
+         <li>绑定手机：<span class="tel">
+          {{$user->phone}}</span></li> 
+         <li>绑定邮箱：<span class="tel">{{$user->email}}</span></li> 
         </ul> 
        </div> 
       </div> 
@@ -39,7 +40,6 @@
      </div> 
     </div> 
    </div> 
-  </div>
  </body>
 </html>
 @endsection

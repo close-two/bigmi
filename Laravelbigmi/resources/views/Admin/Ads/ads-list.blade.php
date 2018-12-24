@@ -157,7 +157,7 @@ function picture_shenhe(obj,id){
 /*图片-下架*/
 function picture_stop(obj,id){
 	layer.confirm('确认要下架吗？',function(index){
-
+			history.go(0);
 		//获取当前状态status
 		// alert(id);
 		//ajax修改上架状态为下架
@@ -175,7 +175,7 @@ function picture_stop(obj,id){
 function picture_start(obj,id){
 	layer.confirm('确认要上架吗？',function(index){
 
-
+			history.go(0);
 		$.get('/adminadsup',{'id':id},function(data){
 			alert(data);
 		});

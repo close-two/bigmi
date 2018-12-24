@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Useraddress;
+use App\Models\User;
+use DB;
 
 class AddressController extends Controller
 {
@@ -12,10 +15,22 @@ class AddressController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(Request $request)
+    {   
+        $miid=session('miid');
+        // dd($miid);
+        $user=User::where('miid','=',$miid)->first();
+        // dd($user);
+        $uid=$user->id;
+        // dd($uid);
+        $address=DB::table('bm_user_address')->where('uid','=',$uid)->get();
+        // var_dump($address);exit;
+        // dd($address->phone);
+        
+
+        // $address->phone=substr_replace($address['phone'],'****',4,4);
         //加载地址模板
-        return view('Home.Person.address');
+        return view('Home.Person.address',['address'=>$address]);
     }
 
     /**
@@ -26,6 +41,7 @@ class AddressController extends Controller
     public function create()
     {
         //
+        return view('Home.Address.address');
     }
 
     /**

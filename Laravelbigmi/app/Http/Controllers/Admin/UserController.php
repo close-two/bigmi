@@ -105,6 +105,7 @@ class UserController extends Controller
       // echo $ads->status;
 
       if(User::where('id','=',$id)->update(['status'=>1])){
+        // echo $id;
             echo '已禁用';
 
       }
@@ -113,6 +114,7 @@ class UserController extends Controller
       //ajax上架
     public function up(Request $request){
         $id=$request->input('id');
+        
         $user=User::where('id','=',$id)->first();
         // var_dump($user);
 

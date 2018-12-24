@@ -1,11 +1,12 @@
 <html>
  <head>
  <link rel="stylesheet" type="text/css" href="/static/homes/css/main.min.css">
+
  </head>
  <body>
   <div class="breadcrumbs"> 
    <div class="container"> 
-    <a href="https://www.mi.com/index.html" data-stat-id="b67dea7347d3b7fc" onclick="_msq.push(['trackEvent', 'f4f3444fdfa3d27a-b67dea7347d3b7fc', '//www.mi.com/index.html', 'pcpid', '']);">首页</a> 
+    <a href="https://www.mi.com/index.html">首页</a> 
     <span class="sep">&gt;</span> 
     <span>@yield('subtitle')</span> 
    </div> 
@@ -36,7 +37,7 @@
         </div> 
         <div class="box-bd"> 
          <ul class="uc-nav-list"> 
-          <li class="active"><a href="https://order.mi.com/portal?r=25173.1544353414" data-stat-id="a5df0bc23029b747" onclick="_msq.push(['trackEvent', 'f4f3444fdfa3d27a-a5df0bc23029b747', 'https://order.mi.com/portalr=25173.1544353414', 'pcpid', '']);">我的个人中心</a></li> 
+          <li class="active"><a href="/homeperson" >我的个人中心</a></li> 
           <li><a href="https://order.mi.com/message/list?r=25173.1544353414" data-stat-id="662b9dd1d79e5b2a" onclick="_msq.push(['trackEvent', 'f4f3444fdfa3d27a-662b9dd1d79e5b2a', 'https://order.mi.com/message/listr=25173.1544353414', 'pcpid', '']);">消息通知<i class="J_miMessageTotal"></i></a></li> 
           <li><a href="https://order.mi.com/invite/list?r=25173.1544353414" data-stat-id="db2daa6c496ec618" onclick="_msq.push(['trackEvent', 'f4f3444fdfa3d27a-db2daa6c496ec618', 'https://order.mi.com/invite/listr=25173.1544353414', 'pcpid', '']);">购买资格<i class="J_miInviteTotal"></i></a></li> 
           <li><a href="https://order.mi.com/cashAccount?r=25173.1544353414" data-stat-id="19158c89f81bd07a" onclick="_msq.push(['trackEvent', 'f4f3444fdfa3d27a-19158c89f81bd07a', 'https://order.mi.com/cashAccountr=25173.1544353414', 'pcpid', '']);">现金账户</a></li> 
@@ -44,7 +45,7 @@
           <li><a href="https://order.mi.com/huanxin/list?r=25173.1544353414" data-stat-id="6e91131ddc4e677e" onclick="_msq.push(['trackEvent', 'f4f3444fdfa3d27a-6e91131ddc4e677e', 'https://order.mi.com/huanxin/listr=25173.1544353414', 'pcpid', '']);">现金券</a></li> 
           <li><a href="https://order.mi.com/user/favorite?r=25173.1544353414" data-stat-id="9a33d3fe8552b407" onclick="_msq.push(['trackEvent', 'f4f3444fdfa3d27a-9a33d3fe8552b407', 'https://order.mi.com/user/favoriter=25173.1544353414', 'pcpid', '']);">喜欢的商品</a></li> 
           <li><a href="https://order.mi.com/user/coupon?r=25173.1544353414" data-stat-id="4ccc68f2cd992f8b" onclick="_msq.push(['trackEvent', 'f4f3444fdfa3d27a-4ccc68f2cd992f8b', 'https://order.mi.com/user/couponr=25173.1544353414', 'pcpid', '']);">优惠券</a></li> 
-          <li><a href="https://order.mi.com/user/address?r=25173.1544353414" data-stat-id="b3b3c4f6880a573e" onclick="_msq.push(['trackEvent', 'f4f3444fdfa3d27a-b3b3c4f6880a573e', 'https://order.mi.com/user/addressr=25173.1544353414', 'pcpid', '']);">收货地址</a></li> 
+          <li><a href="/useraddress" >收货地址</a></li> 
          </ul> 
         </div> 
        </div> 
@@ -66,8 +67,8 @@
         </div> 
         <div class="box-bd"> 
          <ul class="uc-nav-list"> 
-          <li><a href="https://account.xiaomi.com/" target="_blank" data-stat-id="aafd3d14a6854214" onclick="_msq.push(['trackEvent', 'f4f3444fdfa3d27a-aafd3d14a6854214', 'https://account.xiaomi.com/', 'pcpid', '']);">个人信息</a></li> 
-          <li><a href="https://account.xiaomi.com/pass/auth/security/home#service=setPassword" target="_blank" data-stat-id="ba4260bfe9f015e0" onclick="_msq.push(['trackEvent', 'f4f3444fdfa3d27a-ba4260bfe9f015e0', 'https://account.xiaomi.com/pass/auth/security/home#service=setPassword', 'pcpid', '']);">修改密码</a></li> 
+          <li><a href="/usersecret" onclick="_msq.push(['trackEvent', 'f4f3444fdfa3d27a-aafd3d14a6854214', 'https://account.xiaomi.com/', 'pcpid', '']);">个人信息</a></li> 
+          <li><a href="/passwordedit">修改密码</a></li> 
           <li><a href="http://uvip.xiaomi.cn/" target="_blank" data-stat-id="83872d1974c6dae9" onclick="_msq.push(['trackEvent', 'f4f3444fdfa3d27a-83872d1974c6dae9', 'http://uvip.xiaomi.cn', 'pcpid', '']);">社区VIP认证</a></li> 
          </ul> 
         </div> 
@@ -75,7 +76,7 @@
       </div> 
      </div> 
      <div class="span16">
-        @section('container')
+        @section('right')
         @show
      </div> 
     </div> 
