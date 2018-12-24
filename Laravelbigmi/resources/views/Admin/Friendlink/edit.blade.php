@@ -7,9 +7,7 @@
 </head>
 <body>
 <form action="/friendlink/{{$link->id}}" method="post">
-   
-       
-        status:<input type="text" class="large" name="status" value="{{$link->status}}" /> 
+    status:<input type="text" class="large" name="status" value="{{$link->status}}" /> 
       {{csrf_field()}}
      {{method_field("PUT")}}
      <input type="submit" value="提交">

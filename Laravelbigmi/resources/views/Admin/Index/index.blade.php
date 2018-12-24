@@ -144,6 +144,15 @@
 			</ul>
 		</dd>
 	</dl>
+	<dl id="menu-comments">
+			<dt><i class="Hui-iconfont">&#xe650;</i>视频管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="/adminvideo" data-title="视频列表" href="javascript:">视频位管理</a></li>
+			</ul>
+		</dd>
+	</dl>
+
 	<dl id="menu-admin">
 			<dt><i class="Hui-iconfont">&#xe62d;</i> 友链管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>

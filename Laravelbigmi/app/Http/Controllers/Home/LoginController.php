@@ -19,8 +19,8 @@ class LoginController extends Controller
     public function index(Request $request)
     {
         //登录退出销毁session
-        $request->session()->pull('id');
-        $request->session()->pull('name');
+        $request->session()->pull('username');
+        $request->session()->pull('miid');
         return redirect('/login/create');
     }
 
