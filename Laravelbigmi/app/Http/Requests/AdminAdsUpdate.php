@@ -25,9 +25,9 @@ class AdminAdsUpdate extends FormRequest
     {
         return [
           ////用户名不能为空规则设置 required 输入的数据不能为空  regex 正则规则 unique唯一  :bm_ads数据库名 
-            'adsname'=>'required|regex:/^.{2,20}$/',
+            'adsname'=>'required|regex:/^.{3,51}$/',
             'source'=>'required',
-            'comment'=>'regex:/^.{1,50}$/',
+            'comment'=>'regex:/^.{3,300}$/',
         ];
     }
 
@@ -35,10 +35,10 @@ class AdminAdsUpdate extends FormRequest
     public function messages(){
         return [
            'adsname.required'=>'广告名不能为空',
-            'adsname.regex'=>'请输入长度为1-15位长度的分类名',
+            'adsname.regex'=>'请输入长度为1-17位长度的分类名',
 
             'source.required'=>'请写入商家',
-            'comment.regex'=>'简介不能超过50个中文',
+            'comment.regex'=>'简介不能超过100个中文',
             
         ];
     }

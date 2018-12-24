@@ -25,7 +25,7 @@ class AdminCateinsert extends FormRequest
     {
         return [
              //用户名不能为空规则设置 required 输入的数据不能为空  regex 正则规则 unique唯一  :cates数据库名  
-            'catename'=>'required|regex:/^.{3,20}$/|unique:bm_cates',
+            'catename'=>'required|regex:/^.{3,51}$/|unique:bm_cates',
         ];
     }
 
@@ -34,7 +34,7 @@ class AdminCateinsert extends FormRequest
         return [
            
             'catename.required'=>'分类名不能为空',
-            'catename.regex'=>'请输入长度为1-15位长度的分类名',
+            'catename.regex'=>'请输入长度为1-17位长度的分类名',
             'catename.unique'=>'分类名已存在'
         ];
     }
