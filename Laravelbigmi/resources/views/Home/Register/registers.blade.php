@@ -226,7 +226,7 @@
       s = $(this);
       pp = $("input[name='phone']").val();
       $.get('/sendphone',{pp:pp},function(data){
-        alert(data);
+        // alert(data);
         if (data.code==000000) {
           m=60;
           mytime = setInterval(function(){
