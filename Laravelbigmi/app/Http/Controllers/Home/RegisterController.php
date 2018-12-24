@@ -85,13 +85,14 @@ class RegisterController extends Controller
         // 邮箱注册拼凑要插入的数据
         $data['name']='';
         $data['miid']=substr(time(),5).str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);//生成会员id
+        $data['create_time']=date('Y-m-d H:i:s');
         $data['status']=1;
         $data['token']=str_random(50);
         $data['phone']='';
         $data['password']=Hash::make($data['password']);
         if ($fcode==$vcode) {
             // 执行插入操作
-            if ($id=DB::table('test_user')->insertGetId($data)) {
+            if ($id=DB::table('bm_users')->insertGetId($data)) {
                 // echo "插上会员数据成功";
                 $this->sendMail($data['email'],$id,$data['token']);
                 echo "激活用户邮件已发送,请登录您的邮箱查看并激活用户";
@@ -160,12 +161,42 @@ class RegisterController extends Controller
     public function getActive(Request $request){
         $id = $request->input('id');
         $token=$request->input('token');
-        $info = DB::TABLE('test_user')->where('id','=',$id)->first();
+        $info = DB::TABLE('bm_users')->where('id','=',$id)->first();
         if ($token==$info->token) {
             $data['status']=2;
             $data['token']=rand(1,10000);
-            DB::table('test_user')->where('id','=',$id)->update($data);
+            DB::table('bm_users')->where('id','=',$id)->update($data);
             echo "用户已经激活,马上去登录吧!";
         }
+    }
+
+    // 短信注册
+    public function registerByPhone(){
+        return view('Home.Register.registers');
+    }
+
+    // 验证手机号
+    public function checkphone(Request $request){
+        $phone = $request->input('p');
+        $phonelist = DB::table('bm_users')->pluck('phone');
+        // echo $phonelist;
+
+        $arr=array();
+        foreach ($phonelist as $k => $v) {
+            $arr[$k]=$v;
+        }
+        if (in_array($phone, $arr)) {
+            echo 1;//手机号已经注册
+        }else{
+            echo 0;//可以用
+        }
+    }
+
+    // 发送短信
+    public function sendphone(Request $request){
+        $pp = $request->input('pp');
+        sendphone($pp);
+        // echo $pp;
+
     }
 }

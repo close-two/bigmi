@@ -66,6 +66,7 @@ class AdminsController extends Controller
         $data = $request->except(['password2','_token']);
 
         $data['password']=Hash::make($data['password']);
+        $data['created_at']=date('Y-m-d H:i:s');
         $data['status']=1;
         // dd($data);exit;
         // 获取插入的最后id
@@ -118,7 +119,7 @@ class AdminsController extends Controller
     public function update(AdminUserinsert $request, Admins $admins ,$id)
     {
         //
-        // dd($request->all());exit;
+        // dd($id);exit;
         $data = $request->except(['_token','_method','password2']);
         $data['password']=Hash::make($data['password']);
         // var_dump($data);exit;

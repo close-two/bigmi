@@ -372,7 +372,7 @@
             {{csrf_field()}}
               <input class="btn332 btn_reg_1 submit-step" type="submit" value="立即注册">
               <div class="other_register_area">
-                <input class="btn332 btn_reg_2 change-view" data-to="PHONE" type="button" value="用手机号码注册">
+              <a class="btn332 btn_reg_2 change-view" href="/registers" type="button" value="用手机号码注册">用手机号码注册</a>
               </div>
             </div>
           </div>

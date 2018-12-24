@@ -23,15 +23,19 @@ class AdminUserinsert extends FormRequest
      */
     public function rules()
     {
+        // $id = $_POST['id'];
+        // 创建不需要忽略id
+        $id = isset($_REQUEST['id'])?$_REQUEST['id']:'';
         return [
+
+
             //用户名规则设置,4到16个字符
-            'name'=>'required|unique:bm_admins,name,$id,name|regex:/^[a-zA-Z0-9_\x{4e00}-\x{9fa5}]{3,16}/u',
-           /* 'name'=>[
+            // 'name'=>'required|unique:bm_admins,name,,name|regex:/^[a-zA-Z0-9_\x{4e00}-\x{9fa5}]{3,16}/u',
+            'name'=>[
             'required',
-            'unique:bm_admins,name',
-            // Rule::unique('bm_admins')->ignore($request->id),
-            'regex:/^[\x{4e00}-\x{9fa5}]{4,16}$/u'
-            ],*/
+            'unique:bm_admins,name,'.$id,
+            'regex:/^[a-zA-Z0-9_\x{4e00}-\x{9fa5}]{3,16}/u'
+            ],
 
             'password'=>'required|regex:/\w{6,16}/',
             'password2'=>'required|regex:/\w{6,16}/|same:password',

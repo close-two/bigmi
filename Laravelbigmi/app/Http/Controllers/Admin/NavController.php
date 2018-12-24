@@ -29,7 +29,10 @@ class NavController extends Controller
     public function create()
     {
         //
-        return view('Admin.Navbar.nav-add');
+      
+        // dd($skulist);
+        $skulist = $this::getAllSku();
+        return view('Admin.Navbar.nav-add',['skulist'=>$skulist]);
     }
 
     /**
@@ -41,6 +44,13 @@ class NavController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request->all());
+        $data = $request->except('_token'); 
+        if(DB::TABLE('bm_nav')->insert($data)){
+            return redirect('/navbar')->with('success','添加导航成功');
+        }else{
+            return redirect()->back()->with('error','添加导航失败');
+        }
     }
 
     /**
@@ -63,6 +73,13 @@ class NavController extends Controller
     public function edit($id)
     {
         //
+        $skulist = $this::getAllSku();
+        $nav = DB::TABLE('bm_nav')->find($id);
+        $sku_id_group = explode(',', $nav->sku_id_group);
+        $skudata = $this::getSkuData($sku_id_group);
+        // var_dump($skudata);exit;
+        return view('Admin.Navbar.nav-edit',['skulist'=>$skulist,'nav'=>$nav,'skudata'=>$skudata]);
+
     }
 
     /**
@@ -75,6 +92,14 @@ class NavController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // dd($request->all());
+        $data = $request->except('_token','_method');
+        // dd($id);
+        if (DB::TABLE('bm_nav')->where('id','=',$id)->update($data)) {
+            return redirect('/navbar')->with('success','修改成功');
+        }else{
+            return redirect()->back()->with('error','修改失败');
+        }
     }
 
     /**
@@ -86,5 +111,34 @@ class NavController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // 获取所有sku的商品表
+    public function getAllSku(){
+        $skulist = DB::TABLE('bm_goods_sku')->select('id','goods_id','title','attr','color','shop_price','stock')
+        ->where('status','=','1')
+        ->orderBy('goods_id')
+        ->get();
+        return $skulist;
+    }
+
+    //获取已有的sku_id_group对应的sku商品信息
+    private function getSkuData($sku_id_group){
+        $skudata = [];
+        foreach ($sku_id_group as $value) {
+            $skudata[] = DB::TABLE('bm_goods_sku')->select('id','goods_id','title','attr','color','shop_price','stock')
+            ->where('status','=','1')
+            ->find($value);
+        }
+        return $skudata;
+    }
+
+    public function del(Request $request){
+        $id = $request->input('id');
+        if (DB::table('bm_nav')->where('id','=',$id)->delete()) {
+            echo 1;
+        }else{
+            echo 0;
+        }
     }
 }

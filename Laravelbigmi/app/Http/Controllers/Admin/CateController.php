@@ -26,7 +26,7 @@ class CateController extends Controller
         //获取搜索条件
         $k=$request->input('keywords');
         //连贯方法
-        $cate=DB::table('bm_cates')->select(DB::raw('*,concat(path,",",id)as paths'))->orderBy('paths')->where('catename','like','%'.$k.'%')->paginate(6);
+        $cate=DB::table('bm_cates')->select(DB::raw('*,concat(path,",",id)as paths'))->orderBy('paths')->where('catename','like','%'.$k.'%')->paginate(20);
 
         //加分隔符
         foreach($cate as $key=>$value){

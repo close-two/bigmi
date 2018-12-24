@@ -33,90 +33,25 @@
      </ul> 
     </div> 
     <div class="footer-links clearfix"> 
+
+
+  @foreach($showHelp as $helpTitle)
      <dl class="col-links col-links-first"> 
       <dt>
-       帮助中心
+       {{$helpTitle['name']}}
       </dt> 
+      @foreach($helpTitle['children'] as $subItem)
       <dd>
-       <a rel="nofollow" href="//www.mi.com/service/account/register/" target="_blank">账户管理</a>
+       <a rel="nofollow" href="//www.mi.com/service/account/register/" target="_blank">{{$subItem['name']}}</a>
       </dd> 
-      <dd>
-       <a rel="nofollow" href="//www.mi.com/service/buy/buytime/" target="_blank">购物指南</a>
-      </dd> 
-      <dd>
-       <a rel="nofollow" href="//www.mi.com/service/order/sendprogress/" target="_blank">订单操作</a>
-      </dd> 
+      @endforeach
      </dl> 
-     <dl class="col-links "> 
-      <dt>
-       服务支持
-      </dt> 
-      <dd>
-       <a rel="nofollow" href="//www.mi.com/service/exchange" target="_blank">售后政策</a>
-      </dd> 
-      <dd>
-       <a rel="nofollow" href="//www.mi.com/service/" target="_blank">自助服务</a>
-      </dd> 
-      <dd>
-       <a rel="nofollow" href="//www.mi.com/c/service/download/" target="_blank">相关下载</a>
-      </dd> 
-     </dl> 
-     <dl class="col-links "> 
-      <dt>
-       线下门店
-      </dt> 
-      <dd>
-       <a rel="nofollow" href="//www.mi.com/c/xiaomizhijia/" target="_blank">小米之家</a>
-      </dd> 
-      <dd>
-       <a rel="nofollow" href="//www.mi.com/static/homes/maintainlocation/" target="_blank">服务网点</a>
-      </dd> 
-      <dd>
-       <a rel="nofollow" href="//www.mi.com/static/homes/familyLocation/" target="_blank">授权体验店</a>
-      </dd> 
-     </dl> 
-     <dl class="col-links "> 
-      <dt>
-       关于小米
-      </dt> 
-      <dd>
-       <a rel="nofollow" href="//www.mi.com/about/" target="_blank">了解小米</a>
-      </dd> 
-      <dd>
-       <a rel="nofollow" href="http://hr.xiaomi.com/" target="_blank">加入小米</a>
-      </dd> 
-      <dd>
-       <a rel="nofollow" href="//company.mi.com/zh-cn/ir/indexContent/index.html" target="_blank">投资者关系</a>
-      </dd> 
-     </dl> 
-     <dl class="col-links "> 
-      <dt>
-       关注我们
-      </dt> 
-      <dd>
-       <a rel="nofollow" href="https://weibo.com/xiaomishangcheng" target="_blank">新浪微博</a>
-      </dd> 
-      <dd>
-       <a rel="nofollow" href="#J_modalWeixin" data-toggle="modal">官方微信</a>
-      </dd> 
-      <dd>
-       <a rel="nofollow" href="//www.mi.com/about/contact/" target="_blank">联系我们</a>
-      </dd> 
-     </dl> 
-     <dl class="col-links "> 
-      <dt>
-       特色服务
-      </dt> 
-      <dd>
-       <a rel="nofollow" href="//order.mi.com/queue/f2code" target="_blank">F 码通道</a>
-      </dd> 
-      <dd>
-       <a rel="nofollow" href="//www.mi.com/giftcode/" target="_blank">礼物码</a>
-      </dd> 
-      <dd>
-       <a rel="nofollow" href="//order.mi.com/misc/checkitem" target="_blank">防伪查询</a>
-      </dd> 
-     </dl> 
+  @endforeach
+
+
+
+
+    
      <div class="col-contact"> 
       <p class="phone">400-100-5678</p> 
       <p> 周一至周日 8:00-18:00<br />（仅收市话费） </p> 
@@ -131,7 +66,15 @@
      小米官网
     </div> 
     <div class="info-text"> 
-     <p class="sites"><a rel="nofollow" href="//www.mi.com/index.html" target="_blank">小米商城</a><span class="sep">|</span><a rel="nofollow" href="https://www.miui.com/" target="_blank">MIUI</a><span class="sep">|</span><a rel="nofollow" href="https://home.mi.com/index.html" target="_blank">米家</a><span class="sep">|</span><a rel="nofollow" href="http://www.miliao.com/" target="_blank">米聊</a><span class="sep">|</span><a rel="nofollow" href="https://www.duokan.com/" target="_blank">多看</a><span class="sep">|</span><a rel="nofollow" href="http://game.xiaomi.com/" target="_blank">游戏</a><span class="sep">|</span><a rel="nofollow" href="http://www.miwifi.com/" target="_blank">路由器</a><span class="sep">|</span><a rel="nofollow" href="//www.mi.com/micard/" target="_blank">米粉卡</a><span class="sep">|</span><a rel="nofollow" href="https://b.mi.com/?client_id=180100031058&amp;masid=17409.0358" target="_blank">政企服务</a><span class="sep">|</span><a rel="nofollow" href="https://xiaomi.tmall.com/" target="_blank">小米天猫店</a><span class="sep">|</span><a rel="nofollow" href="https://www.mi.com/about/privacy/" target="_blank">隐私政策</a><span class="sep">|</span><a rel="nofollow" href="https://static.mi.com/feedback/" target="_blank">问题反馈</a><span class="sep">|</span><a rel="nofollow" href="//www.mi.com/jiancha/" target="_blank">廉正举报</a><span class="sep">|</span><a rel="nofollow" href="#J_modal-globalSites" data-toggle="modal">Select Region</a> </p> 
+     
+      <p class="sites">
+      @foreach($showLinks as $friendLinks)
+        <a rel="nofollow" href="{{$friendLinks->url}}" target="_blank">{{$friendLinks->name}}</a><span class="sep">|</span>
+      @endforeach
+        <a rel="nofollow" href="/applylink" data-toggle="modal">申请链接</a> 
+      </p> 
+
+
      <p>&copy; <a href=" " target="_blank" title="mi.com">mi.com</a> 京ICP证110507号 <a href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow">京ICP备10046444号</a> <a rel="nofollow" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802020134" target="_blank">京公网安备11010802020134号 </a> <a href="//www.mi.com/culture-license/" target="_blank">京网文[2017]1530-131号</a> <br /> <a href="//www.mi.com/medical/record/" target="_blank">（京）网械平台备字（2018）第00005号 </a> <a href="//www.mi.com/medical/qualification/" target="_blank">互联网药品信息服务资格证 (京) -非经营性-2014-0090 </a> <a href="//www.mi.com/business-license/" target="_blank">营业执照</a> <a href="//www.mi.com/medical/list/" target="_blank">医疗器械公告</a> <br />违法和不良信息举报电话：185-0130-1238，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</p> 
     </div> 
     <div class="info-links"> 
@@ -246,19 +189,18 @@
     MI.updateMiniCart();
 })();
 </script>
-<script src="static/homes/js/home.min.js"></script>
 <!-- <script src="static/homes/js/xmsg_ti.js"></script> -->
 <script>
-var _msq = _msq || [];
-_msq.push(['setDomainId', 100]);
-_msq.push(['trackPageView']);
-(function() {
-    var ms = document.createElement('script');
-    ms.type = 'text/javascript';
-    ms.async = true;
-    ms.src = '//s1.mi.com/stat/18/xmst.js';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(ms, s);
-})();
+// var _msq = _msq || [];
+// _msq.push(['setDomainId', 100]);
+// _msq.push(['trackPageView']);
+// (function() {
+//     var ms = document.createElement('script');
+//     ms.type = 'text/javascript';
+//     ms.async = true;
+//     ms.src = '//s1.mi.com/stat/18/xmst.js';
+//     var s = document.getElementsByTagName('script')[0];
+//     s.parentNode.insertBefore(ms, s);
+// })();
 </script>
 </html>

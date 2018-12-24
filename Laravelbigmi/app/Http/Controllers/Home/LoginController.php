@@ -74,7 +74,7 @@ class LoginController extends Controller
                         // echo "登录成功";
                         return redirect('/');
                     }else{
-                        return back()->whith('error','请先去激活用户');
+                        return back()->with('error','请先去激活用户');
                     }
                 }else{
                     return back()->with('error','密码不正确');
@@ -92,7 +92,7 @@ class LoginController extends Controller
                         session(['miid'=>$user,'username'=>$res->name]);
                         return redirect('/');
                     }else{
-                        return back()->whith('error','请先去激活用户');
+                        return back()->with('error','请先去激活用户');
                     }
                 }else{
                     return back()->with('error','密码不正确');

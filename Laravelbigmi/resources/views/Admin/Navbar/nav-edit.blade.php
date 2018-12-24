@@ -25,99 +25,67 @@
 </head>
 <body>
 <article class="page-container">
-	<form class="form form-horizontal" id="form-admin-add" action="/admins/{{$admin->id}}" method="post">
+	<form class="form form-horizontal" id="form-admin-add" action="/navbar/{{$nav->id}}" method="post">
+	
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>导航栏目：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="{{$admin->name}}" placeholder="" id="adminName" name="name">
-			@if($errors->has('name'))
-			<label id="name-error" class="error" for="name">{{@$errors->first('name')}}</label>
-			@endif
+			<input type="text" class="input-text" value="{{$nav->nav_name}}" placeholder="" id="adminName" name="nav_name">
+			<label id="name-error" class="error" for="nav_name"></label>
 		</div>
 	</div>
+	
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
+		<label class="form-label col-xs-4 col-sm-3">sku商品选择：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
-			@if($errors->has('password'))
-			<label id="password-error" class="error" for="password">{{@$errors->first('password')}}</label>
-			@endif
+			<select id="select" multiple="multiple" size="10" class="large">
+		@if(!empty($skulist))
+			@foreach($skulist as $rows)
+                <option value="{{$rows->id}}" mtitle="" skutitle="{{$rows->title}}">
+	                <span>{{$rows->title}}</span>
+	                <span>{{$rows->color}}</span>
+	                <span>-------------------------</span>
+	                <span>￥{{$rows->shop_price}}</span>
+                </option>
+                
+            @endforeach
+        @endif
+            </select>
 		</div>
 	</div>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
+		<label class="form-label col-xs-4 col-sm-3">已选择sku商品：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="password" class="input-text" autocomplete="off"  placeholder="确认新密码" id="password2" name="password2">
-			@if($errors->has('password2'))
-			<label id="password2-error" class="error" for="password2">{{@$errors->first('password2')}}</label>
-			@endif
+			<p class="tips" style="color:red">已选商品,最多6个,双击移除</p>
+			<p id="info">
+				@if(count($skudata))
+					@foreach($skudata as $v)
+						@if(!empty($v))
+							<span class="btn" did={{$v->id}}>{{$v->title}}{{$v->color}}</span>
+						@endif
+					@endforeach
+				@endif
+			</p>
 		</div>
 	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
-		<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-			<div class="radio-box">
-				<input name="sex" type="radio" id="sex-1" value="1" @if($admin->sex==1) checked @else '' @endif >
-				<label for="sex-1">男</label>
-			</div>
-			<div class="radio-box">
-				<input type="radio" id="sex-2" name="sex" value="0" @if($admin->sex==0) checked @else '' @endif >
-				<label for="sex-2">女</label>
-			</div>
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="{{$admin->phone}}" placeholder="" id="phone" name="phone">
-			@if($errors->has('phone'))
-			<label id="phone-error" class="error" for="phone">{{@$errors->first('phone')}}</label>
-			@endif
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" placeholder="@" name="email" id="email" value="{{$admin->email}}">
-			@if($errors->has('email'))
-			<label id="email-error" class="error" for="email">{{@$errors->first('email')}}</label>
-			@endif
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">角色：</label>
-		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-			<select class="select" name="rid" size="1">
 
-			<!-- 需要遍历 -->
-			@foreach($roleslist as $rowss)
-				<option value="{{$rowss->id}}" @if($admin->rid==$rowss->id) selected @else '' @endif>{{$rowss->name}}</option>
-				
-			@endforeach
 
-			</select>
-			</span> 
-			@if($errors->has('rid'))
-			<label id="rid-error" class="error" for="rid">{{@$errors->first('rid')}}</label>
-			@endif
-		</div>
-	</div>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">备注：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>状态：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<textarea name="remarks" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="$.Huitextarealength(this,100)"></textarea>
-			<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
-			@if($errors->has('remarks'))
-			<label id="email-error" class="error" for="email">{{@$errors->first('remarks')}}</label>
-			@endif
+		<input type="radio" name="status" id="" value="1" checked=""><label for="">启用</label>
+		<input type="radio" name="status" id="status" value="0"><label for="">禁用</label>
+			<label id="name-error" class="error" for="status"></label>
 		</div>
 	</div>
 	<div class="row cl">
 		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
 		{{csrf_field()}}
 		{{method_field('PUT')}}
-
+			<input type="hidden" name="sku_id_group" value="{{$nav->sku_id_group}}">
 			<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			<input class="btn btn-primary radius" type="reset" value="&nbsp;&nbsp;重置&nbsp;&nbsp;">
+		
 		</div>
 	</div>
 	</form>
@@ -176,7 +144,7 @@
 		submitHandler:function(form){
 			$(form).ajaxSubmit({
 				type: 'post',
-				url: "/admins/{{$admin->id}}/edit" ,
+				url: "" ,
 				success: function(data){
 					layer.msg('添加成功!',{icon:1,time:1000});
 				},
@@ -201,6 +169,35 @@
     alert("{{session('error')}}");
   @endif
 
+</script>
+<!-- 选择,反选sku商品 -->
+<script>
+	$(function(){
+		var data = '{{$nav->sku_id_group}}'.split(',');
+		// alert(data);
+		$('#select').find('option').on('click',function(){
+			var len = $('#info').find('span').length;
+			var tmpid = $(this).attr('value');
+			if ($.inArray(tmpid,data)>-1) {
+				return;
+			}
+			if (data.length>=6) {
+				$('#info').find('span').first().remove();
+				data.shift();
+			}
+			data.push(tmpid);
+			$('<span class="btn"></span>').html($(this).attr('skutitle')).appendTo('#info');
+			$('input[name=sku_id_group]').val(data.join(','));
+
+		});
+		$('#info').on('dblclick','span',function(ev){
+			ev.preventDefault();
+			var index = $(this).index();
+			data.splice(index,1);//删除数组中对应索引的值
+			$(this).remove();
+			$('input[name=sku_id_group]').val(data.join(','));
+		});
+	});
 </script>
 </body>
 </html>

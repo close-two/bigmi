@@ -81,316 +81,75 @@
                     </div>
         <div class="header-nav">
             <ul class="nav-list J_navMainList clearfix">
-                <li id="J_navCategory" class="nav-category">
-                    <a class="link-category" href="//list.mi.com"><span class="text">全部商品分类</span></a>
-                </li>
+
+                <li id="J_navCategory" class="nav-category"> <a class="link-category" href="" data-stat-id="" onclick=""><span class="text">全部商品分类</span></a> 
+                   <div class="site-category" style="display: none;"> 
+
+                        <ul id="J_categoryList" class="site-category-list clearfix">
+                        @foreach($catesAll as $catesTop) 
+                            <li class="category-item"> <a class="title" href="//www.mi.com/p/1915.html">{{$catesTop->catename}}<i class="iconfont"></i></a> 
+                              <div class="children clearfix children-col-4"> 
+                            @foreach($catesTop->suv as $key => $rows)
+                            @if($key%6 == 0)
+                               <ul class="children-list children-list-col children-list-col-{{($key/6+1)}}">
+                                <li> <a class="link" href="https://www.mi.com/mix3/"><img class="thumb" src="//i1.mifile.cn/f/i/g/2015/cn-index/mix3-80.png?width=80&amp;height=80" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/mix3-80.png?width=80&amp;height=80" width="40" height="40" alt="" /><span class="text">{{$rows->catename}}</span></a> </li> 
+                         
+                            @elseif($key==5||$key==11||$key==17)
+                                <li> <a class="link" href="https://www.mi.com/mix3/"><img class="thumb" src="//i1.mifile.cn/f/i/g/2015/cn-index/mix3-80.png?width=80&amp;height=80" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/mix3-80.png?width=80&amp;height=80" width="40" height="40" alt="" /><span class="text">{{$rows->catename}}</span></a> </li> 
+                                </ul> 
+
+                            @else
+                                 <li> <a class="link" href="https://www.mi.com/mix3/"><img class="thumb" src="//i1.mifile.cn/f/i/g/2015/cn-index/mix3-80.png?width=80&amp;height=80" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/mix3-80.png?width=80&amp;height=80" width="40" height="40" alt="" /><span class="text">{{$rows->catename}}</span></a> </li> 
+                            @endif
+                               @endforeach
+                              </div> 
+                            </li> 
+                        @endforeach
+                        </ul> 
+                   </div>
+               </li>
+
+
+
+
+
+
+
+
+
+            @foreach($navdata as $nav => $rows)
                 <li class="nav-item">
-                    <a class="link" href="javascript: void(0);"><span class="text">小米手机</span><span class="arrow"></span></a>
+                    <a class="link" href="javascript: void(0);"><span class="text">{{$nav}}</span><span class="arrow"></span></a>
                     <div class="item-children">
                         <div class="container">
                             <ul class="children-list clearfix">
-                                <li class="first"> 
+                            @foreach($rows as $spu)
+                                <li> 
                                    <div class="figure figure-thumb"> 
-                                        <a href="https://www.mi.com/mix3/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/mix3-320.png" alt="小米MIX 3" width="160" height="110" /></a> 
+                                        <a href="/goodsdetail/{{$spu->id}}"><img src="/uploads/onload.jpg" data-src="{{$spu->goods_thums}}" alt="小米MIX 3" width="160" height="110" /></a> 
                                     </div> 
                                    <div class="title">
-                                    <a href="https://www.mi.com/mix3/">小米MIX 3</a>
-                                   </div> <p class="price">3299元起</p> 
+                                    <a href="https://www.mi.com/mix3/">{{$spu->goods_title}}</a>
+                                   </div> <p class="price">{{round($spu->market_price)}}元</p> 
                                    <div class="flags">
                                     <div class="flag">
                                      新品
                                     </div>
                                    </div> 
                                 </li>
+                            @endforeach
                             </ul>
                         </div>
                     </div>
                 </li>
-                                <li class="nav-item">
-                    <a class="link" href="javascript: void(0);"><span class="text">红米</span><span class="arrow"></span></a>
-                    <div class="item-children">
-                        <div class="container">
-                            <ul class="children-list clearfix">
-                                                            <li class="first">
-                                    <div class="figure figure-thumb">
-                                        <a href="https://www.mi.com/redmi6pro/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/6pro320-220.png"   alt="红米6 Pro" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="https://www.mi.com/redmi6pro/">红米6 Pro</a></div>
-                                    <p class="price">999元起</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="https://www.mi.com/redmi6/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/666320.png"   alt="红米6" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="https://www.mi.com/redmi6/">红米6</a></div>
-                                    <p class="price">799元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="//www.mi.com/redmi6a/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/6A320.png"   alt="红米6A" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="//www.mi.com/redmi6a/">红米6A</a></div>
-                                    <p class="price">599元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="https://www.mi.com/redminote5"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/note5-320-220.png"   alt="红米Note 5" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="https://www.mi.com/redminote5">红米Note 5</a></div>
-                                    <p class="price">1099元起</p>                                                                    </li>
-                                                        </ul>
-                        </div>
-                    </div>
-                </li>
-                                <li class="nav-item">
-                    <a class="link" href="javascript: void(0);"><span class="text">电视</span><span class="arrow"></span></a>
-                    <div class="item-children">
-                        <div class="container">
-                            <ul class="children-list clearfix">
-                                                            <li class="first">
-                                    <div class="figure figure-thumb">
-                                        <a href="https://www.mi.com/mitv4s/75/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/4s75.png"   alt="小米电视4S 75英寸" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="https://www.mi.com/mitv4s/75/">小米电视4S 75英寸</a></div>
-                                    <p class="price">7999元</p>                                    <div class="flags"><div class="flag">新品</div></div>                                </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="https://www.mi.com/mitv4A/32/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/32.png"   alt="小米电视4A 32英寸" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="https://www.mi.com/mitv4A/32/">小米电视4A 32英寸</a></div>
-                                    <p class="price">899元</p>                                    <div class="flags"><div class="flag">热卖</div></div>                                </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="//www.mi.com/mitv4A/43y"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/4a43.png"   alt="小米电视4A 43英寸青春版" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="//www.mi.com/mitv4A/43y">小米电视4A 43英寸青春版</a></div>
-                                    <p class="price">1499元</p>                                    <div class="flags"><div class="flag">新品</div></div>                                </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="//www.mi.com/mitv4A/50/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/50.png"   alt="小米电视4A 50英寸" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="//www.mi.com/mitv4A/50/">小米电视4A 50英寸</a></div>
-                                    <p class="price">1999元</p>                                    <div class="flags"><div class="flag">热卖</div></div>                                </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="//www.mi.com/mitv4A/55/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/4A-55.jpg"   alt="小米电视4A 55英寸" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="//www.mi.com/mitv4A/55/">小米电视4A 55英寸</a></div>
-                                    <p class="price">2299元</p>                                    <div class="flags"><div class="flag">热卖</div></div>                                </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="//www.mi.com/a/h/7879.html"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/4a65555.png"   alt="查看全部<br/>小米电视" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="//www.mi.com/a/h/7879.html">查看全部<br/>小米电视</a></div>
-                                                                                                        </li>
-                                                        </ul>
-                        </div>
-                    </div>
-                </li>
-                                <li class="nav-item">
-                    <a class="link" href="javascript: void(0);"><span class="text">笔记本</span><span class="arrow"></span></a>
-                    <div class="item-children">
-                        <div class="container">
-                            <ul class="children-list clearfix">
-                                                            <li class="first">
-                                    <div class="figure figure-thumb">
-                                        <a href="//www.mi.com/mibookair-12/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/video/bijiben32012.5.jpg"   alt="小米笔记本 Air 12.5"" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="//www.mi.com/mibookair-12/">小米笔记本 Air 12.5"</a></div>
-                                    <p class="price">3599起</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="//www.mi.com/mibookair-13/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/daohang13.3.jpg"   alt="小米笔记本 Air 13.3"" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="//www.mi.com/mibookair-13/">小米笔记本 Air 13.3"</a></div>
-                                    <p class="price">4999元起</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="//www.mi.com/milaptop/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/320x220biiben.png"   alt="小米笔记本 15.6"" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="//www.mi.com/milaptop/">小米笔记本 15.6"</a></div>
-                                    <p class="price">4199元起</p>                                    <div class="flags"><div class="flag">新品</div></div>                                </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="//www.mi.com/mibookpro/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/WechatIMG603.png"   alt="小米笔记本 Pro 15.6"" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="//www.mi.com/mibookpro/">小米笔记本 Pro 15.6"</a></div>
-                                    <p class="price">5599元起</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="//www.mi.com/gamelaptop/?cfrom=search"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/xinbijiben.png"   alt="小米游戏本" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="//www.mi.com/gamelaptop/?cfrom=search">小米游戏本</a></div>
-                                    <p class="price">6699元起</p>                                    <div class="flags"><div class="flag">新品</div></div>                                </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="//www.mi.com/mipad4/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/pingbanok.png"   alt="小米平板" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="//www.mi.com/mipad4/">小米平板</a></div>
-                                    <p class="price">1099元起</p>                                                                    </li>
-                                                        </ul>
-                        </div>
-                    </div>
-                </li>
-                                <li class="nav-item">
-                    <a class="link" href="javascript: void(0);"><span class="text">空调</span><span class="arrow"></span></a>
-                    <div class="item-children">
-                        <div class="container">
-                            <ul class="children-list clearfix">
-                                                            <li class="first">
-                                    <div class="figure figure-thumb">
-                                        <a href="//item.mi.com/product/8634.html"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/kongtiao320-220.jpg"   alt="米家互联网空调" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="//item.mi.com/product/8634.html">米家互联网空调</a></div>
-                                    <p class="price">1999元</p>                                                                    </li>
-                                                        </ul>
-                        </div>
-                    </div>
-                </li>
-                                <li class="nav-item">
-                    <a class="link" href="https://www.mi.com/p/2848.html"><span class="text">新品</span><span class="arrow"></span></a>
-                    <div class="item-children">
-                        <div class="container">
-                            <ul class="children-list clearfix">
-                                                            <li class="first">
-                                    <div class="figure figure-thumb">
-                                        <a href="https://www.mi.com/mi8youth/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/qingchun-320.png"   alt="小米8 青春版" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="https://www.mi.com/mi8youth/">小米8 青春版</a></div>
-                                    <p class="price">1399元起</p>                                    <div class="flags"><div class="flag">新品</div></div>                                </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="https://www.mi.com/mi8ud/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/pingmu-320.png"   alt="小米8 屏幕指纹版" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="https://www.mi.com/mi8ud/">小米8 屏幕指纹版</a></div>
-                                    <p class="price">3199元起</p>                                    <div class="flags"><div class="flag">新品</div></div>                                </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="https://item.mi.com/product/8810.html"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="https://i1.mifile.cn/f/i/g/2015/gif/shouhuanNFC.jpg"   alt="小米手环3 NFC版" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="https://item.mi.com/product/8810.html">小米手环3 NFC版</a></div>
-                                    <p class="price">199元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="https://item.mi.com/1183800003.html"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="https://i1.mifile.cn/f/i/g/2015/gif/shexiangjizengqiang.jpg"   alt="小米米家小白智能摄像机增强版" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="https://item.mi.com/1183800003.html">小米米家小白智能摄像机增强版</a></div>
-                                    <p class="price">399元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="https://item.mi.com/product/8790.html"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="https://i1.mifile.cn/f/i/g/2015/gif/naozhong.jpg"   alt="小米小爱智能闹钟" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="https://item.mi.com/product/8790.html">小米小爱智能闹钟</a></div>
-                                    <p class="price">149元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="https://item.mi.com/product/9011.html"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/xiaoaisuishenxin.png"   alt="小米小爱蓝牙音箱随身版" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="https://item.mi.com/product/9011.html">小米小爱蓝牙音箱随身版</a></div>
-                                    <p class="price">49元</p>                                                                    </li>
-                                                        </ul>
-                        </div>
-                    </div>
-                </li>
-                                <li class="nav-item">
-                    <a class="link" href="javascript: void(0);"><span class="text">路由器</span><span class="arrow"></span></a>
-                    <div class="item-children">
-                        <div class="container">
-                            <ul class="children-list clearfix">
-                                                            <li class="first">
-                                    <div class="figure figure-thumb">
-                                        <a href="https://item.mi.com/product/8105.html"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/xiaomiluyouqi4.png"   alt="小米路由器 4" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="https://item.mi.com/product/8105.html">小米路由器 4</a></div>
-                                    <p class="price">179元</p>                                    <div class="flags"><div class="flag">双频双核</div></div>                                </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="//item.mi.com/1182400090.html?cfrom=search"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/4Q.png"   alt="小米路由器 4Q" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="//item.mi.com/1182400090.html?cfrom=search">小米路由器 4Q</a></div>
-                                    <p class="price">89元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="https://www.mi.com/miwifi3a/?cfrom=search"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/3A.png"   alt="小米路由器 3A" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="https://www.mi.com/miwifi3a/?cfrom=search">小米路由器 3A</a></div>
-                                    <p class="price">99元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="//www.mi.com/miwifi3g/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/3G.png"   alt="小米路由器 3G" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="//www.mi.com/miwifi3g/">小米路由器 3G</a></div>
-                                    <p class="price">179元</p>                                    <div class="flags"><div class="flag">双千兆</div></div>                                </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="//www.mi.com/miwifihd/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/PRO.png"   alt="小米路由器 HD/Pro" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="//www.mi.com/miwifihd/">小米路由器 HD/Pro</a></div>
-                                    <p class="price">499元起</p>                                    <div class="flags"><div class="flag">大容量</div></div>                                </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="https://www.mi.com/p/3483.html?client_id=180100041086&masid=17409.0243"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/quanbuluyouqi.png"   alt="查看全部小米路由器" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="https://www.mi.com/p/3483.html?client_id=180100041086&masid=17409.0243">查看全部小米路由器</a></div>
-                                                                                                        </li>
-                                                        </ul>
-                        </div>
-                    </div>
-                </li>
-                                <li class="nav-item">
-                    <a class="link" href="javascript:void(0);"><span class="text">智能硬件</span><span class="arrow"></span></a>
-                    <div class="item-children">
-                        <div class="container">
-                            <ul class="children-list clearfix">
-                                                            <li class="first">
-                                    <div class="figure figure-thumb">
-                                        <a href="https://item.mi.com/product/4802.html"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="https://i1.mifile.cn/f/i/g/2015/gif/kongqijinghuaqi.jpg"   alt="米家空气净化器Pro" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="https://item.mi.com/product/4802.html">米家空气净化器Pro</a></div>
-                                    <p class="price">1499元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="//www.mi.com/water2/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/xiaomijingshuiqi.jpg"   alt="小米净水器" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="//www.mi.com/water2/">小米净水器</a></div>
-                                    <p class="price">1999元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="//www.mi.com/roomrobot/"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/cn-index/saodijiqiren320-220.jpg"   alt="米家扫地机器人" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="//www.mi.com/roomrobot/">米家扫地机器人</a></div>
-                                    <p class="price">1699元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="https://item.mi.com/product/7832.html"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/g/2015/xiaoaimini.jpg"   alt="小米小爱音箱mini" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="https://item.mi.com/product/7832.html">小米小爱音箱mini</a></div>
-                                    <p class="price">169元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="https://item.mi.com/product/7797.html"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="https://i1.mifile.cn/f/i/g/2015/gif/tixudao.jpg"   alt="米家电动剃须刀" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="https://item.mi.com/product/7797.html">米家电动剃须刀</a></div>
-                                    <p class="price">199元</p>                                                                    </li>
-                                                            <li>
-                                    <div class="figure figure-thumb">
-                                        <a href="//www.mi.com/p/3469.html?client_id=180100041086&masid=17409.0245"><img src="/static/homes/picture/placeholder-220!110x110.png" data-src="//i1.mifile.cn/f/i/16/goods/nav/air2.jpg"   alt="查看全部<br/>智能硬件" width="160" height="110" /></a>
-                                    </div>
-                                    <div class="title"><a href="//www.mi.com/p/3469.html?client_id=180100041086&masid=17409.0245">查看全部<br/>智能硬件</a></div>
-                                                                                                        </li>
-                                                        </ul>
-                        </div>
-                    </div>
-                </li>
-                                <li class="nav-item">
-                                        <a  class="link" href="//www.mi.com/service/" target="_blank"><span class="text">服务</span></a>
-                </li>
-                                <li class="nav-item">
-                                        <a  class="link" href="http://www.xiaomi.cn/" target="_blank"><span class="text">社区</span></a>
-                </li>
-                            </ul>
+            @endforeach
+                          
+            </ul>
         </div>
         <div class="header-search">
-            <form id="J_searchForm" class="search-form clearfix" action="//search.mi.com/search" method="get">
+            <form id="J_searchForm-bak" class="search-form clearfix" action="/search" method="get">
                 <label for="search" class="hide">站内搜索</label>
-                <input class="search-text" type="search" id="search" name="keyword" autocomplete="off" data-search-config="{'defaultWords':[{'Key':'小米6X','Rst':6},{'Key':'小米MIX&nbsp;2S','Rst':5},{'Key':'黑鲨游戏手机','Rst':3},{'Key':'红米Note&nbsp;5','Rst':6},{'Key':'红米5A','Rst':13},{'Key':'小米电视4C','Rst':5},{'Key':'电视32英寸','Rst':3},{'Key':'笔记本pro','Rst':5},{'Key':'空气净化器','Rst':11},{'Key':'净水器','Rst':8}]}" />
+                <input class="search-text" type="search" id="search" name="keywords" autocomplete="off" data-search-config="{'defaultWords':[{'Key':'小米6X','Rst':6},{'Key':'小米MIX&nbsp;2S','Rst':5},{'Key':'黑鲨游戏手机','Rst':3},{'Key':'红米Note&nbsp;5','Rst':6},{'Key':'红米5A','Rst':13},{'Key':'小米电视4C','Rst':5},{'Key':'电视32英寸','Rst':3},{'Key':'笔记本pro','Rst':5},{'Key':'空气净化器','Rst':11},{'Key':'净水器','Rst':8}]}" />
                 <input type="submit" class="search-btn iconfont" value="&#xe616;" />
                 <div class="search-hot-words">
                     <a href="https://www.mi.com/mi8/">小米8</a><a href="https://item.mi.com/product/10000085.html">小米MIX 2S</a>                </div>
