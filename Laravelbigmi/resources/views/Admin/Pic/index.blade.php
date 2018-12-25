@@ -49,7 +49,6 @@
 					<td>{{$row->name}}</td>
 					<td><a href="javascript:;" onClick="picture_edit('图库编辑','picture-show.html','10001')"><img width="210" class="picture-thumb" src="{{$row->url}}"></a></td>
 					<td><a class="btn btn-success radius edi status"><span >{{$row->status=0?'停止':'播放'}}</span></a></td>
-					<!-- <td class="td-manage"> <a style="text-decoration:none" class="ml-5" onClick="picture_edit('图片修改','picture-add.html','10001')" href="javascript:;" title="编辑">编辑</a> <a style="text-decoration:none" class="ml-5" onClick="picture_del(this,'10001')" href="javascript:;" title="删除">删除</a></td> -->
 					<td>
 						<a class="btn btn-success radius" href="/adminpic/{{$row->id}}/edit">修改</a>
 						<a href="javascript:void(0)" class="btn btn-danger del radius">删除</a>

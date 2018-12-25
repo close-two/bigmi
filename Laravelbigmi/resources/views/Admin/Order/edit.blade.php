@@ -17,38 +17,97 @@
 <script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>新增轮播图</title>
+<title>修改订单</title>
 <link href="/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div class="page-container">
-	<form class="form form-horizontal" id="form-article-add" action="/adminpic/{{$data->id}}" method="post" enctype="multipart/form-data">
+	<form class="form form-horizontal" id="form-article-add" action="/adminorder/{{$data->id}}" method="post" enctype="multipart/form-data">
     {{csrf_field()}}
     {{method_field('PUT')}}
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>图片名称:</label>
+			<label class="form-label col-xs-4 col-sm-2">ID:</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="{{$data->name}}" name="name">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>轮播状态:</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<span class="select-box">
-				<select name="status" class="select">
-					<option value="0" {{$data->status=0?'selected':''}}>停止</option>
-					<option value="1" {{$data->status=1?'selected':''}} >播放</option>
-				</select>
-				</span>
+				<input type="text" class="input-text" value="{{$data->id}}" name="id">
 			</div>
 		</div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>图片上传:</label>
+            <label class="form-label col-xs-4 col-sm-2">订单号:</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="file" class="" onchange="changepic(this)"  value="" name="url">
-                <div><img src="{{$data->url}}" id="show" width="200"></div>
+                <input type="text" class="input-text" value="{{$data->order_id}}" name="order_id">
             </div>
         </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">商品名称:</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="@foreach($goods as $goodss)
+                    @if($goodss->id==$data->goods_id)
+                    {{$goodss->goods_title}}
+                    @endif
+                    @endforeach" name="goods_id">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">用户名:</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="@foreach($user as $users)
+                    @if($users->id==$data->uid)
+                    {{$users->name}}
+                    @endif
+                    @endforeach" name="uid">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">地址:</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{{$data->aid}}" name="aid">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">订单状态:</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box">
+                <select name="status" class="select">
+                    <option value="0" {{$data->status==0?'selected':''}}>未支付</option>
+                    <option value="1" {{$data->status==1?'selected':''}}>已支付</option>
+                    <option value="2" {{$data->status==2?'selected':''}}>已发货</option>
+                    <option value="3" {{$data->status==3?'selected':''}}>已收货</option>
+                    <option value="4" {{$data->status==4?'selected':''}}>交易完成</option>
+                    <option value="5" {{$data->status==5?'selected':''}}>退换货中</option>
+                </select>
+                </span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">支付方式:</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="@if($data->paytype==0)
+                    货到付款
+                    @else
+                    在线支付
+                    @endif" name="paytype">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">支付来源:</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="@switch($data->payform) 
+                    @case(0)
+                    支付宝
+                    @break
+                    @case(1)
+                    微信支付
+                    @break
+                    @case(2)
+                    银行卡
+                    @break
+                    @case(3)
+                    货到付款
+                    @break
+                    @endswitch" name="payform">
+            </div>
+        </div>
+		
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
                 <button class="btn btn-primary radius"><i class="Hui-iconfont">&#xe632;提交</button>
