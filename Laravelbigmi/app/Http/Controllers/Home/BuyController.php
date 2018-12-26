@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+// 导入DB
+use DB;
 class BuyController extends Controller
 {
     /**
@@ -65,9 +66,10 @@ class BuyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // 商品详情页
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -104,4 +106,13 @@ class BuyController extends Controller
         //
     }
 
+    
+    // 支付接口
+    public function pay(){
+        pay(time()+rand(1,1000),'zzz','0.01','zzz');
+    }
+    // 返回地址
+    public function returnurl(){
+        echo "123";
+    }
 }

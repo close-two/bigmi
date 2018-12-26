@@ -115,6 +115,14 @@
 			</ul>
 		</dd>
 	</dl>
+	<dl id="menu-product">
+			<dt><i class="Hui-iconfont">&#xe620;</i> 订单管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="/adminorder" data-title="订单列表" href="javascript:void(0)">订单列表</a></li>
+				</ul>
+			</dd>
+	</dl>
 	<dl id="menu-admin">
 			<dt><i class="Hui-iconfont">&#xe62d;</i> 管理中心<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>

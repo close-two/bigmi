@@ -25,13 +25,13 @@
 	<form class="form form-horizontal" id="form-article-add" action="/adminpic" method="post" enctype="multipart/form-data">
     {{csrf_field()}}
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>轮播图标题</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>图片名称:</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="{{old('name')}}" name="name">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类栏目：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>轮播状态:</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<span class="select-box">
 				<select name="status" class="select">
@@ -42,9 +42,9 @@
 			</div>
 		</div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>图片上传</label>
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>图片上传:</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="file" class="" onchange="changepic(this)"  value="" name="url">
+                <input type="file" class="" onchange="changepic(this)"  value="" name="url"> 
                 <div><img src="" id="show" width="200"></div>
             </div>
         </div>
