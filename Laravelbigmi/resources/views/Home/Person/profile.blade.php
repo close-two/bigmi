@@ -253,7 +253,7 @@
 </div> 
         <div id="fade" class="black_overlay"></div> 
 <!-- 关闭 -->
-           <h3>基础资料</h3> 
+           <h3>基础资料:</h3> 
           </div> 
           <div class="fdata lblnickname"> 
            <p><span>姓名：</span><span class="value"> {{$user->name}}</span></p> 
