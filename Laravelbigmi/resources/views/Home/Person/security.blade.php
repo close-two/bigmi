@@ -269,7 +269,7 @@
     <div class="layout bugfix_ie6 dis_none"> 
      <div class="n-logo-area clearfix"> 
       <a href="https://account.xiaomi.com/" class="fl-l"> <img src="/static/homes/security/n-logo.png"  /> </a> 
-      <a id="logoutLink" class="fl-r logout" href="https://account.xiaomi.com/pass/logout?userId=1337447143&amp;callback=https://account.xiaomi.com"> 退出 </a> 
+      <a id="logoutLink" class="fl-r logout" href="/login"> 退出 </a> 
       <script>
 	  setTimeout(function(){
 		  if(location.hostname === 'account.xiaomi.com'){return;}

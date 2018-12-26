@@ -67,7 +67,7 @@
         </div> 
         <div class="box-bd"> 
          <ul class="uc-nav-list"> 
-          <li><a href="/usersecret" onclick="_msq.push(['trackEvent', 'f4f3444fdfa3d27a-aafd3d14a6854214', 'https://account.xiaomi.com/', 'pcpid', '']);">个人信息</a></li> 
+          <li><a href="/userinfo" onclick="_msq.push(['trackEvent', 'f4f3444fdfa3d27a-aafd3d14a6854214', 'https://account.xiaomi.com/', 'pcpid', '']);">个人信息</a></li> 
           <li><a href="/passwordedit">修改密码</a></li> 
           <li><a href="http://uvip.xiaomi.cn/" target="_blank" data-stat-id="83872d1974c6dae9" onclick="_msq.push(['trackEvent', 'f4f3444fdfa3d27a-83872d1974c6dae9', 'http://uvip.xiaomi.cn', 'pcpid', '']);">社区VIP认证</a></li> 
          </ul> 

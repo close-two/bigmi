@@ -91,13 +91,13 @@
         .white_content { 
             display: none; 
             position: absolute; 
-            top: 25%; 
+            top: 0; 
             left: 25%; 
-            width: 55%; 
-            height: 55%; 
+            width: 1000px; 
+            height: 800px; 
             padding: 20px; 
             border: 5px solid orange; 
-            background-color:grey; 
+            background-color:#eef0f3; 
             z-index:1002; 
             overflow: auto;  
             color:black;
@@ -134,7 +134,7 @@
     <div class="layout bugfix_ie6 dis_none"> 
      <div class="n-logo-area clearfix"> 
       <a href="https://account.xiaomi.com/" class="fl-l"> <img src="/static/homes/profile/n-logo.png" > </a> 
-      <a id="logoutLink" class="fl-r logout" href="https://account.xiaomi.com/pass/logout?userId=1337447143&amp;callback=https://account.xiaomi.com"> 退出 </a> 
+      <a id="logoutLink" class="fl-r logout" href="/login"> 退出 </a> 
       <script>
 	  setTimeout(function(){
 		  if(location.hostname === 'account.xiaomi.com'){return;}
@@ -161,7 +161,8 @@
        <div class="na-img-area fl-l"> 
         <!--na-img-bg-area不能插入任何子元素--> 
         <div class="na-img-bg-area">
-         <img size="100%" id="dopic" src="{{$user->headpic}}" />
+         <img @if($user->headpic) src="{{$user->headpic}}" @else src="/uploads/headpic/default/1.jpg" 
+                @endif width="200px" height="200px" alt="">
         </div> 
        </div> 
       </div> 
@@ -181,7 +182,8 @@
        <div> 
         <div class="main_l"> 
           <div class="na-img-bg-area">
-            <img  src="{{$user->headpic}}" width="300px" height="300px" alt="">
+             <img @if($user->headpic) src="{{$user->headpic}}" @else src="/uploads/headpic/default/1.jpg" 
+                @endif width="300px" height="300px" alt="">
           
           </div>  
         </div> 
@@ -198,14 +200,15 @@
       <!-- 修改弹出 -->
         <div id="light" class="white_content">
           <p style="font-size:20px;color:black;font-weight:20px;font-family:宋体"><h4>编辑基础信息</h4></p>
-          <hr width="90%">
+          <hr style="color:grey" width="90%">
             
           <form action="/userinfo/{{$user->id}}" method="post" enctype="multipart/form-data">
-              姓名: <input type="text" class="labelbox"" value="{{$user->name}}" name="name" maxlength="20" ><br>
-              邮箱: <input class="labelbox"" value="{{$user->email}}" type="text" name="email"><br>
+              姓名: <input class="form-control" type="text" class="labelbox"" value="{{$user->name}}" name="name" maxlength="20" ><br>
+              邮箱: <input class="form-control" value="{{$user->email}}" type="text" name="email"><br>
               性别:<br>
            
-              女:<input 
+              女:
+              <input 
               @if($user->sex=='女')
                 checked
               @endif
@@ -223,10 +226,20 @@
               <div>
               头像: 
               <div class="">
-                <img  src="{{$user->headpic}}" width="200px" height="200px" alt="">
-              </div>  
-                <input type="file" class="btn btn-primary" name="headpic" value="{{$user->headpic}}"><br>
+                
+                <img @if($user->headpic) src="{{$user->headpic}}" @else src="" 
+                @endif width="200px" height="200px" alt="">
+               
+              </div> 
+
+                <input type="file" id="lefile" style="display:none" class="btn btn-primary" name="headpic" value="{{$user->headpic}}"><br>
               </div>
+                <!-- 追加 -->
+                <div class="input-append">
+                  <input id="photoCover" class="input-large" type="text" style="height:30px;">
+                  <a class="btn btn-info" onclick="$('input[id=lefile]').click();">上传头像</a>
+                </div>
+
               <input  type="hidden" name="id" value="{{$user->id}}">
               {{csrf_field()}}
               {{method_field('PUT')}}
@@ -246,7 +259,9 @@
            <p><span>姓名：</span><span class="value"> {{$user->name}}</span></p> 
           </div> 
           <div class="fdata lblbirthday"> 
-           <p><span>邮箱：</span><span class="value"> {{$user->email}}</span></p> 
+           <p><span>邮箱：</span><span class="value"> 
+            {{$uemail=substr_replace($user['email'],'********',3,7)}}
+            </span></p> 
           </div> 
           <div class="fdata lblgender"> 
            <p><span>性别：</span><span class="value" val="m"> {{$user->sex}} </span></p> 
@@ -269,7 +284,14 @@
          
           <div class="fdata click-row"> 
            <a style="display:none;" class="color4a9 fr " target="_blank" href="javascript:;" title="管理" id="switchRegion">修改</a> 
-           <p> <span>默认收货地址： </span> <span class="box_center"><em id="region" >{{$address->address}}</em><i class="arrow_r hidewap"></i></span> </p> 
+           <p> <span>默认收货地址： </span> <span class="box_center"><em id="region" >
+            @if(!empty($address->address))
+            {{$address->address}}
+            @else
+            <b style="color:grey">(亲,还没设置默认地址呢)</b> 
+            @endif
+
+          </em><i class="arrow_r hidewap"></i></span> </p> 
           </div> 
           <!-- <div class="fdata click-row">
            <a class="color4a9 fr" target="_blank" href="/pass/auth/rights/home?userId=1337447143">管理</a>
@@ -783,5 +805,9 @@ $('#loadingMask').hidePopup();
               $(this).attr('checked',true);
             }
                
+ $('input[id=lefile]').change(function() {
+$('#photoCover').val($(this).val());
+});
    </script>
+
 </html>

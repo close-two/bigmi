@@ -24,13 +24,26 @@ class AddressController extends Controller
         $uid=$user->id;
         // dd($uid);
         $address=DB::table('bm_user_address')->where('uid','=',$uid)->get();
+        //省市区
+       
         // var_dump($address);exit;
         // dd($address->phone);
         
+        /**********************公共头尾数据调用开始**********************************/
+            // 侧边栏分类
+        $catesAll = PublicController::getCatesByPid(0);
+            // 导航分类
+        $navdata = PublicController::getNav();
+
+        $showHelp = PublicController::getHelpInfo();
+
+        $showLinks = PublicController::getFriendLink();
+
+        /********************公共头尾数据调用结束**********************************/
 
         // $address->phone=substr_replace($address['phone'],'****',4,4);
         //加载地址模板
-        return view('Home.Person.address',['address'=>$address]);
+        return view('Home.Person.address',['address'=>$address,'catesAll'=>$catesAll,'navdata'=>$navdata,'showHelp'=>$showHelp,'showLinks'=>$showLinks]);
     }
 
     /**
@@ -53,6 +66,27 @@ class AddressController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request->all());
+        $data=$request->except('_token');
+        //拼接地址
+        $address=$data['s_province'].$data['s_city'].$data['s_county'];
+        // dd($address);
+        $data['address']=$address;
+        //用户id
+        $uid=$data['id'];
+        // dd($data);
+        //截取没用
+        // $addressinfo=array_slice($data,3);
+        $data['uid']=$uid;
+        //删除多余
+        unset($data['id']);
+        // dd($data);
+        if(DB::table('bm_user_address')->insert($data)){
+            return redirect('/useraddress')->with('success','添加地址成功');
+        }else{
+            return back()->with('error','添加失败');
+        }
+        
     }
 
     /**
@@ -73,8 +107,25 @@ class AddressController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   
+
+        $address=DB::table('bm_user_address')->where('id',$id)->first();
+
+        // dd($address);
+        //修改地址
+        // /**********************公共头尾数据调用开始**********************************/
+            // 侧边栏分类
+        $catesAll = PublicController::getCatesByPid(0);
+            // 导航分类
+        $navdata = PublicController::getNav();
+
+        $showHelp = PublicController::getHelpInfo();
+
+        $showLinks = PublicController::getFriendLink();
+
+        /********************公共头尾数据调用结束**********************************/
+
+        return view('Home.Person.addressedit',['address'=>$address,'catesAll'=>$catesAll,'navdata'=>$navdata,'showHelp'=>$showHelp,'showLinks'=>$showLinks]);
     }
 
     /**
@@ -87,6 +138,15 @@ class AddressController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // dd($request->all());
+        $data=$request->except('_token','_method');
+        $data['address']=$data['s_province'].$data['s_city'].$data['s_county'];
+        // dd($data);
+        if(DB::table('bm_user_address')->where('id',$data['id'])->update($data)){
+            return redirect('/useraddress')->with('success','修改成功');
+        }else{
+            return redirect('/useraddress')->with('error','系统错误,紧急修理中');
+        }
     }
 
     /**
@@ -98,5 +158,50 @@ class AddressController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    //ajax删除地址
+    public function del(Request $request){
+        $id= $request->input('id');
+        //执行删除
+        if(DB::table('bm_user_address')->where('id','=',$id)->delete()){
+            session(['success'=>'删除成功']);
+            echo 1;
+        }else{
+            echo 0;
+        }
+    }
+
+    //默认地址
+    public function status(Request $request){
+        //要修改为默认地址的id
+        $id=$request->input('id');
+        // echo $id;
+        //寻找当前要修改默认地址的同父(uid)下已经为默认地址的数据
+        $miid=session('miid');
+        //获取用户id
+        $new=DB::table('bm_user_address')->where('id',$id)->first();
+        $uid=$new->uid;
+        // echo $uid;
+        //获取同uid下status为1(默认地址)的数据---->要把默认变0
+        $default=DB::table('bm_user_address')->where('uid',$uid)->where('status',1)->first();
+        //旧默认地址修改status=0
+            $default->status=0;
+            $old['status']=$default->status;
+            DB::table('bm_user_address')->where('id',$default->id)->update($old);
+        // var_dump($default);
+        if($new->status==0){
+            //新
+            $new->status=1;
+            $data['status']=$new->status;
+        }
+        // 旧的默认地址1->0
+        
+        if(DB::table('bm_user_address')->where('id',$id)->update($data)){
+
+            echo '修改的默认地址成功';
+        }else{
+            echo '修改失败';
+        }
     }
 }

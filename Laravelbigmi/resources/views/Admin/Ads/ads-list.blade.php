@@ -14,7 +14,14 @@
 <link rel="stylesheet" type="text/css" href="/static/Admin/h-ui.admin/css/H-ui.admin.css" />
 <link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="/static/Admin/h-ui.admin/skin/default/skin.css" id="skin" />
+
 <link rel="stylesheet" type="text/css" href="/static/Admin/h-ui.admin/css/style.css" />
+<!-- Theme Stylesheet -->
+<link rel="stylesheet" type="text/css" href="/static/Admin/cate/css/mws-theme.css" media="screen">
+<link rel="stylesheet" type="text/css" href="/static/Admin/cate/css/themer.css" media="screen">
+<link rel="stylesheet" type="text/css" href="/static/Admin/cate/css/my.css" media="screen">
+
+
 <!--[if IE 6]>
 <script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
@@ -87,7 +94,9 @@
 			</tbody>
 			{{($ads->currentPage()-1)*$num+1}}/{{($ads->currentpage()-1)*$num+$ads->count()}}
 		</table>
+		  <div class="dataTables_paginate paging_full_numbers" id="pages">
 	{{$ads->appends($request)->render()}}
+	 </div>
 	
 	</div>
 </div>

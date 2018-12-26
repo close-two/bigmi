@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use DB;
 //导入配置类
  use Config;
 
@@ -19,6 +20,7 @@ class UserController extends Controller
     {
         //加载模板
         $user=User::paginate(3);
+        
 
         // dd($user);
         return view("Admin.User.user-list",['user'=>$user,'request'=>$request->all()]);

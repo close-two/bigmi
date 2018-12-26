@@ -27,7 +27,7 @@
 
 @section('css')
 <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-<link rel="stylesheet" href="static/homes/css/base.min.css" />
+<link rel="stylesheet" href="/static/homes/css/base.min.css" />
 
 @show
 @section('myCss')

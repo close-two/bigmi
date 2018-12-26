@@ -6,8 +6,38 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
+<!-- Theme Stylesheet -->
+<link rel="stylesheet" type="text/css" href="/static/Admin/cate/css/mws-theme.css" media="screen">
+<link rel="stylesheet" type="text/css" href="/static/Admin/cate/css/themer.css" media="screen">
+<link rel="stylesheet" type="text/css" href="/static/Admin/cate/css/my.css" media="screen">
 <style>
-
+/*弹出框*/
+.black_overlay{ 
+            display: none; 
+            position: absolute; 
+            top: 0%; 
+            left: 0%; 
+            width: 100%; 
+            height: 100%; 
+            background-color: black; 
+            z-index:1001; 
+            -moz-opacity: 0.8; 
+            opacity:.80; 
+            filter: alpha(opacity=88); 
+} 
+.white_content { 
+            display: none; 
+            position: absolute; 
+            top: 25%; 
+            left: 25%; 
+            width: 55%; 
+            height: 230px; 
+            padding: 20px; 
+            border: 10px solid orange; 
+            background-color: white; 
+            z-index:1002; 
+            overflow: auto; 
+ } 
 
 
 </style>
@@ -72,7 +102,7 @@
 					<td><input name="" type="checkbox" value=""></td>
 					<td class="text-id">{{$row->id}}</td>
 					<td>{{$row->videoname}}</td>
-					<td><a style="color:blue;" class="btn btn-default showit" href="{{$row->video}}">{{$row->videoname}}的视频</a></td>
+					<td><video width="200px" height="200px" controls=""  name="media"><source src="{{$row->video}}" type="video/mp4"></video></td>
 					<td class="text-l">{{$row->source}}</td>
 					<td class="text-c">{{$row->create_time}}</td>
 					<td>{{$row->update_time}}</td>
@@ -95,14 +125,16 @@
 			</tbody>
 				{{($video->currentPage()-1)*$num+1}}/{{($video->currentpage()-1)*$num+$video->count()}}
 		</table>
+		  <div class="dataTables_paginate paging_full_numbers" id="pages">
 	{{$video->appends($request)->render()}}
-	
 	</div>
-</div>
+	</div>
+
+
 
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
-<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="/static/Admin/h-ui/js/H-ui.min.js"></script> 
 
 <script type="text/javascript" src="/static/admin/h-ui.admin/js/H-ui.admin.js"></script>
@@ -112,6 +144,7 @@
 <script type="text/javascript" src="/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
 <script type="text/javascript" src="/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
 <script type="text/javascript" src="/lib/laypage/1.2/laypage.js"></script>
+
 <script type="text/javascript">
 $('.table-sort').dataTable({
 	"aaSorting": [[ 1, "desc" ]],//默认第几个排序

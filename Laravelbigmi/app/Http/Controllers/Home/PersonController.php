@@ -24,7 +24,18 @@ class PersonController extends Controller
         $user=User::where('miid','=',$miid)->first();
         $user['phone']=substr_replace($user['phone'],'****',4,4);
         $user['email']=substr_replace($user['email'],'********',2,8);
-        return view('Home.Person.person',['user'=>$user]);
+         /**********************公共头尾数据调用开始**********************************/
+            // 侧边栏分类
+            $catesAll = PublicController::getCatesByPid(0);
+            // 导航分类
+            $navdata = PublicController::getNav();
+
+            $showHelp = PublicController::getHelpInfo();
+
+            $showLinks = PublicController::getFriendLink();
+
+            /**********************公共头尾数据调用结束**********************************/
+        return view('Home.Person.person',['user'=>$user,'catesAll'=>$catesAll,'navdata'=>$navdata,'showHelp'=>$showHelp,'showLinks'=>$showLinks]);
     }
 
     /**
@@ -123,12 +134,15 @@ class PersonController extends Controller
         $password = $request->input('password');
         $newpassword = $request->input('newpassword');
         $res = DB::table('bm_users')->where('miid',$miid)->select('password')->first();
+        //校验原密码
         if(!Hash::check($password, $res->password)){
             return back()->with('error','原密码不正确');
         }
+        //校验新密码
         if($newpassword!=$request->input('renewpassword')){
             return back()->with('error','两次密码输入不一致');
         }
+        //加密
         $update = array(
         'password'  =>bcrypt($newpassword),
         );

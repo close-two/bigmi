@@ -18,7 +18,8 @@
         <h2 class="username">{{$user->name}}</h2> 
         <p class="tip">晚上好</p> 
         <a class="link" href="/userinfo">修改个人信息 &gt;</a> 
-        <img class="avatar" src="{{$user->headpic}}" width="150" height="150" alt="Huanwei_Guan" /> 
+        <img class="avatar" @if($user->headpic) src="{{$user->headpic}}" @else src="/uploads/headpic/default/1.jpg" 
+                @endif width="150" height="150" alt="Huanwei_Guan" /> 
        </div> 
        <div class="user-actions"> 
         <ul class="action-list"> 

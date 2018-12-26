@@ -320,8 +320,8 @@
     <div class="layout"> 
      <div class="n-main-nav clearfix"> 
       <ul class="c_b"> 
-       <li class="current"> <a href="https://account.xiaomi.com/pass/auth/security/home?cUserId=zOOtzY_fXKNaH5pfpNnSIT_4PbI&amp;userId=1337447143" title="帐号安全" data-action="security">帐号安全</a> <em class="n-nav-corner"></em> </li> 
-       <li> <a href="https://account.xiaomi.com/pass/auth/profile/home?cUserId=zOOtzY_fXKNaH5pfpNnSIT_4PbI&amp;userId=1337447143" title="个人信息" data-action="profile">个人信息</a> <em class="n-nav-corner"></em> </li> 
+       <li class="current"> <a href="/usersecret" title="帐号安全" data-action="security">帐号安全</a> <em class="n-nav-corner"></em> </li> 
+       <li> <a href="/userinfo" title="个人信息" data-action="profile">个人信息</a> <em class="n-nav-corner"></em> </li> 
        <li> <a href="https://account.xiaomi.com/pass/auth/sns/home?cUserId=zOOtzY_fXKNaH5pfpNnSIT_4PbI&amp;userId=1337447143" title="绑定授权" data-action="sns">绑定授权</a> <em class="n-nav-corner"></em> </li> 
        <li> <a href="https://account.xiaomi.com/pass/auth/services/home?cUserId=zOOtzY_fXKNaH5pfpNnSIT_4PbI&amp;userId=1337447143" title="小米服务" data-action="services">小米服务</a> <em class="n-nav-corner"></em> </li> 
       </ul> 
@@ -441,7 +441,7 @@
       </ul> 
      </div> 
      <div class="logout_wap"> 
-      <a class="btnadpt bg_white" href="https://account.xiaomi.com/pass/logout?userId=1337447143&amp;callback=https://account.xiaomi.com">退出</a> 
+      <a class="btnadpt bg_white" href="/login">退出</a> 
      </div> 
     </div> 
    </div> 

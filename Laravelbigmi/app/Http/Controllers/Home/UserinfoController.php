@@ -19,15 +19,28 @@ class UserinfoController extends Controller
      */
     public function index(Request $request)
     {
-        //
+        //个人信息模板
+      
         $miid=session('miid');
         $id=User::where('miid',$miid)->first()->id;
         // dd($id);
         $user=User::where('miid',$miid)->first();
+        //获取默认地址
         $address=DB::table('bm_user_address')->where('uid','=',$id)->where('status','=',1)->first();
-        $user['email']=substr_replace($user['email'],'********',3,7);
+        //
+         /**********************公共头尾数据调用开始**********************************/
+            // 侧边栏分类
+        $catesAll = PublicController::getCatesByPid(0);
+            // 导航分类
+        $navdata = PublicController::getNav();
+
+        $showHelp = PublicController::getHelpInfo();
+
+        $showLinks = PublicController::getFriendLink();
+
+        /********************公共头尾数据调用结束**********************************/
         
-    
+        // dd($user->email);
 
         // dd($address);
         // if(){}
@@ -36,7 +49,7 @@ class UserinfoController extends Controller
         //获取用户默认地址
         
         // dd($getaddress);
-        return view('Home.Person.profile',['user'=>$user,'address'=>$address]);
+        return view('Home.Person.profile',['user'=>$user,'address'=>$address,'catesAll'=>$catesAll,'navdata'=>$navdata,'showHelp'=>$showHelp,'showLinks'=>$showLinks]);
     }
 
     /**
@@ -104,10 +117,15 @@ class UserinfoController extends Controller
             $request->file('headpic')->move(Config::get('app.uploadheadpic'),$name.".".$ext);
              $newinfo['headpic']=trim(Config::get('app.uploadheadpic')."/".$name.".".$ext,'.');
         }
+        // dd($info);
         if(User::where("id","=",$id)->update($newinfo)){
-           
+            if($info['headpic']){
                 unlink('.'.$info->headpic);
                 return redirect('/userinfo')->with('success','修改成功');
+            }else{
+                return redirect('/userinfo')->with('success','修改成功');
+            }
+                
            
         }
     }
@@ -140,7 +158,11 @@ class UserinfoController extends Controller
     }
 
     //密保修改答案
-    public function useranswer(Request $request){
-      
+    public function lost(Request $request){
+      return view('Home.Login.lost');
+    }
+
+    public function getuser(Request $request){
+        dd($request->all());
     }
 }
