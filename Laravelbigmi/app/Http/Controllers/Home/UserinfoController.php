@@ -163,6 +163,59 @@ class UserinfoController extends Controller
     }
 
     public function getuser(Request $request){
-        dd($request->all());
+        $data=$request->except('_token');
+        $email=$data['lostuser'];
+        //获取需要重置密码的用户
+        $user=DB::table('bm_users')->where('email','=',$data['lostuser'])->orWhere('phone','=',$data['lostuser'])->first();
+        if($user==null){
+            return back()->with('error','不存在的用户');
+        }
+        if($data['answer1']==''||$data['answer2']==''||$data['answer3']==''){
+            return back()->with('error','请认真填写密保');
+        }
+        // dd($data);
+        //获取用户id
+        $miid=$user->miid;
+        // dd($miid);
+        $mibao=DB::table('bm_mibao')->where('miid',$miid)->first();
+        // dd($data['answer2']);
+        // dd($mibao->answer2);
+        //校验答案
+       if($data['answer1']!=$mibao->answer1){
+            return back()->with('error','你的学号填错了');
+       }else if($data['answer2']!=$mibao->answer2){
+            return back()->with('error','对您影响最大的人名字填错了');
+       }else if($data['answer3']!=$mibao->answer3){
+            return back()->with('error','您最熟悉的童年好友名字填错了');
+       }else{
+            session(['success'=>'验证通过']);
+            return view('Home.Person.resetpassword',['user'=>$user]);
+       }
+
+        // dd($mibao);
+    }
+
+    //执行重置密码
+    public function resetpassword(Request $request){
+        // dd($request->all());
+        $miid=$request->input('miid');
+        $user=DB::table('bm_users')->where('miid','=',$miid)->first();
+        $newpassword = $request->input('newpassword');
+       
+        
+        //校验新密码
+        if($newpassword!=$request->input('renewpassword')){
+            return back()->with('error','两次密码输入不一致');
+        }
+        //加密
+        $update = array(
+        'password'  =>bcrypt($newpassword),
+        );
+        $result = DB::table('bm_users')->where('miid',$miid)->update($update);
+        if($result){
+            return redirect('/login')->with('success','修改成功');
+        }else{
+            echo 3;exit;
+        }
     }
 }

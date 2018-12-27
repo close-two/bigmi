@@ -251,7 +251,20 @@
 	.n-footer{display : none; }
 </style> 
  </head> 
- <body class="zh_CN"> 
+ <body class="zh_CN">
+ <div class="container">
+      @if(session('success'))
+        <div class="mws-form-message success">
+          <b style="color:yellow">{{session('success')}}</b>
+        </div>
+      @endif
+                    
+      @if(session('error'))    
+        <div class="mws-form-message warning">
+        {{session('error')}}
+        </div>
+      @endif
+  </div> 
   <div class="popup_mask" style="display: none;" id="loadingMask"> 
    <div class="bkc"></div> 
    <div class="mod_wrap loadingmask"> 
@@ -309,7 +322,7 @@
     
      <div class="n-frame"> 
       <div class="title-item title_security_wap security_level"> 
-       <h4 class="title-big dis-inb">密保问题</h4> 
+       <h4 class="title-big dis-inb">密保问题找回</h4> 
        
       </div> 
      
@@ -321,7 +334,7 @@
         <form action="/getuser" method="post"  onsubmit="return check()" >
            <div class="font-img-item clearfix"> 
          <em class="fi-ico fi-ico-lock"></em> 
-         <p class="title-normal dis-inb">你的手机/邮箱/米id</p><br> 
+         <p class="title-normal dis-inb">你的手机/邮箱</p><br> 
          您的回答:<input id="getuser" class="form-control" type="text" name="lostuser">
         <img style="display: none;" id="getuserRight" class="isRight" 
           src="/static/homes/images/right.jpg" width="19" height="18"></img>
@@ -335,12 +348,12 @@
         </div>
         <div class="font-img-item clearfix">
         <em class="fi-ico fi-ico-lock"></em>  
-        <p class="title-normal dis-inb">你的邮箱?</p><br> 
+        <p class="title-normal dis-inb">你的学号?</p><br> 
          您的回答:<input id="useremail" class="form-control" type="text" name="answer1"> 
          <img style="display: none;" id="useremailRight" class="isRight" 
           src="/static/homes/images/right.jpg" width="19" height="18"></img>
          <b id="useremailError" height="35" colspan="2" class="top_hui_text" style="display:none">
-        <font color="red" size="-1">邮箱格式不正确</font>
+        <font color="red" size="-1">不能为空</font>
         </b>
 
          <i class="arrow_r"></i> 
@@ -350,12 +363,12 @@
         <!--  -->
         <div class="font-img-item clearfix"> 
          <em class="fi-ico fi-ico-lock"></em> 
-         <p class="title-normal dis-inb">你的手机</p><br> 
+         <p class="title-normal dis-inb">对您影响最大的人名字是？</p><br> 
          您的回答:<input id="userphone" class="form-control" type="text" name="answer2">
          <img style="display: none;" id="userphoneRight" class="isRight" 
           src="/static/homes/images/right.jpg" width="19" height="18"></img>
         <b id="userphoneError" height="35" colspan="2" class="top_hui_text" style="display:none">
-        <font color="red" size="-1">请输入11位正确的手机号</font>
+        <font color="red" size="-1">不能为空</font>
         </b>
 
 
@@ -365,16 +378,17 @@
         <br>
         <div class="font-img-item clearfix"> 
          <em class="fi-ico fi-ico-lock"></em> 
-         <p class="title-normal dis-inb">你的qq</p><br> 
+         <p class="title-normal dis-inb">您最熟悉的童年好友名字是？</p><br> 
          您的回答:<input id="userqq" class="form-control" type="text" name="answer3"> 
          <img class="isRight" style="display: none;" id="userqqRight" 
           src="/static/homes/images/right.jpg" width="19" height="18"></img>
          <b id="userqqError" height="35" colspan="2" class="top_hui_text" style="display:none">
-        <font color="red" size="-1">QQ号码格式不正确</font>
+        <font color="red" size="-1">不能为空</font>
         </b>
 
          <i class="arrow_r"></i> 
         </div>
+
         {{csrf_field()}}  
        <input class="btn btn-success sure" type="submit" value="提交密保">
         </form>
@@ -1957,10 +1971,10 @@ var JSP_VAR={
       $("#userphone").css("background-color", "#FFFFCC");
     });
     $("#userphone").blur(function() {
-      var regphone = /^(13[0-9]|15[0-9]|18[0-9]|16[0-9])\d{8}$/;
+      
       var uphone = $("#userphone").val();
       $("#userphone").css("background-color", "white");
-      if (uphone.length <= 0 || !regphone.test(uphone)) {
+      if (uphone.length <= 0 ) {
         $("#userphoneRight").hide();
         $("#userphoneError").show();
       } else {
@@ -1973,10 +1987,10 @@ var JSP_VAR={
       $("#useremail").css("background-color", "#FFFFCC");
     });
     $("#useremail").blur(function() {
-      var regemail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+     
       var uemail = $("#useremail").val();
       $("#useremail").css("background-color", "white");
-      if (uemail.length <= 0 || !regemail.test(uemail)) {
+      if (uemail.length <= 0 ) {
         $("#useremailRight").hide();
         $("#useremailError").show();
       } else {
@@ -1989,10 +2003,10 @@ var JSP_VAR={
       $("#userqq").css("background-color", "#FFFFCC");
     });
     $("#userqq").blur(function() {
-      var regQQ = /[1-9][0-9]{4,14}/;
+      
       var userqq = $("#userqq").val();
       $("#userqq").css("background-color", "white");
-      if (userqq.length <= 0 || !regQQ.test(userqq)) {
+      if (userqq.length <= 0 ) {
         $("#userqqRight").hide();
         $("#userqqError").show();
       } else {
@@ -2006,7 +2020,7 @@ var JSP_VAR={
   
   function check(){
     if($(".isRight").css("display")!='none'){
-      if(confirm("确认修改？")){
+      if(confirm("确认找回？")){
         return true;
       }else{
         return false;
@@ -2016,6 +2030,9 @@ var JSP_VAR={
       return false;
     }
   }
+  $('.container').click(function(){
+    $(this).css('display','none');
+  });
 
  
  </script>

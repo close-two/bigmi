@@ -1,4 +1,4 @@
-账号安全页面
+修改密码页面
 <!DOCTYPE html>
 <!-- saved from url=(0104)https://account.xiaomi.com/pass/auth/security/home?cUserId=zOOtzY_fXKNaH5pfpNnSIT_4PbI&userId=1337447143 -->
 <html>
@@ -251,7 +251,18 @@
 	.n-footer{display : none; }
 </style> 
  </head> 
- <body class="zh_CN"> 
+ <body class="zh_CN">
+  @if(session('success'))
+        <div class="mws-form-message success">
+          <b style="color:yellow">{{session('success')}}</b>
+        </div>
+      @endif
+                    
+      @if(session('error'))    
+        <div class="mws-form-message warning">
+        {{session('error')}}
+        </div>
+      @endif 
   <div class="popup_mask" style="display: none;" id="loadingMask"> 
    <div class="bkc"></div> 
    <div class="mod_wrap loadingmask"> 
@@ -262,7 +273,7 @@
     <div class="layout bugfix_ie6 dis_none"> 
      <div class="n-logo-area clearfix"> 
       <a href="https://account.xiaomi.com/" class="fl-l"> <img src="/static/homes/security/n-logo.png"  /> </a> 
-      <a id="logoutLink" class="fl-r logout" href="https://account.xiaomi.com/pass/logout?userId=1337447143&amp;callback=https://account.xiaomi.com"> 退出 </a> 
+     
       <script>
 	  setTimeout(function(){
 		  if(location.hostname === 'account.xiaomi.com'){return;}
@@ -282,16 +293,8 @@
      <!--头像 名字--> 
      <div class="n-account-area-box"> 
       <div class="n-account-area clearfix"> 
-       <div class="na-info"> 
-        <p class="na-name">{{$user->name}}</p> 
-        <p class="na-num">{{$user->miid}}</p> 
-       </div> 
-       <div class="na-img-area fl-l"> 
-        <!--na-img-bg-area不能插入任何子元素--> 
-        <div class="na-img-bg-area">
-         <img src="{{$user->headpic}}" />
-        </div> 
-       </div> 
+      
+     
       </div> 
      </div> 
     </div> 
@@ -306,44 +309,15 @@
       </div> 
      </div> 
     </div> 
-    <div class="layout"> 
-     <div class="n-main-nav clearfix"> 
-      <ul class="c_b"> 
-       <li class="current"> <a href="https://account.xiaomi.com/pass/auth/security/home?cUserId=zOOtzY_fXKNaH5pfpNnSIT_4PbI&amp;userId=1337447143" title="帐号安全" data-action="security">帐号安全</a> <em class="n-nav-corner"></em> </li> 
-       <li> <a href="https://account.xiaomi.com/pass/auth/profile/home?cUserId=zOOtzY_fXKNaH5pfpNnSIT_4PbI&amp;userId=1337447143" title="个人信息" data-action="profile">个人信息</a> <em class="n-nav-corner"></em> </li> 
-       <li> <a href="https://account.xiaomi.com/pass/auth/sns/home?cUserId=zOOtzY_fXKNaH5pfpNnSIT_4PbI&amp;userId=1337447143" title="绑定授权" data-action="sns">绑定授权</a> <em class="n-nav-corner"></em> </li> 
-       <li> <a href="https://account.xiaomi.com/pass/auth/services/home?cUserId=zOOtzY_fXKNaH5pfpNnSIT_4PbI&amp;userId=1337447143" title="小米服务" data-action="services">小米服务</a> <em class="n-nav-corner"></em> </li> 
-      </ul> 
-     </div> 
-     <div class="n-frame"> 
-      <div class="title-item title_security_wap security_level"> 
-       <h4 class="title-big dis-inb">密保问题</h4> 
-       <em class="space6"></em> 
-       <p class="font-normal dis-inb wap_colb2"><em class="light-num" style="padding:0"> <span class="score_4">100</span> </em>分</p> 
-       <div class="slider-area dis-inb vert-m" style="width:360px;"> 
-        <div class="slider-bar-bg"></div> 
-        <div class="slider-bar-line score_bg_4" style="width:100%;"></div> 
-        <em class="drag-ico" style="left:100%"></em> 
-       </div> 
-       <p class="font-normal dis-inb security_level_txt"> <span class="score_4">太棒了，风险已降至最低</span> </p> 
-      </div> 
-      <div class="title-item title_security_wap dis_none_pc"> 
-       <h4 class="title-big dis-inb">基本资料</h4> 
-      </div> 
-      <ul class="device-detail-area"> 
-       <li id="changePassword" class="click-row">
+    
 
-
-
-        <form action="/useranswer" method="post"  onsubmit="return check()" >
+        <form action="/resetpassword" method="post" onsubmit="check()"  id="formsubmit" >
         <div class="font-img-item clearfix">
         <em class="fi-ico fi-ico-lock"></em>  
-        <p class="title-normal dis-inb">你的学号?</p><br> 
-         您的回答:<input id="useremail" class="form-control" type="text" name="answer1"> 
-         <img style="display: none;" id="useremailRight" class="isRight" 
-          src="/static/homes/images/right.jpg" width="19" height="18"></img>
-         <b id="useremailError" height="35" colspan="2" class="top_hui_text" style="display:none">
-        <font color="red" size="-1">不能为空</font>
+      
+         <input id="" class="form-control" type="hidden" name="miid" value="{{$user->miid}}">
+
+   
         </b>
 
          <i class="arrow_r"></i> 
@@ -351,12 +325,9 @@
         <br>
         <div class="font-img-item clearfix"> 
          <em class="fi-ico fi-ico-lock"></em> 
-         <p class="title-normal dis-inb">对您影响最大的人名字是？</p><br> 
-         您的回答:<input id="userphone" class="form-control" type="text" name="answer2">
-         <img style="display: none;" id="userphoneRight" class="isRight" 
-          src="/static/homes/images/right.jpg" width="19" height="18"></img>
-        <b id="userphoneError" height="35" colspan="2" class="top_hui_text" style="display:none">
-        <font color="red" size="-1">不能为空</font>
+         <p class="title-normal dis-inb">新密码</p><br> 
+         新密码:<input class="form-control" type="password" name="newpassword" id="newpassword">
+    
         </b>
 
 
@@ -366,18 +337,15 @@
         <br>
         <div class="font-img-item clearfix"> 
          <em class="fi-ico fi-ico-lock"></em> 
-         <p class="title-normal dis-inb">您最熟悉的童年好友名字是？</p><br> 
-         您的回答:<input id="userqq" class="form-control" type="text" name="answer3"> 
-         <img class="isRight" style="display: none;" id="userqqRight" 
-          src="/static/homes/images/right.jpg" width="19" height="18"></img>
-         <b id="userqqError" height="35" colspan="2" class="top_hui_text" style="display:none">
-        <font color="red" size="-1">不能为空</font>
+         <p class="title-normal dis-inb">新密码</p><br> 
+         重复新密码:<input id="userqq" class="form-control" type="password" name="renewpassword" id="renewpassword"> 
+        
         </b>
 
          <i class="arrow_r"></i> 
         </div>
         {{csrf_field()}}  
-       <input class="btn btn-success sure" type="submit" value="提交密保">
+       <input class="btn btn-success sure" type="submit" value="重置密码">
         </form>
         <br> 
         
@@ -438,7 +406,7 @@
       </ul> 
      </div> 
      <div class="logout_wap"> 
-      <a class="btnadpt bg_white" href="https://account.xiaomi.com/pass/logout?userId=1337447143&amp;callback=https://account.xiaomi.com">退出</a> 
+      <a class="btnadpt bg_white" href="/login">退出</a> 
      </div> 
     </div> 
    </div> 
@@ -1938,71 +1906,11 @@ var JSP_VAR={
 	</style> 
  </body>
  <script>
-  $(document).ready(function() {
-  $("#userphone").focus(function() {
-      $("#userphone").css("background-color", "#FFFFCC");
-    });
-    $("#userphone").blur(function() {
-      
-      var uphone = $("#userphone").val();
-      $("#userphone").css("background-color", "white");
-      if (uphone.length <= 0) {
-        $("#userphoneRight").hide();
-        $("#userphoneError").show();
-      } else {
-        $("#userphoneRight").show();
-        $("#userphoneError").hide();
-      }
-    });
-//usereamil验证
-    $("#useremail").focus(function() {
-      $("#useremail").css("background-color", "#FFFFCC");
-    });
-    $("#useremail").blur(function() {
-      
-      var uemail = $("#useremail").val();
-      $("#useremail").css("background-color", "white");
-      if (uemail.length <= 0 ) {
-        $("#useremailRight").hide();
-        $("#useremailError").show();
-      } else {
-        $("#useremailRight").show();
-        $("#useremailError").hide();
-      }
-    });
-
-      $("#userqq").focus(function() {
-      $("#userqq").css("background-color", "#FFFFCC");
-    });
-    $("#userqq").blur(function() {
-    
-      var userqq = $("#userqq");
-      $("#userqq").css("background-color", "white");
-      if (userqq.length <= 0) {
-        $("#userqqRight").hide();
-        $("#userqqError").show();
-      } else {
-        $("#userqqRight").show();
-        $("#userqqError").hide();
-      }
-    });
-
-  });
-  
-  
-  function check(){
-    if($(".isRight").css("display")!='none'){
-      if(confirm("确认修改？")){
-        return true;
-      }else{
-        return false;
-      }
-    }else{
-      $(':submit').attr('display',true);
-      return false;
+      oldpassword = $("#oldpassword").val();
+    newpassword = $("#newpassword").val();
+    renewpassword=$('#renewpassword').val();
+    if(newpassword!=renewpassword){
+      $('<div style="color:red">新密码不一致</div>').appendTo('<body></body>');
     }
-  }
-
- 
  </script>
 </html>
