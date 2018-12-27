@@ -17,8 +17,21 @@ class IndexController extends Controller
         //前台首页
         if (!$request->ajax()) {
 
-            // 手机
+            // 获取手机栏位
             $showPhone = PublicController::getShowData(1,8);
+
+            //获取轮播图
+            $slidelist = DB::table('bm_plant_pic')->where('status','=','1')->limit(5)->select('name','url')->get()->toArray();
+
+            // 获取广告位7个
+            $adslist = DB::TABLE('bm_ads')->where('status','=','1')->select('adsname','source','file')->limit(7)->get()->toArray();
+            foreach ($adslist as $key => $value) {
+                $adslist[$key]=$value->file;
+            }
+
+            $showvideo = DB::TABLE('bm_video')->where('status','=','1')->select('video','videoname','comment')->limit(4)->get()->toArray();
+           
+            // var_dump($adslist);exit;
 
             /**********************公共头尾数据调用开始**********************************/
             // 侧边栏分类
@@ -32,7 +45,7 @@ class IndexController extends Controller
 
             /**********************公共头尾数据调用结束**********************************/
             // dd($showHelp);exit;
-            return view('Home.Home.index',['catesAll'=>$catesAll,'navdata'=>$navdata,'showPhone'=>$showPhone,'showHelp'=>$showHelp,'showLinks'=>$showLinks]);
+            return view('Home.Home.index',['catesAll'=>$catesAll,'navdata'=>$navdata,'slidelist'=>$slidelist,'showPhone'=>$showPhone,'showHelp'=>$showHelp,'showLinks'=>$showLinks,'adslist'=>$adslist,'showvideo'=>$showvideo]);
         }
         // 如果是ajax请求
         $id = $request->get('id');
@@ -71,6 +84,20 @@ class IndexController extends Controller
     public function show($id)
     {
         //
+         // 前台评价展示
+      /**********************公共头尾数据调用开始**********************************/
+        // 侧边栏分类
+        $catesAll = PublicController::getCatesByPid(0);
+        // 导航分类
+        $navdata = PublicController::getNav();
+
+        $showHelp = PublicController::getHelpInfo();
+
+        $showLinks = PublicController::getFriendLink();
+
+        /**********************公共头尾数据调用结束**********************************/
+        // dd($showHelp);exit;
+        return view('Home.List.comment',['catesAll'=>$catesAll,'navdata'=>$navdata,'showHelp'=>$showHelp,'showLinks'=>$showLinks]);
     }
 
     /**

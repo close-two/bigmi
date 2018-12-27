@@ -45,7 +45,7 @@
             <a rel="nofollow" href="/"   >小米商城</a><span class="sep">|</span><a rel="nofollow" href="https://www.miui.com/" target="_blank"  >MIUI</a><span class="sep">|</span><a rel="nofollow" href="https://iot.mi.com/index.html"   >IoT</a><span class="sep">|</span><a rel="nofollow" href="https://i.mi.com/" target="_blank"  >云服务</a><span class="sep">|</span><a rel="nofollow" href="https://jr.mi.com?from=micom" target="_blank"  >金融</a><span class="sep">|</span><a rel="nofollow" href="https://youpin.mi.com/" target="_blank"  >有品</a><span class="sep">|</span><a rel="nofollow" href="https://shuidi.mi.com/" target="_blank"  >小爱开放平台</a><span class="sep">|</span><a rel="nofollow" href="https://b.mi.com/?client_id=180100031058&masid=17409.0358" target="_blank"  >政企服务</a><span class="sep">|</span><a rel="nofollow" href="//www.mi.com/appdownload/" target="_blank" id="J_downloadapp"  >下载app</a><span class="sep">|</span><a rel="nofollow" href="#J_modal-globalSites" data-toggle="modal"  >Select Region</a>
         </div>
         <div class="topbar-cart" id="J_miniCartTrigger">
-            <a rel="nofollow" class="cart-mini" id="J_miniCartBtn" href="//static.mi.com/cart/"><i class="iconfont">&#xe60c;</i>购物车<span class="cart-mini-num J_cartNum"></span></a>
+            <a rel="nofollow" class="cart-mini" id="J_miniCartBtn" href="/homecar"><i class="iconfont">&#xe60c;</i>购物车<span class="cart-mini-num J_cartNum"></span></a>
             <div class="cart-menu" id="J_miniCartMenu">
                 <div class="loading"><div class="loader"></div></div>
             </div>

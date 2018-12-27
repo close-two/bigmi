@@ -10,6 +10,11 @@
 <script type="text/javascript" src="/lib/html5shiv.js"></script>
 <script type="text/javascript" src="/lib/respond.min.js"></script>
 <![endif]-->
+<!-- Theme Stylesheet -->
+<link rel="stylesheet" type="text/css" href="/static/Admin/cate/css/mws-theme.css" media="screen">
+<link rel="stylesheet" type="text/css" href="/static/Admin/cate/css/themer.css" media="screen">
+<link rel="stylesheet" type="text/css" href="/static/Admin/cate/css/my.css" media="screen">
+
 <link rel="stylesheet" type="text/css" href="/static/admin/h-ui/css/H-ui.min.css" />
 <link rel="stylesheet" type="text/css" href="/static/admin/h-ui.admin/css/H-ui.admin.css" />
 <link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.8/iconfont.css" />
@@ -57,8 +62,14 @@
 				@endforeach
 			</tbody>
 		</table>
+		<div>
+		
+			<div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite" style="float: left;">显示 {{($pic->currentpage()-1)*$pagesize+1}} 到 {{($pic->currentpage()-1)*$pagesize+$pic->count()}} ，共 {{$pic->count()}} 条</div>
+			 <div class="dataTables_paginate paging_full_numbers" id="pages" style="float: right;">
+				{{$pic->appends($request)->render()}}
+			</div>
+		</div>
 	</div>
-      {{$pic->appends($request)->render()}}
 </div>
 
 <!--_footer 作为公共模版分离出去-->

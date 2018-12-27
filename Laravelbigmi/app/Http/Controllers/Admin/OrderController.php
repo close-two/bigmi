@@ -23,6 +23,7 @@ class OrderController extends Controller
         $goods=DB::table('bm_goods_spu')->get();
         // dd($goods);
         // dd($user);
+        // dd($data);
         //订单模块页
         return view('Admin.Order.index',['data'=>$data,'goods'=>$goods,'user'=>$user,'request'=>$request->all()]);
 
@@ -60,11 +61,11 @@ class OrderController extends Controller
         $order=DB::table('bm_order')->where('id','=',$id)->first();
         $aid=$order->aid;
         // dd($aid);
-        $goods=DB::table('bm_goods_spu')->get();
+        $goods=DB::table('bm_goods_sku')->get();
         $user=DB::table('bm_users')->get();
         
-        $address=DB::table('bm_address')->where('id','=',$aid)->get();
-        // dd($order);
+        $address=DB::table('bm_user_address')->where('id','=',$aid)->get();
+        // dd($address);
         //订单详情
         return view('Admin.Order.detail',['order'=>$order,'address'=>$address,'user'=>$user,'goods'=>$goods]);
     }

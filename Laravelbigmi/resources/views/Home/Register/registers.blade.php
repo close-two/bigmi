@@ -46,7 +46,7 @@
         @if(session('error'))
           {{session('error')}}
         @endif
-      <form action="/register" method="post">
+      <form action="/registerByPhone" method="post">
         <div class="regbox">
           <div class="email_step1 emailregbox">
             <h4 class="tit_normal">
@@ -67,14 +67,14 @@
             <div class="inputbg">
               <input type='hidden' class="select-regions-input" name="region" value="CN"/>
               <label class="labelbox" for="">
-                <input type="phone" placeholder="请输入手机号" name="phone">
+                <input type="phone" placeholder="请输入手机号" name="phone" value="{{old('phone')}}">
               </label>
             </div>
             <div class="inputbg inputcode">
               <label class="labelbox wap_resend_label">
                 <input class="resendcode" type="text" placeholder="请输入验证码" name="ticket">
               </label>   
-              <span class="remain"><a class="color333 send-status" id="send-status" href="javascript:void(0)" disabled='disabled'>重新发送(198)</a></span>
+              <span class="remain"><a class="color333 send-status" id="send-status" href="javascript:void(0)" disabled='disabled'>获取验证码</a></span>
             </div>
             <h4 class="tit_normal">
               密码
@@ -216,6 +216,26 @@
       }
    });
 
+   // 验证密码
+   $('input:password').blur(function(){
+      password = $(this).val();
+      if (password.match(/^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?!([^(0-9a-zA-Z)]|[])+$)([^(0-9a-zA-Z)]|[]|[a-z]|[A-Z]|[0-9]){8,16}$/)==null) {
+        $('.err_invalid').css('display','block').html('密码不符合规则');
+        PASSWORD=false;
+      }else{
+        
+         $("input[name='repassword']").blur(function(){
+              if ($("input[name='password']").val()==$("input[name='repassword']").val()) {
+                $('.err_invalid').css('display','block').html('密码符合');
+                PASSWORD=true;
+              }else{
+                $('.err_invalid').css('display','block').html('两次密码不一致');
+                PASSWORD=false;
+              }
+         });
+      }
+   });
+
   $('#send-status').click(function(){
     // alert('999999');
      // if ($('#send-status').attr('disabled')=='disabled') {
@@ -231,7 +251,7 @@
           m=60;
           mytime = setInterval(function(){
             m--;
-            s.html(m+"秒后重新发送");
+            s.html("重新发送（"+m+")");
             s.attr('disabled',true);
             if (m==0) {
               clearInterval(mytime);
@@ -243,5 +263,39 @@
       },'json');
   });  
 
+  // 获取输入验证码input
+  $("input[name='ticket']").blur(function(){
+    ticket = $(this).val();
+    $.get('/checkticket',{ticket:ticket},function(data){
+      if (data==1) {
+        // 校验码与cookie里的一致
+         $('.err_invalid').css(['display','block']).html('校验码一致');
+        TICKET=true;
+      }else if(data==2){
+          // 检验码不一致
+           $('.err_invalid').css(['display','block']).html('校验码不一致');
+           TICKET=false;
+      }else if(data=3){
+        // 输入校验码为空
+         $('.err_invalid').css(['display','block']).html('输入校验码为空');
+         TICKET=false;
+      }else if(data==4){
+         $('.err_invalid').css(['display','block']).html('校验码已过期');
+         TICKET=false;
+      }
+    });
+  });
+
+  // 表单提交
+  $('input:submit').submit(function(){
+
+    // trigger某个元素触发某个事件
+    $('input').trigger('blur');
+    if (PHONE && TICKET && PASSWORD) {
+      return true;
+    }else{
+      return false;
+    }
+  });
  </script>
 </html>

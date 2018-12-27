@@ -4,55 +4,57 @@
 @show
 
 @section('container')
-
   <div class="home-hero-container container"> 
    <div class="home-hero"> 
+
+
     <div class="home-hero-slider"> 
      <div class="ui-wrapper" style="max-width: 100%;">
       <div class="ui-viewport" style="width: 100%; overflow: hidden; position: relative; height: 460px;">
-       <div id="J_homeSlider" class="xm-slider" data-stat-title="焦点图轮播" style="width: auto; position: relative;"> 
-        <div class="slide loaded exposure" style="float: none; list-style: none; position: absolute; width: 1226px; z-index: 0; display: none;"> 
-         <a href="https://item.mi.com/product/10000099.html" data-stat-aid="AA21042" data-stat-pid="2_15_1_67" data-log_code="31pchometop_slide001001#t=normal&amp;act=other&amp;page=home&amp;bid=3030335.1&amp;adm=5614" target="_blank" data-stat-id="AA21042+2_15_1_67" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-AA21042+2_15_1_67', 'https://item.mi.com/product/10000099.html', 'pcpid', '31pchometop_slide001001#t=normal&amp;act=other&amp;page=home&amp;bid=3030335.1&amp;adm=5614']);"><img src="//i1.mifile.cn/a4/xmad_15402884393036_KqnCH.jpg" srcset="//i1.mifile.cn/a4/xmad_15402884464991_fKdYt.jpg 2x" /></a> 
+       <div id="J_homeSlider" class="xm-slider" data-stat-title="焦点图轮播" style="width: auto; position: relative;">
+
+      
+       <!--  <div class="slide exposure loaded" data-bg-set="{'img':'//i1.mifile.cn/a4/xmad_15452976609747_CYJQj.jpg','imgHd':'//i1.mifile.cn/a4/xmad_15452976656423_goFTH.jpg'}" style="float: none; list-style: none; position: absolute; width: 1226px; z-index: 50; display: block;"> 
+        <a href="https://item.mi.com/product/6222.html" data-stat-aid="AA21294" data-stat-pid="2_15_4_70" data-log_code="31pchometop_slide004001#t=normal&amp;act=other&amp;page=home&amp;bid=3030335.4&amp;adm=5810" target="_blank" data-stat-id="AA21294+2_15_4_70" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-AA21294+2_15_4_70', 'https://item.mi.com/product/6222.html', 'pcpid', '31pchometop_slide004001#t=normal&amp;act=other&amp;page=home&amp;bid=3030335.4&amp;adm=5810']);"><img src="//i1.mifile.cn/a4/xmad_15452976609747_CYJQj.jpg" srcset="//i1.mifile.cn/a4/xmad_15452976656423_goFTH.jpg 2x" /></a> 
+       </div>  -->
+
+      @foreach($slidelist as $key=>$slide)
+
+        <div class="slide exposure loaded" name="slideList" onmouseover="over(this,{{$key}})" onmouseout="out(this,{{$key}})" style="float: none; list-style: none; position: absolute; width: 1226px; z-index: 0; display: none;"> 
+         <a href="#" data-stat-aid="AA21253" data-stat-pid="2_15_5_71" data-log_code="31pchometop_slide005001#t=normal&amp;act=other&amp;page=home&amp;bid=3030335.5&amp;adm=5785" target="_blank" data-stat-id="AA21253+2_15_5_71" onclick="#"><img src="{{$slide->url}}" srcset="//i1.mifile.cn/a4/xmad_15451388264508_DjkNb.jpg 2x" /></a> 
         </div> 
-        <div class="slide exposure loaded" data-bg-set="{'img':'//i1.mifile.cn/a4/xmad_15427942125674_JlLUW.jpg','imgHd':'//i1.mifile.cn/a4/xmad_15427942184674_fgVCX.jpg'}" style="float: none; list-style: none; position: absolute; width: 1226px; z-index: 0; display: none;"> 
-         <a href="https://www.mi.com/mix3/" data-stat-aid="AA21225" data-stat-pid="2_15_2_68" data-log_code="31pchometop_slide002001#t=normal&amp;act=other&amp;page=home&amp;bid=3030335.2&amp;adm=5608" target="_blank" data-stat-id="AA21225+2_15_2_68" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-AA21225+2_15_2_68', 'https://www.mi.com/mix3/', 'pcpid', '31pchometop_slide002001#t=normal&amp;act=other&amp;page=home&amp;bid=3030335.2&amp;adm=5608']);"><img src="//i1.mifile.cn/a4/xmad_15427942125674_JlLUW.jpg" srcset="//i1.mifile.cn/a4/xmad_15427942184674_fgVCX.jpg 2x" /></a> 
-        </div> 
-        <div class="slide exposure loaded" data-bg-set="{'img':'//i1.mifile.cn/a4/xmad_154538169938_KQiRZ.jpg','imgHd':'//i1.mifile.cn/a4/xmad_15453817047683_HfAEa.jpg'}" style="float: none; list-style: none; position: absolute; width: 1226px; z-index: 0; display: none;"> 
-         <a href="https://www.mi.com/a/h/8005.html?client_id=180100041086&amp;masid=17409.0502" data-stat-aid="AA21290" data-stat-pid="2_15_3_69" data-log_code="31pchometop_slide003001#t=normal&amp;act=other&amp;page=home&amp;bid=3030335.3&amp;adm=5804" target="_blank" data-stat-id="AA21290+2_15_3_69" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-AA21290+2_15_3_69', 'https://www.mi.com/a/h/8005.htmlclient_id=180100041086&amp;masid=17409.0502', 'pcpid', '31pchometop_slide003001#t=normal&amp;act=other&amp;page=home&amp;bid=3030335.3&amp;adm=5804']);"><img src="//i1.mifile.cn/a4/xmad_154538169938_KQiRZ.jpg" srcset="//i1.mifile.cn/a4/xmad_15453817047683_HfAEa.jpg 2x" /></a> 
-        </div> 
-        <div class="slide exposure loaded" data-bg-set="{'img':'//i1.mifile.cn/a4/xmad_15452976609747_CYJQj.jpg','imgHd':'//i1.mifile.cn/a4/xmad_15452976656423_goFTH.jpg'}" style="float: none; list-style: none; position: absolute; width: 1226px; z-index: 50; display: block;"> 
-         <a href="https://item.mi.com/product/6222.html" data-stat-aid="AA21294" data-stat-pid="2_15_4_70" data-log_code="31pchometop_slide004001#t=normal&amp;act=other&amp;page=home&amp;bid=3030335.4&amp;adm=5810" target="_blank" data-stat-id="AA21294+2_15_4_70" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-AA21294+2_15_4_70', 'https://item.mi.com/product/6222.html', 'pcpid', '31pchometop_slide004001#t=normal&amp;act=other&amp;page=home&amp;bid=3030335.4&amp;adm=5810']);"><img src="//i1.mifile.cn/a4/xmad_15452976609747_CYJQj.jpg" srcset="//i1.mifile.cn/a4/xmad_15452976656423_goFTH.jpg 2x" /></a> 
-        </div> 
-        <div class="slide exposure loaded" data-bg-set="{'img':'//i1.mifile.cn/a4/xmad_15451388199604_kOuBa.jpg','imgHd':'//i1.mifile.cn/a4/xmad_15451388264508_DjkNb.jpg'}" style="float: none; list-style: none; position: absolute; width: 1226px; z-index: 0; display: none;"> 
-         <a href="https://www.mi.com/mibookair-12/?cfrom=search" data-stat-aid="AA21253" data-stat-pid="2_15_5_71" data-log_code="31pchometop_slide005001#t=normal&amp;act=other&amp;page=home&amp;bid=3030335.5&amp;adm=5785" target="_blank" data-stat-id="AA21253+2_15_5_71" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-AA21253+2_15_5_71', 'https://www.mi.com/mibookair-12/cfrom=search', 'pcpid', '31pchometop_slide005001#t=normal&amp;act=other&amp;page=home&amp;bid=3030335.5&amp;adm=5785']);"><img src="//i1.mifile.cn/a4/xmad_15451388199604_kOuBa.jpg" srcset="//i1.mifile.cn/a4/xmad_15451388264508_DjkNb.jpg 2x" /></a> 
-        </div> 
+      
+      @endforeach
+
        </div>
       </div>
       <div class="ui-controls ui-has-pager ui-has-controls-direction">
        <div class="ui-pager ui-default-pager">
-        <div class="ui-pager-item">
-         <a href="" data-slide-index="0" class="ui-pager-link" data-stat-id="e8ddbf63cd7192ba" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-e8ddbf63cd7192ba', '', 'pcpid', '']);">1</a>
+
+      @for($i=1;$i<=5;$i++)
+        <div class="ui-pager-item" >
+         <a href="" name="slidePager" data-slide-index="0" class="ui-pager-link" data-stat-id="e8ddbf63cd7192ba" onclick="">{{$i}}</a>
         </div>
-        <div class="ui-pager-item">
-         <a href="" data-slide-index="1" class="ui-pager-link" data-stat-id="adf2cbad4d6f35c3" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-adf2cbad4d6f35c3', '', 'pcpid', '']);">2</a>
-        </div>
-        <div class="ui-pager-item">
-         <a href="" data-slide-index="2" class="ui-pager-link" data-stat-id="59723bf957736400" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-59723bf957736400', '', 'pcpid', '']);">3</a>
-        </div>
-        <div class="ui-pager-item">
-         <a href="" data-slide-index="3" class="ui-pager-link active" data-stat-id="d5213f09ab807506" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-d5213f09ab807506', '', 'pcpid', '']);">4</a>
-        </div>
-        <div class="ui-pager-item">
-         <a href="" data-slide-index="4" class="ui-pager-link" data-stat-id="6d830c11f0f96108" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-6d830c11f0f96108', '', 'pcpid', '']);">5</a>
-        </div>
+      @endfor
+      
        </div>
        <div class="ui-controls-direction">
-        <a class="ui-prev" href="" data-stat-id="ad34778ec64de2bb" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-ad34778ec64de2bb', '', 'pcpid', '']);">上一张</a>
-        <a class="ui-next" href="" data-stat-id="012e47433fd216e2" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-012e47433fd216e2', '', 'pcpid', '']);">下一张</a>
+        <a class="ui-prev"  data-stat-id="ad34778ec64de2bb" onclick="func('-')">上一张</a>
+        <a class="ui-next"  data-stat-id="012e47433fd216e2" onclick="func('+')">下一张</a>
        </div>
       </div>
      </div> 
     </div> 
+
+
+
+
+
+
+
+
+
+
     <div class="home-hero-sub row"> 
      <div class="span4"> 
       <ul class="home-channel-list clearfix"> 
@@ -269,10 +271,18 @@
     </div> 
    </div> 
    <!-- 结束闪购 --> 
+
    <div class="J_itemBox J_homeBanner home-banner-box home-banner-box-hero is-visible" data-index="1">
-    <a href="https://www.mi.com/a/h/7988.html?client_id=180100041086&amp;masid=17409.0499" target="_blank" data-log_code="31pchomebanner_1001011#t=normal&amp;act=other&amp;page=home&amp;bid=3186790.1&amp;adm=5796" data-stat-id="c932a3c7d4cba69d" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-c932a3c7d4cba69d', 'https://www.mi.com/a/h/7988.htmlclient_id=180100041086&amp;masid=17409.0499', 'pcpid', '31pchomebanner_1001011#t=normal&amp;act=other&amp;page=home&amp;bid=3186790.1&amp;adm=5796']);"> <img class="" alt="小米Play 1224" width="1226" src="//i1.mifile.cn/a4/xmad_15453581617528_rugJk.png" /></a>
+    <a href="https://www.mi.com/a/h/7988.html?client_id=180100041086&amp;masid=17409.0499" target="_blank" data-log_code="31pchomebanner_1001011#t=normal&amp;act=other&amp;page=home&amp;bid=3186790.1&amp;adm=5796" data-stat-id="c932a3c7d4cba69d" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-c932a3c7d4cba69d', 'https://www.mi.com/a/h/7988.htmlclient_id=180100041086&amp;masid=17409.0499', 'pcpid', '31pchomebanner_1001011#t=normal&amp;act=other&amp;page=home&amp;bid=3186790.1&amp;adm=5796']);"> 
+    <img class="" alt="小米Play 1224" width="1226" src="111.jpg" />
+    </a>
    </div> 
   </div>
+
+
+
+
+
 
 
   <div class="page-main home-main"> 
@@ -2375,22 +2385,20 @@
      </div> 
      <div class="box-bd J_brickBd">
       <ul class="video-list clearfix">
+
+
+         @foreach($showvideo as $video)
        <li class="video-item video-item-first"> 
         <div class="figure figure-img"> 
-         <a class="J_videoTrigger exposure" href="javascript: void(0);" data-stat-aid="AA20704" data-stat-pid="2_43_1_245" data-log_code="31pchomevideo001010#t=normal&amp;act=other&amp;page=home&amp;bid=3030362.1&amp;adm=5419" data-video="https://v.mifile.cn/b2c-mimall-media/c2cb94c9485243e1767d43268fb90820.mp4" data-video-poster="https://i8.mifile.cn/b2c-mimall-media/e0a27677f28572b6fa8dfcf5677d6499.jpeg" data-video-title="一团火" title="点击播放视频" data-stat-id="AA20704+2_43_1_245" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-AA20704+2_43_1_245', 'javascript:void0', 'pcpid', '31pchomevideo001010#t=normal&amp;act=other&amp;page=home&amp;bid=3030362.1&amp;adm=5419']);"> <img src="//i1.mifile.cn/a4/xmad_15318974928021_cthgC.jpg" width="296" height="180" alt="一团火" /> <span class="play"><i class="iconfont"></i></span> </a> 
-        </div> <h3 class="title"> <a class="J_videoTrigger" href="javascript: void(0);" data-stat-aid="AA20704" data-stat-pid="2_43_1_245" data-log_code="31pchomevideo001010#t=normal&amp;act=other&amp;page=home&amp;bid=3030362.1&amp;adm=5419" data-video="https://v.mifile.cn/b2c-mimall-media/c2cb94c9485243e1767d43268fb90820.mp4" data-video-poster="https://i8.mifile.cn/b2c-mimall-media/e0a27677f28572b6fa8dfcf5677d6499.jpeg" data-video-title="一团火" title="点击播放视频" data-stat-id="AA20704+2_43_1_245" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-AA20704+2_43_1_245', 'javascript:void0', 'pcpid', '31pchomevideo001010#t=normal&amp;act=other&amp;page=home&amp;bid=3030362.1&amp;adm=5419']);">一团火</a> </h3> <p class="desc">小米创业8年内部纪录片（手机篇）</p></li>
-       <li class="video-item"> 
-        <div class="figure figure-img"> 
-         <a class="J_videoTrigger exposure" href="javascript: void(0);" data-stat-aid="AA20705" data-stat-pid="2_43_2_246" data-log_code="31pchomevideo002010#t=normal&amp;act=other&amp;page=home&amp;bid=3030362.2&amp;adm=5297" data-video="https://v.mifile.cn/b2c-mimall-media/ed921294fb62caf889d40502f5b38147.mp4" data-video-poster="https://i8.mifile.cn/b2c-mimall-media/6589da5fea27b58e5b061c1fb70bdfce.jpg" data-video-title="小米8，一部与众不同的手机" title="点击播放视频" data-stat-id="AA20705+2_43_2_246" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-AA20705+2_43_2_246', 'javascript:void0', 'pcpid', '31pchomevideo002010#t=normal&amp;act=other&amp;page=home&amp;bid=3030362.2&amp;adm=5297']);"> <img src="//i1.mifile.cn/a4/xmad_15278351912522_frJQc.jpg" width="296" height="180" alt="小米8，一部与众不同的手机" /> <span class="play"><i class="iconfont"></i></span> </a> 
-        </div> <h3 class="title"> <a class="J_videoTrigger" href="javascript: void(0);" data-stat-aid="AA20705" data-stat-pid="2_43_2_246" data-log_code="31pchomevideo002010#t=normal&amp;act=other&amp;page=home&amp;bid=3030362.2&amp;adm=5297" data-video="https://v.mifile.cn/b2c-mimall-media/ed921294fb62caf889d40502f5b38147.mp4" data-video-poster="https://i8.mifile.cn/b2c-mimall-media/6589da5fea27b58e5b061c1fb70bdfce.jpg" data-video-title="小米8，一部与众不同的手机" title="点击播放视频" data-stat-id="AA20705+2_43_2_246" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-AA20705+2_43_2_246', 'javascript:void0', 'pcpid', '31pchomevideo002010#t=normal&amp;act=other&amp;page=home&amp;bid=3030362.2&amp;adm=5297']);">小米8，一部与众不同的手机</a> </h3> <p class="desc">透明探索版，将科技与美学完美结合</p></li>
-       <li class="video-item"> 
-        <div class="figure figure-img"> 
-         <a class="J_videoTrigger exposure" href="javascript: void(0);" data-stat-aid="AA20706" data-stat-pid="2_43_3_247" data-log_code="31pchomevideo003010#t=normal&amp;act=other&amp;page=home&amp;bid=3030362.3&amp;adm=5244" data-video="https://v.mifile.cn/b2c-mimall-media/53fc775dd6b29ecd8df3e2ea35129766.mp4" data-video-poster="https://i8.mifile.cn/b2c-mimall-media/850c08e77da8d346b3a0145252d114bb.jpg" data-video-title="小米MIX 2S，一面科技 一面艺术" title="点击播放视频" data-stat-id="AA20706+2_43_3_247" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-AA20706+2_43_3_247', 'javascript:void0', 'pcpid', '31pchomevideo003010#t=normal&amp;act=other&amp;page=home&amp;bid=3030362.3&amp;adm=5244']);"> <img src="//i1.mifile.cn/a4/xmad_15278359339164_dDTJC.jpg" width="296" height="180" alt="小米MIX 2S，一面科技 一面艺术" /> <span class="play"><i class="iconfont"></i></span> </a> 
-        </div> <h3 class="title"> <a class="J_videoTrigger" href="javascript: void(0);" data-stat-aid="AA20706" data-stat-pid="2_43_3_247" data-log_code="31pchomevideo003010#t=normal&amp;act=other&amp;page=home&amp;bid=3030362.3&amp;adm=5244" data-video="https://v.mifile.cn/b2c-mimall-media/53fc775dd6b29ecd8df3e2ea35129766.mp4" data-video-poster="https://i8.mifile.cn/b2c-mimall-media/850c08e77da8d346b3a0145252d114bb.jpg" data-video-title="小米MIX 2S，一面科技 一面艺术" title="点击播放视频" data-stat-id="AA20706+2_43_3_247" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-AA20706+2_43_3_247', 'javascript:void0', 'pcpid', '31pchomevideo003010#t=normal&amp;act=other&amp;page=home&amp;bid=3030362.3&amp;adm=5244']);">小米MIX 2S，一面科技 一面艺术</a> </h3> <p class="desc">艺术品般陶瓷机身，惊艳、璀璨</p></li>
-       <li class="video-item"> 
-        <div class="figure figure-img"> 
-         <a class="J_videoTrigger exposure" href="javascript: void(0);" data-stat-aid="AA20384" data-stat-pid="2_43_4_249" data-log_code="31pchomevideo004010#t=normal&amp;act=other&amp;page=home&amp;bid=3030362.4&amp;adm=5248" data-video="https://v.mifile.cn/b2c-mimall-media/69f7b9881f4ed7123f0d473dcd44d621.mp4" data-video-poster="https://i8.mifile.cn/b2c-mimall-media/7cc9789d84832c866798c7a3caa2f5d3.jpg" data-video-title="生活中无所不在的小爱同学" title="点击播放视频" data-stat-id="AA20384+2_43_4_249" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-AA20384+2_43_4_249', 'javascript:void0', 'pcpid', '31pchomevideo004010#t=normal&amp;act=other&amp;page=home&amp;bid=3030362.4&amp;adm=5248']);"> <img src="//i1.mifile.cn/a4/xmad_15278358912266_LDHfI.jpg" width="296" height="180" alt="生活中无所不在的小爱同学" /> <span class="play"><i class="iconfont"></i></span> </a> 
-        </div> <h3 class="title"> <a class="J_videoTrigger" href="javascript: void(0);" data-stat-aid="AA20384" data-stat-pid="2_43_4_249" data-log_code="31pchomevideo004010#t=normal&amp;act=other&amp;page=home&amp;bid=3030362.4&amp;adm=5248" data-video="https://v.mifile.cn/b2c-mimall-media/69f7b9881f4ed7123f0d473dcd44d621.mp4" data-video-poster="https://i8.mifile.cn/b2c-mimall-media/7cc9789d84832c866798c7a3caa2f5d3.jpg" data-video-title="生活中无所不在的小爱同学" title="点击播放视频" data-stat-id="AA20384+2_43_4_249" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-AA20384+2_43_4_249', 'javascript:void0', 'pcpid', '31pchomevideo004010#t=normal&amp;act=other&amp;page=home&amp;bid=3030362.4&amp;adm=5248']);">生活中无所不在的小爱同学</a> </h3> <p class="desc">一句话搞定手机复杂操作</p></li>
+         <a class="J_videoTrigger exposure" href="javascript: void(0);" > 
+          
+         <video width="296px" height="180px" controls=""  name="media"><source src="{{$video->video}}" type="video/mp4"></video>
+         <span class="play"><i class="iconfont"></i></span> </a> 
+        </div> <h3 class="title"> <a class="J_videoTrigger" href="javascript: void(0);" data-stat-aid="AA20704" data-stat-pid="2_43_1_245" data-log_code="31pchomevideo001010#t=normal&amp;act=other&amp;page=home&amp;bid=3030362.1&amp;adm=5419" data-video="https://v.mifile.cn/b2c-mimall-media/c2cb94c9485243e1767d43268fb90820.mp4" data-video-poster="https://i8.mifile.cn/b2c-mimall-media/e0a27677f28572b6fa8dfcf5677d6499.jpeg" data-video-title="一团火" title="点击播放视频" data-stat-id="AA20704+2_43_1_245" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-AA20704+2_43_1_245', 'javascript:void0', 'pcpid', '31pchomevideo001010#t=normal&amp;act=other&amp;page=home&amp;bid=3030362.1&amp;adm=5419']);">{{$video->videoname}}</a> </h3> <p class="desc">{{$video->comment}}</p></li>
+         @endforeach
+
+
+       
       </ul>
      </div> 
     </div> 
@@ -2487,6 +2495,87 @@
 
         },'json');
     });
+</script>
+
+<!-- 轮播图js -->
+<script>
+
+var slideList = document.getElementsByName('slideList');
+var slidePager = document.getElementsByName('slidePager');
+var m=0;
+var slideTimer;
+function over(obj,k){
+  // alert(obj);
+  clearInterval(slideTimer);
+  for (var i = 0; i < slidePager.length; i++) {
+    if (k==i) {
+      slidePager[i].style.backgroundColor="red";
+    } else{
+      slidePager[i].style.backgroundColor="white";
+    }
+  }
+}
+
+function out(obj,k){
+  m=--k;
+  running();
+  slideTimer=setInterval(running,3000);
+}
+
+
+function show(m){
+  for (var i = 0; i < slideList.length; i++) {
+    if (i==m) {
+      slideList[i].style.display="block";
+      slideList[i].style.zIndex=50;
+      slidePager[i].style.backgroundColor="red";
+    }else{
+      slideList[i].style.display="none";
+      slideList[i].style.zIndex=0;
+      slidePager[i].style.backgroundColor="white";
+    }
+  }
+}
+
+// show(1);
+function running(){
+  m++;
+  if (m>=slideList.length) {
+    m=0;
+  }
+  show(m);
+}
+
+// 左右按钮轮播
+function func(t){
+  clearInterval(slideTimer);
+  switch(t){
+    case '-':
+      m=m-2;
+      if (m<-1) {
+        m=(slideList.length-2);
+      }
+      break;
+    case '+':
+      break;
+  }
+
+  running();
+  slideTimer = setInterval(running,3000);
+}
+
+slideTimer = setInterval(running,3000);
+
+</script>
+<!-- 广告栏位置 -->
+<script>
+  var J_homeBanner = $('.J_homeBanner');
+   var adslist=<?php echo json_encode($adslist); ?>;//将php数组转换为json格式
+   var data = eval(adslist);//将json格式转换为js用的数组
+   // console.log(data);
+  $.each(J_homeBanner,function(kk,vv){
+      J_homeBanner[kk].childNodes[1].childNodes[1].setAttribute('src',data[kk]);//循环赋值
+  });
 </script>
 
 @endsection

@@ -171,7 +171,7 @@ class RegisterController extends Controller
     }
 
     // 短信注册
-    public function registerByPhone(){
+    public function registers(){
         return view('Home.Register.registers');
     }
 
@@ -197,6 +197,45 @@ class RegisterController extends Controller
         $pp = $request->input('pp');
         sendphone($pp);
         // echo $pp;
+    }
 
+    // 检查验证码
+    public function checkticket(Request $request){
+
+        $ticket = $request->input('ticket');
+        // echo $ticket;
+        if (isset($_COOKIE['fcode'])&&!empty($ticket)) {
+            $fcode = $request->cookie('fcode');
+            if ($fcode == $ticket) {
+                echo 1;//检验码一致
+            }else{
+                echo 2;//检验码不一致
+            }
+        }elseif(empty($ticket)){
+            echo 3;//输入的校验码为空
+        }else{
+            echo 4;//检验码过期
+        }
+
+    }
+
+    // 注册,插入到数据表
+    public function registerByPhone(Request $request){
+        // $request->flashOnly('phone');
+        // dd($request->all());
+        $data =$request->only(['phone','password']);
+        // 邮箱注册拼凑要插入的数据
+        $data['name']='';
+        $data['miid']=substr(time(),5).str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);//生成会员id
+        $data['create_time']=date('Y-m-d H:i:s');
+        $data['status']=2;//手机注册成功直接生效
+        $data['token']=str_random(50);
+        $data['email']='';
+        $data['password']=Hash::make($data['password']);
+        if (DB::table('bm_users')->insert($data)) {
+            return redirect('/login')->with('success','注册成功!您可以去登录啦');
+        }else{
+            return back()->withInput();
+        }
     }
 }

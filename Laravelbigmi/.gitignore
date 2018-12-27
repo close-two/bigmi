@@ -11,3 +11,4 @@ npm-debug.log
 yarn-error.log
 .env
 /routes/web.php
+/app/Library/helper.php

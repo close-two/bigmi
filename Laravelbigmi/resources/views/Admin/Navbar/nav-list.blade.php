@@ -12,6 +12,12 @@
 <script type="text/javascript" src="/lib/html5shiv.js"></script>
 <script type="text/javascript" src="/lib/respond.min.js"></script>
 <![endif]-->
+
+<!-- Theme Stylesheet -->
+<link rel="stylesheet" type="text/css" href="/static/Admin/cate/css/mws-theme.css" media="screen">
+<link rel="stylesheet" type="text/css" href="/static/Admin/cate/css/themer.css" media="screen">
+<link rel="stylesheet" type="text/css" href="/static/Admin/cate/css/my.css" media="screen">
+
 <link rel="stylesheet" type="text/css" href="/static/admin/h-ui/css/H-ui.min.css" />
 <link rel="stylesheet" type="text/css" href="/static/admin/h-ui.admin/css/H-ui.admin.css" />
 <link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.8/iconfont.css" />
@@ -72,26 +78,16 @@
 		@endforeach
 	@endif
 
-			<!-- <tr class="text-c">
-				<td><input type="checkbox" value="2" name=""></td>
-				<td>2</td>
-				<td>zhangsan</td>
-				<td>13000000000</td>
-				<td>admin@mail.com</td>
-				<td>栏目编辑</td>
-				<td>2014-6-11 11:11:42</td>
-				<td class="td-status"><span class="label radius">已停用</span></td>
-				<td class="td-manage"><a style="text-decoration:none" onClick="admin_start(this,'1')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe615;</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','admin-add.html','2','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-			</tr> -->
 		</tbody>
 
 	</table>
 	<div>
 		
 		<div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite" style="float: left;">显示 {{($navlist->currentpage()-1)*$pagesize+1}} 到 {{($navlist->currentpage()-1)*$pagesize+$navlist->count()}} ，共 {{$navlist->count()}} 条</div>
-		<div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate" style="float: right;"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" id="DataTables_Table_0_previous">上一页</a><span><a class="paginate_button current" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" id="DataTables_Table_0_next">下一页</a>
+		 <div class="dataTables_paginate paging_full_numbers" id="pages" style="float: right;">
 			{{$navlist->render()}}
 		</div>
+	</div>
 	</div>
 </div>
 <!--_footer 作为公共模版分离出去-->

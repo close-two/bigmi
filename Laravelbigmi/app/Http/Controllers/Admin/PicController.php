@@ -22,10 +22,11 @@ class PicController extends Controller
         $name=$request->input('keywords');
         // dd($name);
         // 获取数据  每次显示5条
-        $pic=DB::table("bm_plant_pic")->where('name','like','%'.$name.'%')->paginate(5);
+        $pagesize=5;
+        $pic=DB::table("bm_plant_pic")->where('name','like','%'.$name.'%')->paginate($pagesize);
         // dd($pic);
         //加载模板
-        return view('Admin.Pic.index',['pic'=>$pic,'request'=>$request->all()]);
+        return view('Admin.Pic.index',['pic'=>$pic,'request'=>$request->all(),'pagesize'=>$pagesize]);
     }
 
     /**

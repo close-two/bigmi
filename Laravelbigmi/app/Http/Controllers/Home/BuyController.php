@@ -106,13 +106,82 @@ class BuyController extends Controller
         //
     }
 
-    
+    // 支付页面
+    public function cartpay(){
+         /**********************公共头尾数据调用开始**********************************/
+            // 侧边栏分类
+            $catesAll = PublicController::getCatesByPid(0);
+            // 导航分类
+            $navdata = PublicController::getNav();
+
+            $showHelp = PublicController::getHelpInfo();
+
+            $showLinks = PublicController::getFriendLink();
+
+            /**********************公共头尾数据调用结束**********************************/
+        $data=session('cart');
+        // $id=[];
+        // foreach ($data as $key => $value) {
+        //     $id[$key]=$value['id'];
+        // }
+        $miid=session('miid');
+        $user=DB::table('bm_users')->where('miid','=',$miid)->first();
+        $address=DB::table('bm_user_address')->where('uid','=',$user->id)->get();
+        // dd($data[0]['id']);
+        // dd($user);
+        $gid=[];
+        $goods=[];
+        $total='';
+        foreach ($data as $key => $value) {
+            $gid[$key]=$value['id'];
+            $goods[$key]=DB::table('bm_goods_sku')->where('id','=',$value['id'])->first();
+            $goods[$key]->num=$value['num'];
+            $spu=DB::table('bm_goods_spu')->where('id','=',$goods[$key]->goods_id)->first();
+            $goods[$key]->img=$spu->goods_img;  
+            $goods[$key]->total=$goods[$key]->market_price*$goods[$key]->num;
+            $total+=$goods[$key]->total;
+        }
+        // dd($spu);
+        // dd($total);
+        // var_dump($goods);
+        // dd(1);   
+        // $data->id
+        if ($miid) {
+            return view('Home.Buy.checkout',['total'=>$total,'goods'=>$goods,'address'=>$address,'catesAll'=>$catesAll,'navdata'=>$navdata,'showHelp'=>$showHelp,'showLinks'=>$showLinks]);
+        }
+        return view('Home.Login.login');
+        
+    }
+    public function address(Request $request){
+        $id=$request->input('id');
+        sesseion('address');
+    }
     // 支付接口
     public function pay(){
-        pay(time()+rand(1,1000),'zzz','0.01','zzz');
+        $data=session('cart');
+        // dd($data);
+        $id=$data[0]['id'];
+        // dd($id);
+        $name=DB::table('bm_goods_sku')->where('id','=',$id)->first()->title;
+        // dd($name);   
+        pay(time()+rand(1,1000),$name,'0.01',$name);
     }
     // 返回地址
     public function returnurl(){
-        echo "123";
+        // echo "123";
+        $data=session('cart');
+        $miid=session('miid');
+        $user=DB::table('bm_users')->where('miid','=',$miid)->first();
+        // dd($data);
+        foreach ($data as $key => $value) {
+            $id=$value['id'];
+            $order['order_id']=rand(1,10000)+time();
+            $order['goods_id']=$id;
+            $order['uid']=$user->id;
+
+        }
+        DB::table('bm_order')->insert($order);
+
+        return view('');
     }
 }
