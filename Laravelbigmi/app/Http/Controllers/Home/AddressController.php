@@ -23,7 +23,15 @@ class AddressController extends Controller
         // dd($user);
         $uid=$user->id;
         // dd($uid);
-        $address=DB::table('bm_user_address')->where('uid','=',$uid)->get();
+        // 
+        
+       
+        $address=DB::table('bm_user_address')->where('uid','=',$uid)->get()->toArray();
+
+        // var_dump($address);exit;
+        // dd($address);
+        
+
         //省市区
        
         // var_dump($address);exit;
@@ -43,6 +51,7 @@ class AddressController extends Controller
 
         // $address->phone=substr_replace($address['phone'],'****',4,4);
         //加载地址模板
+        // dd($address);
         return view('Home.Person.address',['address'=>$address,'catesAll'=>$catesAll,'navdata'=>$navdata,'showHelp'=>$showHelp,'showLinks'=>$showLinks]);
     }
 
@@ -73,13 +82,23 @@ class AddressController extends Controller
         // dd($address);
         $data['address']=$address;
         //用户id
-        $uid=$data['id'];
+        if(!empty($data['id'])){
+            $uid=$data['id'];
+            $data['uid']=$uid;
+            unset($data['id']);
+        }else{
+            //如果没有地址
+            $miid=session('miid');
+            $user=DB::table('bm_users')->where('miid',$miid)->first();
+            $data['uid']=$user->id;
+        }
+        
         // dd($data);
         //截取没用
         // $addressinfo=array_slice($data,3);
-        $data['uid']=$uid;
+       
         //删除多余
-        unset($data['id']);
+       
         // dd($data);
         if(DB::table('bm_user_address')->insert($data)){
             return redirect('/useraddress')->with('success','添加地址成功');
@@ -176,6 +195,7 @@ class AddressController extends Controller
     public function status(Request $request){
         //要修改为默认地址的id
         $id=$request->input('id');
+        // dd($data);
         // echo $id;
         //寻找当前要修改默认地址的同父(uid)下已经为默认地址的数据
         $miid=session('miid');
@@ -184,6 +204,8 @@ class AddressController extends Controller
         $uid=$new->uid;
         // echo $uid;
         //获取同uid下status为1(默认地址)的数据---->要把默认变0
+        
+
         $default=DB::table('bm_user_address')->where('uid',$uid)->where('status',1)->first();
         //旧默认地址修改status=0
             $default->status=0;

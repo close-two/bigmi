@@ -86,8 +86,9 @@ font-size:22px;line-height:.5;position:absolute;top:8px;right:11px;color:#aaa;te
       <!-- 结束 -->
 
       <!-- 地址框 -->
+      @if(!empty($address))
       @foreach($address as $row)
-
+      
       <div class="address-item J_addressItem kkp-{{$row->id}}"  id="parent">
         @if($row->status==1)
          <img class="default-{{$row->status}}"  style="float:right" 
@@ -112,7 +113,9 @@ font-size:22px;line-height:.5;position:absolute;top:8px;right:11px;color:#aaa;te
         <a class="modify status" onclick="status(this,{{$row->id}})"  href="javascript:;">设为默认地址</a> 
        </div> 
       </div>
+      
       @endforeach
+      @endif
       <!-- 地址框 -->
     
      </div> 
@@ -146,7 +149,13 @@ font-size:22px;line-height:.5;position:absolute;top:8px;right:11px;color:#aaa;te
       联系人: <input class="form-control" type="text" id="whoget" name="name">
       <br>
       联系电话: <input class="form-control" type="text" id="phone" name="phone">
+      <br>
+      默认:<br> 
+      
+      否:  <input type="radio" name="status" value="0"> 
+      @if(!empty($row))
       <input type="hidden" name="id" value="{{$row->uid}}">
+      @endif
       <br>
       <input type="submit" class="btn btn-primary" value="添加">
       <input type="reset" class="btn btn-success" value="重置">
