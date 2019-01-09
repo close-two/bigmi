@@ -73,8 +73,8 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>状态：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-		<input type="radio" name="status" id="" value="1" checked=""><label for="">启用</label>
-		<input type="radio" name="status" id="status" value="0"><label for="">禁用</label>
+		<input type="radio" name="status" id="" value="1" @if($nav->status==1) checked @else '' @endif><label for="">启用</label>
+		<input type="radio" name="status" id="status" value="0" @if($nav->status==0) checked @else '' @endif><label for="">禁用</label>
 			<label id="name-error" class="error" for="status"></label>
 		</div>
 	</div>

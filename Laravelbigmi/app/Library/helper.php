@@ -2,10 +2,6 @@
 
 
 // 该文件不能放到github公开库
-
-
-
-
     function pay($ordercode,$name,$fee,$des){
         // echo "这是支付宝接口";
         require_once("alipay.config.php");

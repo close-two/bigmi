@@ -99,7 +99,7 @@ class CartController extends Controller
                     //购物车里有当前要购买数据
                     // dd(2);
                 // // 加一
-
+                    $value['num']+=1;
                     // dd($id);
                     return true;
                 }else{
@@ -113,7 +113,7 @@ class CartController extends Controller
         }
     }
     public function store(Request $request)
-    {
+    {/*
         // dd($request->all());
         //把购买商品的数据存储在session里
         $data=$request->except('_token');
@@ -125,7 +125,7 @@ class CartController extends Controller
         // }
     }
         //跳转
-        return redirect("/homecar");
+        return redirect("/homecar");*/
     }
 
     /**
@@ -231,11 +231,11 @@ class CartController extends Controller
             // 当id等于修改的id时
             if($value['id']==$id){
                 // echo 1;
-                var_dump($value['id']);
+                // var_dump($value['id']);
                 //数量减一
                 $data[$key]['num'] = $data[$key]['num']-1;
                 // echo $data[$key]['num'];
-                if($data[$key]['num']<1){
+                if($data[$key]['num'] <= 1){
                     $data[$key]['num']=1;
                 }
 
@@ -243,7 +243,7 @@ class CartController extends Controller
         }
         //重新赋值session
         // session(['cart'=>$data]);
-        $aa=session(['cart'=>$data]);
+        session(['cart'=>$data]);
         // dd(session('cart'));
         // $request->session()->put('cart',$data);
         // echo 1;
@@ -258,9 +258,9 @@ class CartController extends Controller
         // 修改的id
         $id=$request->input('id');
         // 找到数据库数据
-        $res=DB::table('bm_goods_spu')->where('id','=',$id)->first();
+        $res=DB::table('bm_goods_sku')->where('id','=',$id)->first();
         // 获取当前id的库存
-        $stock=$res->goods_stock;
+        $stock=$res->stock;
         // dd($res);
         // echo $stock;
         // echo $stock;
@@ -338,14 +338,15 @@ class CartController extends Controller
                 foreach ($res as $key => $value) {
                     // $arr[$key]=DB::table('bm_goods_spu')->where('id','=',$value['id'])->first();
                     // $arr[$key]->num=$value['num'];
-                    $info=DB::table("bm_goods_spu")->where("id",'=',$value['id'])->first();
+                    $info=DB::table("bm_goods_sku")->where("id",'=',$value['id'])->first();
+                    $infos=DB::table()->where('id','=',$info['goods_id'])->first();
                     $ress['id']=$value['id'];//id值
-                    $ress['name']=$info->goods_title;//名字
-                    $ress['pic']=$info->goods_img;//图片
+                    $ress['name']=$info->title;//名字
+                    $ress['pic']=$infos->goods_img;//图片
                     $ress['descr']=$info->goods_descr;//详情
                     $ress['num']=$value['num'];//数量
-                    $ress['price']=$info->goods_shop_price;//单价
-                    $ress['stock']=$info->goods_stock;//库存
+                    $ress['price']=$info->goods_market_price;//单价
+                    $ress['stock']=$info->stock;//库存
                     $tot+=$ress['price']*$ress['num'];//总价
                     $data2[]=$ress;
 

@@ -45,6 +45,7 @@ class NavController extends Controller
     {
         //
         // dd($request->all());
+        
         $data = $request->except('_token'); 
         if(DB::TABLE('bm_nav')->insert($data)){
             return redirect('/navbar')->with('success','添加导航成功');

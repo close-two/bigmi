@@ -146,6 +146,7 @@ class BuyController extends Controller
         // var_dump($goods);
         // dd(1);   
         // $data->id
+        $a=session(['total'=>$total]);
         if ($miid) {
             return view('Home.Buy.checkout',['total'=>$total,'goods'=>$goods,'address'=>$address,'catesAll'=>$catesAll,'navdata'=>$navdata,'showHelp'=>$showHelp,'showLinks'=>$showLinks]);
         }
@@ -154,7 +155,9 @@ class BuyController extends Controller
     }
     public function address(Request $request){
         $id=$request->input('id');
-        sesseion('address');
+        // sesseion('address');
+        $request->session()->put('address',$id);
+        // dd(session('address'));
     }
     // 支付接口
     public function pay(){
@@ -168,9 +171,38 @@ class BuyController extends Controller
     }
     // 返回地址
     public function returnurl(){
+        // 获取手机栏位
+            $showPhone = PublicController::getShowData(1,8);
+
+            //获取轮播图
+            $slidelist = DB::table('bm_plant_pic')->where('status','=','1')->limit(5)->select('name','url')->get()->toArray();
+
+            // 获取广告位7个
+            $adslist = DB::TABLE('bm_ads')->where('status','=','1')->select('adsname','source','file')->limit(7)->get()->toArray();
+            foreach ($adslist as $key => $value) {
+                $adslist[$key]=$value->file;
+            }
+
+            $showvideo = DB::TABLE('bm_video')->where('status','=','1')->select('video','videoname','comment')->limit(4)->get()->toArray();
+           
+            // var_dump($adslist);exit;
+
+            /**********************公共头尾数据调用开始**********************************/
+            // 侧边栏分类
+            $catesAll = PublicController::getCatesByPid(0);
+            // 导航分类
+            $navdata = PublicController::getNav();
+
+            $showHelp = PublicController::getHelpInfo();
+
+            $showLinks = PublicController::getFriendLink();
+
+            /**********************公共头尾数据调用结束**********************************/
         // echo "123";
         $data=session('cart');
         $miid=session('miid');
+        $aid=session('address');
+        $total=session('total');
         $user=DB::table('bm_users')->where('miid','=',$miid)->first();
         // dd($data);
         foreach ($data as $key => $value) {
@@ -178,10 +210,18 @@ class BuyController extends Controller
             $order['order_id']=rand(1,10000)+time();
             $order['goods_id']=$id;
             $order['uid']=$user->id;
+            $order['aid']=$aid;
+            $order['status']=1;
+            $order['total']=$total;
+
+            DB::table('bm_order')->insert($order);
 
         }
-        DB::table('bm_order')->insert($order);
 
-        return view('');
+        // return view('');
+        // return view('Home.Home.index');
+        // return view('Home.Home.index',['showPhone'=>$showPhone,'catesAll'=>$catesAll,'navdata'=>$navdata,'showHelp'=>$showHelp,'showLinks'=>$showLinks]);
+        return view('Home.Home.index',['catesAll'=>$catesAll,'navdata'=>$navdata,'slidelist'=>$slidelist,'showPhone'=>$showPhone,'showHelp'=>$showHelp,'showLinks'=>$showLinks,'adslist'=>$adslist,'showvideo'=>$showvideo]);
+        // return redirect('/');
     }
 }

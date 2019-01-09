@@ -44,7 +44,7 @@ class IndexController extends Controller
             $showLinks = PublicController::getFriendLink();
 
             /**********************公共头尾数据调用结束**********************************/
-            // dd($showHelp);exit;
+            // var_dump($navdata);exit;
             return view('Home.Home.index',['catesAll'=>$catesAll,'navdata'=>$navdata,'slidelist'=>$slidelist,'showPhone'=>$showPhone,'showHelp'=>$showHelp,'showLinks'=>$showLinks,'adslist'=>$adslist,'showvideo'=>$showvideo]);
         }
         // 如果是ajax请求

@@ -48,6 +48,10 @@ class RoleController extends Controller
                     $nodeslist['用户管理'][]=$value;
                 }elseif ($value->mname=='AdsController') {
                     $nodeslist['广告管理'][]=$value;
+                }elseif ($value->mname=='GoodsController') {
+                    $nodeslist['商品管理'][]=$value;
+                }elseif ($value->mname=='OrderController') {
+                    $nodeslist['订单管理'][]=$value;
                 }
             
 

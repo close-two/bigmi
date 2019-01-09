@@ -50,10 +50,10 @@
 	@foreach($searchList as $goosditem)
 		  <div class="goods-item" data-productid="8810"> 
 		   <div class="figure figure-img"> 
-		    <a href="/goodsdetail?{{$goosditem->id}}" data-stat-id="dedaaa16043424b3" onclick="_msq.push(['trackEvent', 'bd16f8197afead2e-dedaaa16043424b3', 'https://www.mi.com/shouhuan3nfc/cfrom=search', 'pcpid', '']);"><img src="{{$goosditem->goods_thums}}" width="200" height="200" alt="" /></a> 
+		    <a href="/goodsdetail/{{$goosditem->id}}" data-stat-id="dedaaa16043424b3" onclick="_msq.push(['trackEvent', 'bd16f8197afead2e-dedaaa16043424b3', 'https://www.mi.com/shouhuan3nfc/cfrom=search', 'pcpid', '']);"><img src="{{$goosditem->goods_thums}}" width="200" height="200" alt="" /></a> 
 		   </div> 
 		   <p class="desc"></p> 
-		   <h2 class="title"><a href="/goodsdetail?{{$goosditem->id}}" data-stat-id="c25e330fa51198fe" onclick="_msq.push(['trackEvent', 'bd16f8197afead2e-c25e330fa51198fe', 'https://www.mi.com/shouhuan3nfc/cfrom=search', 'pcpid', '']);">{{$goosditem->goods_title}}</a></h2> 
+		   <h2 class="title"><a href="/goodsdetail/{{$goosditem->id}}" data-stat-id="c25e330fa51198fe" onclick="_msq.push(['trackEvent', 'bd16f8197afead2e-c25e330fa51198fe', 'https://www.mi.com/shouhuan3nfc/cfrom=search', 'pcpid', '']);">{{$goosditem->goods_title}}</a></h2> 
 		   <p class="price">{{$goosditem->goods_shop_price}}元 
 		    <del>
 		     {{$goosditem->goods_market_price}}元

@@ -257,7 +257,7 @@ if(location.search.indexOf("_debugMode")>-1&&supportLocalstorage){
              <span id="custom_display_256" class="sms_link"> <a href="javascript:;" class="btnadpt btn_gray" id="ChangeLoginType">手机短信登录/注册</a> </span> 
              <div class="reverse"> 
               <div class="n_links_area" id="custom_display_64"> 
-               <a class="outer-link" href="https://account.xiaomi.com/pass/register?callback=https%3A%2F%2Forder.mi.com%2Flogin%2Fcallback%3Ffollowup%3Dhttps%253A%252F%252Fwww.mi.com%252F%26sign%3DNzY3MDk1YzczNmUwMGM4ODAxOWE0NjRiNTU5ZGQyMzFhYjFmOGU0Nw%2C%2C&amp;sid=mi_eshop&amp;_bannerBiz=mistore&amp;_qrsize=180">立即注册</a> 
+               <a class="outer-link" href="/registers">立即注册</a> 
                <span>|</span> 
                <a class="outer-link" href="/lostpassword">忘记密码？</a> 
               </div> 

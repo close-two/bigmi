@@ -46,6 +46,19 @@ class DetailController extends Controller
      */
     public function show($id)
     {
+        /**********************公共头尾数据调用开始**********************************/
+            // 侧边栏分类
+            $catesAll = PublicController::getCatesByPid(0);
+            // 导航分类
+            $navdata = PublicController::getNav();
+
+            $showHelp = PublicController::getHelpInfo();
+
+            $showLinks = PublicController::getFriendLink();
+
+            /**********************公共头尾数据调用结束**********************************/
+            // dd($showHelp);exit;
+            // return view('Home.Home.index',['catesAll'=>$catesAll,'navdata'=>$navdata,'showHelp'=>$showHelp,'showLinks'=>$showLinks]);
         // dd($id);
         // 获取商品表数据
         $data=DB::table('bm_goods_spu')->where('id','=',$id)->where('goods_status','=','1')->first();
@@ -67,7 +80,7 @@ class DetailController extends Controller
             else $st[] = $value->attr;
         }
         // dd($sku);
-        return view('Home.Product.product',['data'=>$data,'sku'=>$sku,'res'=>$res,'color'=>$color]);
+        return view('Home.Product.product',['data'=>$data,'sku'=>$sku,'res'=>$res,'color'=>$color,'catesAll'=>$catesAll,'navdata'=>$navdata,'showHelp'=>$showHelp,'showLinks'=>$showLinks]);
     }
 
     /**
@@ -126,15 +139,73 @@ class DetailController extends Controller
 
     // 评论
     public function comment($id){
-        $data=DB::table('bm_comments')->where('id','=',$id)->get();
-        $id=array();
-        foreach ($data as $key => $value) {
-            $id=$value->users_id;
-        }
-        // dd($id);
-        
-        dd($data);
-        return view('Home.Product.product_comment',['data'=>$data]);
+        /**********************公共头尾数据调用开始**********************************/
+        // 侧边栏分类
+        $catesAll = PublicController::getCatesByPid(0);
+        // 导航分类
+        $navdata = PublicController::getNav();
 
+        $showHelp = PublicController::getHelpInfo();
+
+        $showLinks = PublicController::getFriendLink();
+
+        /**********************公共头尾数据调用结束**********************************/
+        $data=DB::table('bm_comments')->where('goods_id','=',$id)->get();
+        $user=DB::table('bm_users')->get();
+        // dd($id);
+        // dd($user);
+        // dd($data);
+        return view('Home.Product.product_comment',['id'=>$id,'data'=>$data,'user'=>$user,'catesAll'=>$catesAll,'navdata'=>$navdata,'showHelp'=>$showHelp,'showLinks'=>$showLinks]);
+
+    }
+
+    // 收藏商品
+    public function collection(Request $request){
+        // dd($id);
+        // dd(session()->all());
+        $id=$request->input('id');
+        // dd($id);
+        if (session('miid')) {
+            $miid=session('miid');
+            // dd($id);
+            $data=DB::table('bm_users')->where('miid','=',$miid)->get();
+            // dd($id);
+            $res['uid']=$data[0]->id;
+            $res['goods_id']=$id;
+            // dd($res);
+            if (DB::table('bm_user_like')->where('uid','=',$res['uid'])->where('goods_id','=',$res['goods_id'])->first()) {
+                return 1;
+                // echo 1;
+                // dd(1);
+                // $data=DB::table('bm_user_like')->where('uid','=',$res['uid'])->where('goods_id','=',$res['goods_id'])->first();
+                // dd($data);
+            }else{
+            if (DB::table('bm_user_like')->insert($res)) {
+                return 0;
+                }
+            }
+            
+        }else{
+            // 没登录的时候转到登录界面
+            return 2;
+        }
+    }
+    public function gaishu($id){
+
+        /**********************公共头尾数据调用开始**********************************/
+            // 侧边栏分类
+            $catesAll = PublicController::getCatesByPid(0);
+            // 导航分类
+            $navdata = PublicController::getNav();
+
+            $showHelp = PublicController::getHelpInfo();
+
+            $showLinks = PublicController::getFriendLink();
+
+            /**********************公共头尾数据调用结束**********************************/
+        // dd($id);
+        $data=DB::table('bm_goods_spu')->where('id','=',$id)->first();
+        // dd($data);
+        return view('Home.Product.gaishu',['data'=>$data,'catesAll'=>$catesAll,'navdata'=>$navdata,'showHelp'=>$showHelp,'showLinks'=>$showLinks]);
     }
 }

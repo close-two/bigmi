@@ -52,14 +52,14 @@
 					<td class="text-l">{{$row->order_id}}</td>
 					<td>
 					@foreach($goods as $goodss)
-					@if($goodss->id==$row->id)
+					@if($goodss->id==$row->goods_id)
 					{{$goodss->goods_title}}
 					@endif
 					@endforeach
 					</td>
 					<td>
 					@foreach($user as $users)
-					@if($users->id==$row->id)
+					@if($users->id==$row->uid)
 					{{$users->name}}
 					@endif
 					@endforeach
@@ -86,7 +86,7 @@
 					@else
 					在线支付
 					@endif</td>
-					<td><select>
+					<td><select >
 						<option value="0" @if($row->status==0) selected @endif> 未支付 </option>
 						<option value="1" @if($row->status==1) selected @endif> 已支付 </option>
 						<option value="2" @if($row->status==2) selected @endif> 已发货 </option>

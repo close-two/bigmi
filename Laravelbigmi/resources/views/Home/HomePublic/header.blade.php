@@ -49,6 +49,7 @@
             <div class="cart-menu" id="J_miniCartMenu">
                 <div class="loading"><div class="loader"></div></div>
             </div>
+            
         </div>
         @if(session('miid'))
         <div class="topbar-info" id="J_userInfo">
@@ -82,7 +83,7 @@
         <div class="header-nav">
             <ul class="nav-list J_navMainList clearfix">
 
-                <li id="J_navCategory" class="nav-category"> <a class="link-category" href="" data-stat-id="" onclick=""><span class="text">全部商品分类</span></a> 
+                <li id="J_navCategory" class="nav-category"> <a class="link-category" href="/list" data-stat-id="" onclick=""><span class="text">全部商品分类</span></a> 
                    <div class="site-category" style="display: none;"> 
 
                         <ul id="J_categoryList" class="site-category-list clearfix">
@@ -123,6 +124,9 @@
                     <div class="item-children">
                         <div class="container">
                             <ul class="children-list clearfix">
+                          @if(empty($rows[0]))
+                            
+                          @else
                             @foreach($rows as $spu)
                                 <li> 
                                    <div class="figure figure-thumb"> 
@@ -138,6 +142,7 @@
                                    </div> 
                                 </li>
                             @endforeach
+                          @endif
                             </ul>
                         </div>
                     </div>

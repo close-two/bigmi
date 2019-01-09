@@ -71,7 +71,7 @@
 				<td class="td-manage"><a style="text-decoration:none" onClick="admin_stop(this,'{{$rows->id}}')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('导航栏目编辑','/navbar/{{$rows->id}}/edit','1','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_del(this,'{{$rows->id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				@else
 				<td class="td-status"><span class="label radius">已停用</span></td>
-				<td class="td-manage"><a style="text-decoration:none" onClick="admin_start(this,'{{$rows->id}}')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe615;</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('导航栏目编辑','/navlist/{{$rows->id}}/edit','2','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_del(this,'{{$rows->id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<td class="td-manage"><a style="text-decoration:none" onClick="admin_start(this,'{{$rows->id}}')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe615;</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('导航栏目编辑','/navbar/{{$rows->id}}/edit','2','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_del(this,'{{$rows->id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				@endif
 
 			</tr>

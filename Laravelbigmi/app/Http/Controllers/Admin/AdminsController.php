@@ -178,9 +178,9 @@ class AdminsController extends Controller
     // ajax停用
     public function stop(Request $request){
         $id = $request->input('id');
-        // echo $id;
         if (Admins::where('id','=',$id)->update(['status'=>0])) {
-            echo 1;
+            echo $id;
+            // echo 1;
         }else{
             echo 0;
         }
@@ -188,9 +188,9 @@ class AdminsController extends Controller
     // ajax启用
     public function start(Request $request){
         $id = $request->input('id');
-        // echo $id;
         if (Admins::where('id','=',$id)->update(['status'=>1])) {
-            echo 1;
+            echo $id;
+            // echo 1;
         }else{
             echo 0;
         }

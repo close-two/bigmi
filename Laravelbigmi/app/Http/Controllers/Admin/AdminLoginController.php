@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use Hash;
-
+// 引入第三方验证码类库
+use Gregwar\Captcha\CaptchaBuilder;
+use session;
 class AdminLoginController extends Controller
 {
     /**
@@ -21,6 +23,26 @@ class AdminLoginController extends Controller
     	$request->session()->pull('id');
         $request->session()->pull('name');
         return redirect('/adminlogin/create');
+    }
+
+
+     // 验证码检测
+    public function code(){
+        ob_clean();//清除
+        $builder = new CaptchaBuilder;
+        // 设置图片宽高和字体
+        $builder->build($width = 100,$height = 40,$font = null);
+        // 获取验证码的内容
+        $phrase = $builder->getPhrase();
+        // 把内容存进去session
+        session(['admincode'=>$phrase]);
+        // 生成图片
+        header('Cache-Control:no-cache,must-revalidate');
+        header('Content-Type:image/jpeg');
+        $builder->output();
+        // die;
+
+
     }
 
     /**
@@ -44,6 +66,11 @@ class AdminLoginController extends Controller
     {
         //获取登录信息验证
         // dd($request->all());exit;
+         //获取输入的验证码
+        $fcode = $request->input('fcode');
+        // 获取系统校验码
+        $vcode = session('vcode');
+        
         $admin=DB::table('bm_admins')->where('name','=',$request->input('name'))->first();
         // dd($admin);exit;
         if ($admin&&($admin->status==1)) {

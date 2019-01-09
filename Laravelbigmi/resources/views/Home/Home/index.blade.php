@@ -14,9 +14,6 @@
        <div id="J_homeSlider" class="xm-slider" data-stat-title="焦点图轮播" style="width: auto; position: relative;">
 
       
-       <!--  <div class="slide exposure loaded" data-bg-set="{'img':'//i1.mifile.cn/a4/xmad_15452976609747_CYJQj.jpg','imgHd':'//i1.mifile.cn/a4/xmad_15452976656423_goFTH.jpg'}" style="float: none; list-style: none; position: absolute; width: 1226px; z-index: 50; display: block;"> 
-        <a href="https://item.mi.com/product/6222.html" data-stat-aid="AA21294" data-stat-pid="2_15_4_70" data-log_code="31pchometop_slide004001#t=normal&amp;act=other&amp;page=home&amp;bid=3030335.4&amp;adm=5810" target="_blank" data-stat-id="AA21294+2_15_4_70" onclick="_msq.push(['trackEvent', '81190ccc4d52f577-AA21294+2_15_4_70', 'https://item.mi.com/product/6222.html', 'pcpid', '31pchometop_slide004001#t=normal&amp;act=other&amp;page=home&amp;bid=3030335.4&amp;adm=5810']);"><img src="//i1.mifile.cn/a4/xmad_15452976609747_CYJQj.jpg" srcset="//i1.mifile.cn/a4/xmad_15452976656423_goFTH.jpg 2x" /></a> 
-       </div>  -->
 
       @foreach($slidelist as $key=>$slide)
 
